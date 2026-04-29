@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>OSAC – Observatorio de Salud Santiago de Cali</title>
+<title>OSAC - Observatorio de Salud Santiago de Cali</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./font/css/all.min.css">
 <style>
@@ -13,23 +13,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:#020614;color:#e8eeff;d
 button{cursor:pointer;font:inherit;border:none;background:none;color:inherit}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:rgba(56,189,248,.2);border-radius:99px}
-.obser-chat-frame{
-  position:fixed;
-  right:0;
-  bottom:0;
-  width:min(640px,100vw);
-  height:min(820px,100vh);
-  border:0;
-  background:transparent;
-  z-index:9;
-}
-body.chat-active .obser-chat-frame{
-  z-index:2147483647;
-}
-body.planet-open .obser-chat-frame,
-body.dashboard-open .obser-chat-frame{
-  display:none;
-}
 
 /* HEADER */
 .hdr{position:fixed;top:0;left:216px;right:0;z-index:200;height:56px;display:flex;align-items:center;
@@ -93,38 +76,30 @@ body.dashboard-open .obser-chat-frame{
 .hero-stat-row{display:flex;gap:22px;margin-top:18px}
 .hs .v{font-size:18px;font-weight:800;color:#fff;text-shadow:0 0 16px rgba(56,189,248,.6)}
 .hs .l{font-size:10px;color:#6b7fa8}
-.hero-entornos-btn{
+.hero-universe-btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:10px;
-  max-width:100%;
   margin-top:22px;
-  padding:13px 20px;
+  padding:14px 28px;
   border-radius:999px;
   border:1px solid rgba(125,211,252,.55);
   background:linear-gradient(135deg, rgba(14,165,233,.94), rgba(124,58,237,.94));
   color:#fff;
   text-decoration:none;
-  font-size:13px;
+  text-transform:uppercase;
+  font-size:14px;
   font-weight:800;
-  line-height:1.25;
+  letter-spacing:.8px;
   box-shadow:0 14px 34px rgba(14,165,233,.28), 0 0 28px rgba(124,58,237,.24);
   pointer-events:auto;
   transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
 }
-.hero-entornos-btn:hover,
-.hero-entornos-btn:focus-visible{
+.hero-universe-btn:hover,
+.hero-universe-btn:focus-visible{
   transform:translateY(-2px) scale(1.02);
   box-shadow:0 18px 38px rgba(14,165,233,.34), 0 0 36px rgba(124,58,237,.32);
   filter:saturate(1.08);
-}
-.hero-entornos-btn i{
-  font-size:12px;
-  flex:0 0 auto;
-}
-.hero-entornos-btn span{
-  min-width:0;
 }
 
 .galaxy-center-link{
@@ -132,7 +107,7 @@ body.dashboard-open .obser-chat-frame{
   left:53%;
   top:50%;
   transform:translate(-50%,-50%);
-  z-index:9;
+  z-index:16;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -218,7 +193,7 @@ body.cinematic-leave .cinematic-transition::after{
 }
 
 /* =============================================
-   PLANET SYSTEM — absolute positioned on rings
+   PLANET SYSTEM â€” absolute positioned on rings
    ============================================= */
 .planet-field{
   position:absolute;inset:0;
@@ -319,7 +294,6 @@ body.cinematic-leave .cinematic-transition::after{
   filter:drop-shadow(0 1px 5px rgba(0,0,0,.7)) drop-shadow(0 0 12px rgba(148,223,255,.25));
 }
 
-/* Saturn-style ring — now vertical / upright, not flat */
 .p-sphere.planet-image-only{
   border-radius:0;
   background:transparent !important;
@@ -337,6 +311,7 @@ body.cinematic-leave .cinematic-transition::after{
   filter:drop-shadow(0 6px 16px rgba(0,0,0,.55));
 }
 
+/* Saturn-style ring â€” now vertical / upright, not flat */
 .p-ring-outer{
   position:absolute;
   top:50%;left:50%;
@@ -367,6 +342,7 @@ body.cinematic-leave .cinematic-transition::after{
 
 /* Planet label */
 .p-label{
+  display:none;
   margin-top:8px;
   font-size:11.5px;font-weight:900;
   color:#fff;text-align:center;line-height:1.3;
@@ -522,7 +498,7 @@ body.hi-contrast iframe{filter:invert(1) hue-rotate(180deg)}
 
 
 /* ============================================================
-   LAYOUT — sidebar + main
+   LAYOUT â€” sidebar + main
    ============================================================ */
 body { margin:0; overflow-x:hidden; }
 
@@ -753,7 +729,7 @@ body { margin:0; overflow-x:hidden; }
 .sb-city::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 40%,rgba(5,10,50,0.6) 100%); pointer-events:none; }
 
 /* ============================================================
-   MAIN STAGE — takes remaining space
+   MAIN STAGE â€” takes remaining space
    ============================================================ */
 .stage {
   flex:1 !important;
@@ -1061,7 +1037,7 @@ body { margin:0; overflow-x:hidden; }
   opacity: 0;
   pointer-events: none;
 }
-/* Botón flotante para reabrir */
+/* BotÃ³n flotante para reabrir */
 #sb-open-btn {
   position: fixed;
   top: 16px;
@@ -1851,17 +1827,14 @@ body { margin:0; overflow-x:hidden; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  max-width: min(520px, calc(100vw - 48px));
   padding: 4px 9px;
-  border-radius: 14px;
+  border-radius: 999px;
   border: 1px solid rgba(125,211,252,.25);
   background: rgba(2,6,20,.5);
   color: rgba(219,236,255,.8);
   font-size: 10px;
   font-weight: 700;
-  line-height: 1.35;
   letter-spacing: .2px;
-  text-align: left;
 }
 .pz-nav {
   position: absolute;
@@ -2055,13 +2028,13 @@ body { margin:0; overflow-x:hidden; }
 
   <div class="hdr-search">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" id="srch" placeholder="Buscar tablero…" oninput="doSearch(this.value)" autocomplete="off"/>
+    <input type="text" id="srch" placeholder="Buscar tablero..." oninput="doSearch(this.value)" autocomplete="off"/>
     <div class="search-panel" id="search-panel"></div>
   </div>
   <div class="hdr-right">
     <div class="hdr-acc">
       
-      <button class="acc-b" onclick="changeFontSize(-1)">A−</button>
+      <button class="acc-b" onclick="changeFontSize(-1)">A-</button>
       <button class="acc-b" onclick="changeFontSize(1)">A+</button>
       <button class="acc-b" onclick="window.print()">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -2186,17 +2159,14 @@ body { margin:0; overflow-x:hidden; }
     <h1>Explora el <span class="g">universo</span><br>de la salud<br>en Cali</h1>
     <p>Conectamos datos,<br>cuidamos vidas y<br>construimos un futuro<br>más saludable.</p>
     <div class="hero-stat-row">
-      <div class="hs"><div class="v" id="vcount">–</div><div class="l">Visitas totales</div></div>
+      <div class="hs"><div class="v" id="vcount">-</div><div class="l">Visitas totales</div></div>
       <div class="hs"><div class="v">55+</div><div class="l">Tableros activos</div></div>
     </div>
-    <a class="hero-entornos-btn" href="./principal-entornos.html" data-cinematic-nav="entornos">
-      <span>Conoce el nuevo Universo de los en-tornos de la salud de Cali</span>
-      <i class="fas fa-arrow-right" aria-hidden="true"></i>
-    </a>
+    <a class="hero-universe-btn" href="./index.html">universo osac</a>
   </div>
 
-  <a class="galaxy-center-link" href="https://www.cali.gov.co/salud/publicaciones/169285/observatorio-de-salud-publica/" target="_blank" rel="noopener noreferrer">
-    Ir al Observatorio de Salud Publica
+  <a class="galaxy-center-link" href="./index.html" data-cinematic-nav="index">
+    Ir al inicio del Observatorio
   </a>
 
   <!-- Planet field: planets positioned absolutely over galaxy rings -->
@@ -2292,205 +2262,67 @@ body { margin:0; overflow-x:hidden; }
    Each planet sits on a real ring of the galaxy image
    ============================================================ */
 const PLANETS = [
-  // RING 1 — innermost (center ~52%/50%),
-  // RING 1,
-  // RING 2,
-  // RING 2
   {
-    id:'financiero', label:'Financiero',
-    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="26" height="26"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
-    size:88, ring:false,
-    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.4) 0%, transparent 35%), linear-gradient(150deg, #fde68a 0%, #f59e0b 25%, #d97706 50%, #92400e 75%, #451a03 100%), radial-gradient(ellipse at 72% 76%, rgba(245,158,11,0.4) 0%, transparent 50%)',
-    shadow:'0 0 22px rgba(251,191,36,.95), 0 0 44px rgba(217,119,6,.5)',
-    shadowHover:'0 0 38px rgba(251,191,36,1), 0 0 75px rgba(217,119,6,.8)',
-    ringColor:'rgba(253,230,138,.85)', ringGlow:'rgba(251,191,36,.6)',
-    ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'-12deg',
-    cx:34, cy:74,
+    id:'primerospasos', label:'Primeros\nPasos',
+    icon:'<img src="./primerospasos.png" alt="Primeros Pasos" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
+    size:141, ring:false,
+    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #7dd3fc 0%, #38bdf8 25%, #0ea5e9 50%, #1d4ed8 75%, #1e3a8a 100%), radial-gradient(ellipse at 72% 74%, rgba(56,189,248,0.35) 0%, transparent 50%)',
+    shadow:'0 0 28px rgba(56,189,248,.9), 0 0 58px rgba(14,165,233,.45)',
+    shadowHover:'0 0 46px rgba(56,189,248,1), 0 0 92px rgba(14,165,233,.72)',
+    ringColor:'rgba(125,211,252,.82)', ringGlow:'rgba(56,189,248,.56)',
+    ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'-16deg',
+    cx:24, cy:50,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
-    speed:36, startAngle:175,
-    url:'https://lookerstudio.google.com/embed/reporting/7da9d650-bb40-474e-b67c-8a9d3c5fb384/page/pabp0thh9sd',
-    subs:[
-      {label:'Ejecución Presupuestal',url:'https://lookerstudio.google.com/embed/reporting/7da9d650-bb40-474e-b67c-8a9d3c5fb384/page/pabp0thh9sd'}
-    ]
-  },
-  // RING 3
-  {
-    id:'demografia', label:'Demografía',
-    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="30" height="30"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-    size:82, ring:true,
-    grad:'radial-gradient(ellipse at 30% 24%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(155deg, #86efac 0%, #22c55e 25%, #16a34a 50%, #14532d 75%, #052e16 100%), radial-gradient(ellipse at 70% 75%, rgba(34,197,94,0.4) 0%, transparent 50%)',
-    shadow:'0 0 30px rgba(74,222,128,.95), 0 0 60px rgba(22,163,74,.5)',
-    shadowHover:'0 0 50px rgba(74,222,128,1), 0 0 100px rgba(22,163,74,.8)',
-    ringColor:'rgba(134,239,172,.85)', ringGlow:'rgba(74,222,128,.6)',
-    ringSize:'170%', ringIn:'28%', ringW:'6px', ringZ:'-20deg',
-    cx:68, cy:23,
-    orbitRx:0, orbitRy:0, orbitTilt:-18,
-    speed:44, startAngle:15,
-    url:'https://lookerstudio.google.com/embed/reporting/3a4c6bdb-684d-4904-9cf4-f5fe980b6e19/page/esEzE',
-    subs:[
-      {label:'Población',url:'https://lookerstudio.google.com/embed/reporting/3a4c6bdb-684d-4904-9cf4-f5fe980b6e19/page/esEzE'},
-      {label:'Discapacidad',url:'https://lookerstudio.google.com/embed/reporting/f12825f8-32ae-4f4d-b230-0fb8c5ee967c/page/p2u66wwr6pd'},
-      {label:'Víctimas Conflicto',url:'https://lookerstudio.google.com/embed/reporting/319c01b1-f4cf-4954-b4d8-9dc218f52196/page/p15hanx0crd'},
-      {label:'Migrantes',url:'https://lookerstudio.google.com/embed/reporting/a3a38aee-3c8d-4b01-af5d-b3f33fadc972/page/p8yjo6uasrd'},
-      {label:'Indígenas',url:'https://lookerstudio.google.com/embed/reporting/a57d0799-b022-44fc-988e-dae8366cda93/page/p2u66wwr6pd'},
-      {label:'Privados de Libertad',url:'https://lookerstudio.google.com/embed/reporting/4ff54dc4-188e-4f5d-b501-847ff07196e4/page/p2u66wwr6pd'},
-      {label:'Aseguramiento',url:'https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE'},
-      {label:'Estadísticas Vitales',url:'https://lookerstudio.google.com/embed/reporting/778ce501-f478-46d8-a8a7-7de5163587db/page/piemfr1cyvd'},
-    ]
-  },
-  // RING 3
-  {
-    id:'saludpub', label:'Salud\nPública',
-    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="30" height="30"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
-    size:84, ring:true,
-    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.4) 0%, transparent 35%), linear-gradient(150deg, #67e8f9 0%, #06b6d4 25%, #0e7490 50%, #164e63 75%, #083344 100%), radial-gradient(ellipse at 70% 75%, rgba(6,182,212,0.4) 0%, transparent 50%)',
-    shadow:'0 0 28px rgba(34,211,238,.95), 0 0 56px rgba(8,145,178,.5)',
-    shadowHover:'0 0 46px rgba(34,211,238,1), 0 0 92px rgba(8,145,178,.8)',
-    ringColor:'rgba(103,232,249,.85)', ringGlow:'rgba(34,211,238,.6)',
-    ringSize:'200%', ringIn:'24%', ringW:'7px', ringZ:'18deg',
-    cx:35, cy:38,
-    orbitRx:0, orbitRy:0, orbitTilt:-18,
-    speed:44, startAngle:210,
-    url:'https://lookerstudio.google.com/embed/reporting/9a0d1e0e-5df7-4e3d-8c0b-594769581a65/page/pmhi7hn8atd',
-    subs:[
-      {label:'Línea 106',url:'https://lookerstudio.google.com/embed/reporting/9a0d1e0e-5df7-4e3d-8c0b-594769581a65/page/pmhi7hn8atd'},
-      {label:'PAI',url:'https://lookerstudio.google.com/embed/reporting/3ad6fe09-314e-45b5-8c6c-3fe4b792ac3e/page/pjxxw285ord'},
-      {label:'PIC',url:'https://lookerstudio.google.com/embed/reporting/69ca6df8-c1fe-4970-947b-294d2be342d4/page/pmx711ds8wd'},
-    ]
-  },
-  // RING 4
-  {
-    id:'vigilancia', label:'Vigilancia\nEpidemiológica',
-    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="32" height="32"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
-    size:92, ring:true,
-    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(150deg, #fca5a5 0%, #ef4444 25%, #b91c1c 50%, #7f1d1d 75%, #3b0a0a 100%), radial-gradient(ellipse at 70% 75%, rgba(239,68,68,0.4) 0%, transparent 50%)',
-    shadow:'0 0 34px rgba(248,113,113,.95), 0 0 68px rgba(220,38,38,.5)',
-    shadowHover:'0 0 55px rgba(248,113,113,1), 0 0 110px rgba(220,38,38,.8)',
-    ringColor:'rgba(252,165,165,.85)', ringGlow:'rgba(248,113,113,.6)',
-    ringSize:'235%', ringIn:'22%', ringW:'8px', ringZ:'-28deg',
-    cx:77, cy:43,
-    orbitRx:0, orbitRy:0, orbitTilt:-18,
-    speed:54, startAngle:345,
-    url:'https://lookerstudio.google.com/embed/reporting/75d166ba-8c0c-4d8a-a6ed-d0e0f8ad14e1/page/esEzE',
-    subs:[
-      {label:'Eventos Epidemiológicos',url:'https://lookerstudio.google.com/embed/reporting/75d166ba-8c0c-4d8a-a6ed-d0e0f8ad14e1/page/esEzE'},
-      {label:'Dengue',url:'https://lookerstudio.google.com/embed/reporting/d65d2972-010d-44f4-aba4-7b1d9528213d/page/p7led3ssotd'},
-      {label:'Desnutrición',url:'https://lookerstudio.google.com/embed/reporting/2069e9d8-6fe6-42dd-857a-d9574f046bc8/page/esEzE'},
-      {label:'EDA',url:'https://lookerstudio.google.com/embed/reporting/16e94557-889a-4774-bb20-f6e99f649094/page/esEzE'},
-      {label:'ETAs',url:'https://lookerstudio.google.com/embed/reporting/0e6bd7ae-52c0-46b2-8268-41afd8088cdd/page/p2u66wwr6pd'},
-      {label:'Fiebre Amarilla',url:'https://lookerstudio.google.com/embed/reporting/fef8137e-5cb2-480b-9165-12bbb3d05640/page/esEzE'},
-      {label:'Hepatitis A',url:'https://lookerstudio.google.com/embed/reporting/83fbe55f-4fa8-4c4a-b382-1cf34a25d8df/page/esEzE'},
-      {label:'IRAG',url:'https://lookerstudio.google.com/embed/reporting/9c7f244d-5fb9-4b40-a490-1386dba6545a/page/esEzE'},
-      {label:'Intoxicaciones',url:'https://lookerstudio.google.com/embed/reporting/2b834b80-ba04-4cc7-a4f3-f26369764b2f/page/esEzE'},
-      {label:'Intento de Suicidio',url:'https://lookerstudio.google.com/embed/reporting/2fdee237-0658-4fcf-b71d-489129bc245f/page/esEzE'},
-      {label:'Leptospirosis',url:'https://lookerstudio.google.com/embed/reporting/de65034a-6f62-4b27-8d2b-2d01328cd0f4/page/F5HYF'},
-      {label:'Mortalidad Materna',url:'https://lookerstudio.google.com/embed/reporting/f9326436-5a93-48c8-b381-f296d63669a9/page/esEzE'},
-      {label:'Morbilidad Materna Extrema',url:'https://lookerstudio.google.com/embed/reporting/9979b294-66c3-45d4-a745-2d8a2442ce80/page/esEzE'},
-      {label:'Mortalidad Perinatal',url:'https://lookerstudio.google.com/embed/reporting/4308501f-affc-4d2a-aab0-9a6071ddc51d/page/esEzE'},
-      {label:'Pólvora',url:'https://lookerstudio.google.com/embed/reporting/6523aa5a-0284-480a-972d-4a33f99a65ce/page/esEzE'},
-      {label:'Suicidio',url:'https://lookerstudio.google.com/embed/reporting/03e5694b-5b02-4b62-b9bf-3053fff97b04/page/esEzE'},
-      {label:'Tuberculosis',url:'https://lookerstudio.google.com/embed/reporting/3a6097ec-c835-4ea3-8675-2a610e74d318/page/esEzE'},
-      {label:'Violencias',url:'https://lookerstudio.google.com/embed/reporting/98276313-0a20-42ab-b1f4-2f43d54c92de/page/esEzE'},
-      {label:'VIH',url:'https://lookerstudio.google.com/embed/reporting/884c4242-f03b-403c-8e89-595a055b222e/page/esEzE'},
-      {label:'Vigilancia Comunitaria',url:'https://lookerstudio.google.com/embed/reporting/5c3db296-b2ea-47d4-8ca3-aa068cf83c75/page/esEzE'},
-      {label:'Baja Notificación',url:'https://lookerstudio.google.com/embed/reporting/c6a116ba-a469-44c8-b2ff-8ce4bfed9390/page/esEzE'},
-      {label:'Alerta Temprana',url:'https://lookerstudio.google.com/embed/reporting/96fa06fa-3995-4be8-b676-1dab8fc17372/page/pzc6ydjp6rd'},
-      {label:'Enfermedades Huérfanas',url:'./dashboard.html'},
-    ]
-  },
-  // RING 4
-  {
-    id:'planeacion', label:'Planeación',
-    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="26" height="26"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>',
-    size:82, ring:true,
-    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(150deg, #fdba74 0%, #f97316 25%, #c2410c 50%, #7c2d12 75%, #3c1006 100%), radial-gradient(ellipse at 70% 75%, rgba(249,115,22,0.4) 0%, transparent 50%)',
-    shadow:'0 0 24px rgba(251,146,60,.95), 0 0 48px rgba(234,88,12,.5)',
-    shadowHover:'0 0 40px rgba(251,146,60,1), 0 0 80px rgba(234,88,12,.8)',
-    ringColor:'rgba(253,186,116,.85)', ringGlow:'rgba(251,146,60,.6)',
-    ringSize:'170%', ringIn:'28%', ringW:'6px', ringZ:'-20deg',
-    cx:68, cy:60,
-    orbitRx:0, orbitRy:0, orbitTilt:-18,
-    speed:54, startAngle:105,
-    url:'https://lookerstudio.google.com/embed/reporting/036d76cf-9038-4de9-b7bd-25c4a3267479/page/esEzE',
-    subs:[
-      {label:'Ejecución Proyectos',url:'https://lookerstudio.google.com/embed/reporting/036d76cf-9038-4de9-b7bd-25c4a3267479/page/esEzE'},
-    ]
-  },
-  // RING 4
-  {
-    id:'prestacion', label:'Prestación\nde Servicios',
-    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',
-    size:90, ring:true,
-    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(150deg, #fda4af 0%, #f43f5e 25%, #be123c 50%, #881337 75%, #4c0519 100%), radial-gradient(ellipse at 70% 75%, rgba(244,63,94,0.4) 0%, transparent 50%)',
-    shadow:'0 0 28px rgba(244,114,182,.95), 0 0 56px rgba(190,24,93,.5)',
-    shadowHover:'0 0 46px rgba(244,114,182,1), 0 0 92px rgba(190,24,93,.8)',
-    ringColor:'rgba(249,168,212,.85)', ringGlow:'rgba(244,114,182,.6)',
-    ringSize:'215%', ringIn:'23%', ringW:'8px', ringZ:'10deg',
-    cx:45, cy:83,
-    orbitRx:0, orbitRy:0, orbitTilt:-18,
-    speed:54, startAngle:240,
-    url:'https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE',
-    subs:[
-      {label:'Aseguramiento',url:'https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE'},
-      {label:'APS',url:'https://lookerstudio.google.com/embed/reporting/e7169e75-e5ee-4853-b827-1a705d3db563/page/F5HYF'},
-      {label:'Bancos de Sangre',url:'https://lookerstudio.google.com/embed/reporting/b15e676d-20f4-46a0-aba7-00e8390c77ee/page/pjxxw285ord'},
-      {label:'Urgencias',url:'https://lookerstudio.google.com/embed/reporting/af77b4ff-46f6-494c-a133-a1dda960815b/page/p73az8wefxd'},
-      {label:'Registro Prestadores',url:'https://lookerstudio.google.com/embed/reporting/11401c27-3483-41c4-98e2-dfd27e76b89f/page/piwcjsgh7qd'},
-    ]
-  },
-  // RING 5 — outer
-  {
-    id:'polvora', label:'Vigilancia\nPólvora',
-    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="26" height="26"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
-    size:86, ring:true,
-    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #5eead4 0%, #14b8a6 25%, #0f766e 50%, #134e4a 75%, #042f2e 100%), radial-gradient(ellipse at 70% 75%, rgba(20,184,166,0.4) 0%, transparent 50%)',
-    shadow:'0 0 22px rgba(45,212,191,.95), 0 0 44px rgba(15,118,110,.5)',
-    shadowHover:'0 0 38px rgba(45,212,191,1), 0 0 76px rgba(15,118,110,.8)',
-    ringColor:'rgba(94,234,212,.85)', ringGlow:'rgba(45,212,191,.6)',
-    ringSize:'205%', ringIn:'24%', ringW:'7px', ringZ:'-22deg',
-    cx:83, cy:25,
-    orbitRx:0, orbitRy:0, orbitTilt:-18,
-    speed:62, startAngle:20,
-    url:'https://lookerstudio.google.com/embed/reporting/b3e1eae8-a790-45ae-a874-6472e1ef3ed9/page/esEzE',
+    speed:42, startAngle:200,
+    url:'https://lookerstudio.google.com/embed/reporting/3aff0c16-eeef-4fc3-bd94-382b32799b60/page/pogjvoicp1d',
     subs:null
   },
-  // RING 5
   {
-    id:'ambiente', label:'Ambiente\ny Salud',
-    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="26" height="26"><path d="M12 22V12M12 12C12 7 7 5 7 5s0 5 5 7c5-2 5-7 5-7s-5 2-5 7z"/></svg>',
-    size:82, ring:true,
-    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(150deg, #a5b4fc 0%, #6366f1 25%, #4338ca 50%, #312e81 75%, #1e1b4b 100%), radial-gradient(ellipse at 70% 75%, rgba(99,102,241,0.4) 0%, transparent 50%)',
-    shadow:'0 0 24px rgba(129,140,248,.95), 0 0 48px rgba(67,56,202,.5)',
-    shadowHover:'0 0 40px rgba(129,140,248,1), 0 0 80px rgba(67,56,202,.8)',
-    ringColor:'rgba(165,180,252,.85)', ringGlow:'rgba(129,140,248,.6)',
-    ringSize:'170%', ringIn:'28%', ringW:'6px', ringZ:'-20deg',
-    cx:27, cy:56,
+    id:'bienestar', label:'Bienestar',
+    icon:'<img src="./bienestar.png" alt="Bienestar" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
+    size:141, ring:false,
+    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #86efac 0%, #22c55e 25%, #16a34a 50%, #15803d 75%, #14532d 100%), radial-gradient(ellipse at 72% 74%, rgba(74,222,128,0.32) 0%, transparent 50%)',
+    shadow:'0 0 28px rgba(74,222,128,.9), 0 0 58px rgba(22,163,74,.45)',
+    shadowHover:'0 0 46px rgba(74,222,128,1), 0 0 92px rgba(22,163,74,.72)',
+    ringColor:'rgba(134,239,172,.82)', ringGlow:'rgba(74,222,128,.56)',
+    ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'14deg',
+    cx:74, cy:26,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
-    speed:62, startAngle:155,
-    url:'https://lookerstudio.google.com/embed/reporting/819c53da-6099-447c-a06a-009e9e2c29c2/page/plejjb0y2td',
-    subs:[
-      {label:'APTR',url:'https://lookerstudio.google.com/embed/reporting/819c53da-6099-447c-a06a-009e9e2c29c2/page/plejjb0y2td'},
-      {label:'IRCA',url:'https://lookerstudio.google.com/embed/reporting/76fc1dd8-f202-4167-9c88-88e7b1650165/page/pjxxw285ord'},
-      {label:'Entornos',url:'https://lookerstudio.google.com/embed/reporting/a9e5d13d-cdbc-4a95-80ad-1b4e3a906c86/page/plejjb0y2td'},
-      {label:'Vacunación Antirrábica',url:'https://lookerstudio.google.com/embed/reporting/5a3c224a-96c6-4d6f-b5eb-60be9cb2e431/page/pmhi7hn8atd'},
-    ]
+    speed:42, startAngle:320,
+    url:'https://lookerstudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/pogjvoicp1d',
+    subs:null
   },
-
   {
-    id:'salud',
-    icon:'<img src="./universosalud.png" alt="Universo Salud" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
-    size:130, ring:false,
+    id:'saludmental', label:'Salud\nMental',
+    icon:'<img src="./salud mental.png" alt="Salud Mental" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
+    size:141, ring:false,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #c4b5fd 0%, #a78bfa 25%, #8b5cf6 50%, #7c3aed 75%, #5b21b6 100%), radial-gradient(ellipse at 72% 74%, rgba(167,139,250,0.34) 0%, transparent 50%)',
     shadow:'0 0 28px rgba(167,139,250,.9), 0 0 58px rgba(124,58,237,.45)',
     shadowHover:'0 0 46px rgba(167,139,250,1), 0 0 92px rgba(124,58,237,.72)',
     ringColor:'rgba(196,181,253,.82)', ringGlow:'rgba(167,139,250,.56)',
     ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'-12deg',
-    cx:83, cy:26,
+    cx:72, cy:55,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:42, startAngle:70,
-    url:'./principal-entornos.html',
+    url:'https://lookerstudio.google.com/embed/reporting/971daa1f-038e-4588-be09-4ddcd86ae81d/page/pogjvoicp1d',
     subs:null
   },
+
+  {
+    id:'universo_osac', label:'Universo\nOSAC',
+    icon:'<img src="./universoosac2.png" alt="Universo OSAC" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
+    size:141, ring:false,
+    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #c4b5fd 0%, #a78bfa 25%, #8b5cf6 50%, #7c3aed 75%, #5b21b6 100%), radial-gradient(ellipse at 72% 74%, rgba(167,139,250,0.34) 0%, transparent 50%)',
+    shadow:'0 0 28px rgba(167,139,250,.9), 0 0 58px rgba(124,58,237,.45)',
+    shadowHover:'0 0 46px rgba(167,139,250,1), 0 0 92px rgba(124,58,237,.72)',
+    ringColor:'rgba(196,181,253,.82)', ringGlow:'rgba(167,139,250,.56)',
+    ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'-12deg',
+    cx:34, cy:75,
+    orbitRx:0, orbitRy:0, orbitTilt:-18,
+    speed:42, startAngle:70,
+    url:'./index.html',
+    subs:null
+  }
 ];
 
 /* ============================================================
@@ -2498,20 +2330,24 @@ const PLANETS = [
    ============================================================ */
 const field = document.getElementById('planet-field');
 const stage = document.getElementById('stage');
-const entornosNavLinks = document.querySelectorAll('[data-cinematic-nav="entornos"]');
+const cinematicNavLink = document.querySelector('.galaxy-center-link[data-cinematic-nav="index"]');
+const heroUniverseBtn = document.querySelector('.hero-universe-btn');
 
-function navigateToEntornosWithCinematicTransition(event){
+function navigateToIndexWithCinematicTransition(event){
   if(event) event.preventDefault();
   if(document.body.classList.contains('cinematic-leave')) return;
   document.body.classList.add('cinematic-leave');
   setTimeout(() => {
-    window.location.href = './principal-entornos.html';
+    window.location.href = './index.html';
   }, 900);
 }
 
-entornosNavLinks.forEach((link) => {
-  link.addEventListener('click', navigateToEntornosWithCinematicTransition);
-});
+if(cinematicNavLink){
+  cinematicNavLink.addEventListener('click', navigateToIndexWithCinematicTransition);
+}
+if(heroUniverseBtn){
+  heroUniverseBtn.addEventListener('click', navigateToIndexWithCinematicTransition);
+}
 
 function planetIconSvgById(id){
   const icons = {
@@ -2625,7 +2461,9 @@ PLANETS.forEach(p => {
 
   const sphere = document.createElement('div');
   sphere.className = 'p-sphere';
-  sphere.style.cssText = `width:${p.size}px;height:${p.size}px;--pg:${p.grad};--ps:${p.shadow};`;
+  const responsiveMin = Math.round(p.size * 0.62);
+  const responsiveVw = (p.size / 14).toFixed(2);
+  sphere.style.cssText = `width:clamp(${responsiveMin}px, ${responsiveVw}vw, ${p.size}px);height:clamp(${responsiveMin}px, ${responsiveVw}vw, ${p.size}px);--pg:${p.grad};--ps:${p.shadow};`;
   sphere.innerHTML = planetIconSvgById(p.id) || p.icon;
 
   const isImagePlanet = typeof p.icon === 'string' && p.icon.includes('<img');
@@ -2649,11 +2487,11 @@ PLANETS.forEach(p => {
   planet.appendChild(lbl);
 
   planet.addEventListener('click', (event) => {
-    if(p.id === 'salud'){
-      navigateToEntornosWithCinematicTransition(event);
+    if(p.id === 'universo_osac'){
+      navigateToIndexWithCinematicTransition(event);
       return;
     }
-    openPlanetExperience(p, anchor);
+    openDB(p);
   });
   // hover shadow
   sphere.addEventListener('mouseenter', () => { sphere.style.setProperty('--ps', p.shadowHover); });
@@ -2664,7 +2502,7 @@ PLANETS.forEach(p => {
 });
 
 /* ============================================================
-   ORBIT ANIMATION — JS-driven elliptical orbit
+   ORBIT ANIMATION â€” JS-driven elliptical orbit
    Each planet follows: cx + rx*cos(t), cy + ry*sin(t)
    with a tilt (rotation) applied to the ellipse
    ============================================================ */
@@ -2696,8 +2534,6 @@ positionPlanets();
    ============================================================ */
 function openDashboard(url, returnPlanet){
   const dashboardUrl = normalizeLookerEmbedUrl(url);
-  document.body.classList.remove('planet-open');
-  document.body.classList.add('dashboard-open');
   dashboardMenuReturnUrl = null;
   document.getElementById('db-title').textContent = '';
   dashboardIntroCollapsed = true;
@@ -2715,8 +2551,6 @@ function openDashboard(url, returnPlanet){
 }
 
 function openDB(planet){
-  document.body.classList.remove('planet-open');
-  document.body.classList.add('dashboard-open');
   dashboardReturnPlanet = null;
   dashboardManualScale = 1;
   dashboardIntroCollapsed = true;
@@ -2781,7 +2615,6 @@ function closeDB(){
   planetIntroHiddenByUser = false;
   setDashboardIntroContent(null);
   document.getElementById('db-overlay').classList.remove('open');
-  document.body.classList.remove('dashboard-open');
   document.getElementById('db-frame').src = 'about:blank';
   if(returnPlanet){
     setTimeout(() => openPlanetExperience(returnPlanet), 30);
@@ -2800,8 +2633,6 @@ function isDashboardMenuUrl(url){
 
 function openDashboardInsideCurrentModal(url){
   if(typeof url !== 'string' || !url.trim()) return;
-  document.body.classList.remove('planet-open');
-  document.body.classList.add('dashboard-open');
   const normalizedUrl = normalizeLookerEmbedUrl(url);
   if(!dashboardMenuReturnUrl) dashboardMenuReturnUrl = './dashboard.html';
   dashboardManualScale = 1;
@@ -3067,46 +2898,6 @@ const POI_PAGE_SIZE = 5;
 const POI_SWAP_MS = 240;
 const PLANET_AUTO_SPIN_DPS = 12;
 const PIN_GLOBAL_SCALE = 0.85;
-const VIGILANCIA_CATEGORY_GROUPS = [
-  {
-    label: 'Grupo 1. Transmisibles por vectores y ambientales',
-    topics: ['dengue', 'fiebre amarilla', 'hepatitis a', 'leptospirosis', 'tuberculosis']
-  },
-  {
-    label: 'Grupo 2. Transmisibles respiratorios, alimentarios y sexuales',
-    topics: ['eda', 'etas', 'irag', 'vih']
-  },
-  {
-    label: 'Grupo 3. Materno-perinatales',
-    topics: ['mortalidad materna', 'morbilidad materna extrema', 'mortalidad perinatal']
-  },
-  {
-    label: 'Grupo 4. Salud mental y violencias',
-    topics: ['intento de suicidio', 'suicidio', 'violencias']
-  },
-  {
-    label: 'Grupo 5. Riesgos y exposiciones',
-    topics: ['intoxicaciones', 'desnutricion']
-  },
-  {
-    label: 'Grupo 6. Vigilancia y seguimiento',
-    topics: ['vigilancia comunitaria', 'baja notificacion', 'alerta temprana', 'enfermedades huerfanas']
-  }
-];
-
-function buildVigilanciaCategoryPages(topics){
-  const byLabel = new Map();
-  topics.forEach((topic) => {
-    byLabel.set(normalizeText(topic.label), topic);
-  });
-
-  return VIGILANCIA_CATEGORY_GROUPS
-    .map((group) => ({
-      label: group.label,
-      topics: group.topics.map((key) => byLabel.get(key)).filter(Boolean)
-    }))
-    .filter((group) => group.topics.length);
-}
 
 function getVigilanciaTopicLayout(topicNorm){
   const layout = {
@@ -3132,7 +2923,7 @@ function getVigilanciaTopicLayout(topicNorm){
     layout.yOffset += 10;
   }
 
-  // Estandar de páginas: usar slots canónicos, no solo desplazamiento en X.
+  // Estandar de pÃ¡ginas: usar slots canÃ³nicos, no solo desplazamiento en X.
   if(topicNorm.includes('alerta temprana')){
     layout.fixedAngle = 0;
     layout.yOffset -= 16;
@@ -3143,47 +2934,6 @@ function getVigilanciaTopicLayout(topicNorm){
   }
 
   return layout;
-}
-
-function getCanonicalPoiPosition(index, total){
-  const slotSets = {
-    1: [
-      { x: 50, y: 11 }
-    ],
-    2: [
-      { x: -0.4, y: 64.4 },
-      { x: 100.4, y: 64.4 }
-    ],
-    3: [
-      { x: 50, y: 11 },
-      { x: 100.4, y: 81.2 },
-      { x: -0.4, y: 81.2 }
-    ],
-    4: [
-      { x: 50, y: 11 },
-      { x: 105.2, y: 50 },
-      { x: 88.4, y: 90.8 },
-      { x: -5.2, y: 50 }
-    ],
-    5: [
-      { x: 50, y: 11 },
-      { x: 105.2, y: 28.4 },
-      { x: 88.4, y: 90.8 },
-      { x: 11.6, y: 90.8 },
-      { x: -5.2, y: 28.4 }
-    ]
-  };
-
-  const slots = slotSets[Math.min(5, Math.max(1, total))];
-  if(index < slots.length) return slots[index];
-
-  const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / Math.max(1, total)));
-  let x = 50 + Math.cos(angle) * 91.2;
-  const y = 50 + Math.sin(angle) * 81.6;
-  if(y > 82 && Math.abs(x - 50) < 18){
-    x = index % 2 === 0 ? 88.4 : 11.6;
-  }
-  return { x, y };
 }
 
 const preloadQueue = [];
@@ -3750,51 +3500,6 @@ function topicLogoMarkup(topic, planet, i){
   return '<span class="pz-poi-logo">' + iconMarkup + '</span>';
 }
 
-function topicFullPinImageByPlanet(planetId, normLabel){
-  const demografiaIcons = {
-    'poblacion': './font/iconos/demografia/poblacion.png',
-    'discapacidad': './font/iconos/demografia/discapacidad.png',
-    'victimas conflicto': './font/iconos/demografia/victimas.png',
-    'migrantes': './font/iconos/demografia/migrantes.png',
-    'indigenas': './font/iconos/demografia/indigena.png',
-    'privados de libertad': './font/iconos/demografia/poblacionprivada.png',
-    'aseguramiento': './font/iconos/demografia/poblacionasegurada.png',
-    'estadisticas vitales': './font/iconos/demografia/estadisticasvitales.png'
-  };
-  const saludPublicaIcons = {
-    'linea 106': './font/iconos/salud publica/linea 106.png',
-    'pai': './font/iconos/salud publica/pai.png',
-    'pic': './font/iconos/salud publica/pic.png'
-  };
-  const financieroIcons = {
-    'ejecucion presupuestal': './font/iconos/financiero/ejecucionpresupuestal.png'
-  };
-  const planeacionIcons = {
-    'ejecucion proyectos': './font/iconos/planeacion/ejecucionproyectos.png'
-  };
-  const prestacionIcons = {
-    'aseguramiento': './font/iconos/prestacion de servicios/aseguramiento.png',
-    'aps': './font/iconos/prestacion de servicios/APS.png',
-    'bancos de sangre': './font/iconos/prestacion de servicios/banco de sangre.png',
-    'urgencias': './font/iconos/prestacion de servicios/urgencias.png',
-    'registro prestadores': './font/iconos/prestacion de servicios/registrop.png'
-  };
-  const ambienteIcons = {
-    'aptr': './font/iconos/ambiente y salud/aptr.png',
-    'irca': './font/iconos/ambiente y salud/irca.png',
-    'entornos': './font/iconos/ambiente y salud/entornos.png',
-    'vacunacion antirrabica': './font/iconos/ambiente y salud/vacunacion.png'
-  };
-
-  if(planetId === 'demografia') return demografiaIcons[normLabel] || '';
-  if(planetId === 'saludpub') return saludPublicaIcons[normLabel] || '';
-  if(planetId === 'financiero') return financieroIcons[normLabel] || '';
-  if(planetId === 'planeacion') return planeacionIcons[normLabel] || '';
-  if(planetId === 'prestacion') return prestacionIcons[normLabel] || '';
-  if(planetId === 'ambiente') return ambienteIcons[normLabel] || '';
-  return '';
-}
-
 function clearPoiCarousel(){
   poiCarouselTopics = [];
   poiCarouselPlanet = null;
@@ -3891,10 +3596,8 @@ function startPlanetInertia(initialVelocityX, initialVelocityY){
 function updatePoiPageIndicator(){
   const total = Math.max(1, poiPageChunks.length || 0);
   const current = Math.min(total, poiPageIndex + 1);
-  const currentChunk = poiPageChunks[poiPageIndex];
-  const categoryLabel = currentChunk && currentChunk.label;
   if(zoomPageIndicator){
-    zoomPageIndicator.textContent = categoryLabel || ('Puntos ' + current + '/' + total);
+    zoomPageIndicator.textContent = 'Puntos ' + current + '/' + total;
     zoomPageIndicator.hidden = total <= 1;
   }
   if(zoomPoiNav) zoomPoiNav.hidden = total <= 1;
@@ -3906,8 +3609,7 @@ function renderCurrentPoiPage(animateStep){
   if(!poiCarouselPlanet || !poiPageChunks.length) return;
 
   const runRender = () => {
-    const currentChunk = poiPageChunks[poiPageIndex];
-    renderPoiBatch(poiCarouselPlanet, currentChunk.topics || currentChunk);
+    renderPoiBatch(poiCarouselPlanet, poiPageChunks[poiPageIndex]);
     updatePoiPageIndicator();
     zoomPoiLayer.classList.remove('swap-left-out', 'swap-right-out');
     if(animateStep){
@@ -3939,7 +3641,10 @@ function renderPoiBatch(planet, topics){
   zoomPoiLayer.innerHTML = '';
   zoomPoiLayer.classList.toggle('vigilancia-layout', planet.id === 'vigilancia');
   const total = Math.max(1, topics.length);
-  const minTopPct = -8;
+  const golden = Math.PI * (3 - Math.sqrt(5));
+  const minR = 56;
+  const maxR = 66;
+  const minTopPct = 22;
   const isVigilanciaLayout = planet.id === 'vigilancia';
   const trailShape = isVigilanciaLayout ? 'circle' : 'square';
 
@@ -3977,10 +3682,42 @@ function renderPoiBatch(planet, topics){
   };
 
   topics.forEach((topic, i) => {
+    if(planet.id === 'vigilancia' && normalizeText(topic.label).includes('polvora')) return;
+
+    let x;
+    let y;
     const topicNormForPos = normalizeText(topic.label || '');
-    const canonicalPos = getCanonicalPoiPosition(i, total);
-    const x = Math.max(-18, Math.min(118, canonicalPos.x));
-    const y = Math.max(minTopPct, Math.min(112, canonicalPos.y));
+    const vigilanciaLayout = isVigilanciaLayout ? getVigilanciaTopicLayout(topicNormForPos) : null;
+    const topicMinTopPct = vigilanciaLayout ? vigilanciaLayout.minTopPct : minTopPct;
+
+    if(isVigilanciaLayout){
+      const angle = (-Math.PI / 2) + (i * (Math.PI * 2 / total));
+      const radiusX = (i % 2 === 0) ? 60 : 64;
+      const radiusY = (i % 2 === 0) ? 56 : 60;
+      x = Math.max(-12, Math.min(112, 50 + Math.cos(angle) * radiusX));
+      y = Math.max(topicMinTopPct, Math.min(112, 50 + Math.sin(angle) * radiusY));
+
+      if(vigilanciaLayout && vigilanciaLayout.fixedAngle !== null){
+        x = 50 + Math.cos(vigilanciaLayout.fixedAngle) * vigilanciaLayout.fixedRadiusX;
+        y = 50 + Math.sin(vigilanciaLayout.fixedAngle) * vigilanciaLayout.fixedRadiusY;
+      }
+      if(vigilanciaLayout && vigilanciaLayout.fixedX !== null){
+        x = vigilanciaLayout.fixedX;
+      }
+      if(vigilanciaLayout && vigilanciaLayout.yOffset !== 0){
+        y += vigilanciaLayout.yOffset;
+      }
+
+      y = Math.max(topicMinTopPct, Math.min(112, y));
+      x = Math.max(-12, Math.min(112, x));
+    } else {
+      const seed = (planet.id || '').split('').reduce((n, c) => n + c.charCodeAt(0), 0) * 0.013;
+      const t = (i + 0.5) / total;
+      const angle = (i * golden) - Math.PI / 2 + seed;
+      const radius = minR + (maxR - minR) * Math.sqrt(t);
+      x = Math.max(-12, Math.min(112, 50 + Math.cos(angle) * radius));
+      y = Math.max(topicMinTopPct, Math.min(112, 50 + Math.sin(angle) * radius * 0.96));
+    }
 
     const poi = document.createElement('button');
     poi.type = 'button';
@@ -3990,7 +3727,12 @@ function renderPoiBatch(planet, topics){
     poi.style.setProperty('--poi-scale', String(PIN_GLOBAL_SCALE));
     poi.style.setProperty('--poi-alpha', '1');
     poi.style.setProperty('--poi-order', String(i));
-    poi.style.setProperty('--pin-tilt', '0deg');
+    const sideSign = x >= 50 ? 1 : -1;
+    const bottomStrength = Math.max(0, (y - 58) / 42);
+    const pinTilt = bottomStrength > 0
+      ? sideSign * Math.min(30, bottomStrength * 30)
+      : 0;
+    poi.style.setProperty('--pin-tilt', pinTilt.toFixed(2) + 'deg');
     const normLabel = topicNormForPos;
     const isDengueFullPin = normLabel.includes('dengue');
     const isEtasFullPin = normLabel.includes('etas');
@@ -4014,8 +3756,6 @@ function renderPoiBatch(planet, topics){
     const isVihFullPin = (normLabel === 'vih' || normLabel.includes('vih'));
     const isVigilanciaComunitariaFullPin = normLabel.includes('vigilancia comunitaria');
     const isBajaNotificacionFullPin = normLabel.includes('baja notificacion');
-    const assetFullPinImg = topicFullPinImageByPlanet(planet.id, normLabel);
-    const isAssetFullPin = !!assetFullPinImg;
     const isVigilanciaPage2FullPin = isVigilanciaLayout && (
       isFiebreAmarillaFullPin ||
       isHepatitisAFullPin ||
@@ -4037,7 +3777,7 @@ function renderPoiBatch(planet, topics){
       isVigilanciaComunitariaFullPin ||
       isBajaNotificacionFullPin
     );
-    const isSpecialFullPin = isAssetFullPin || isDengueFullPin || isEtasFullPin || isDesnutricionFullPin || isEdasFullPin || isEventosFullPin || isAlertaFullPin || isHuerfanasFullPin || isVigilanciaPage2FullPin || isVigilanciaPage3FullPin || isVigilanciaPage4FullPin;
+    const isSpecialFullPin = isDengueFullPin || isEtasFullPin || isDesnutricionFullPin || isEdasFullPin || isEventosFullPin || isAlertaFullPin || isHuerfanasFullPin || isVigilanciaPage2FullPin || isVigilanciaPage3FullPin || isVigilanciaPage4FullPin;
     if(isDengueFullPin) poi.classList.add('is-dengue');
     const hue = (planet.id.length * 33 + i * 41) % 360;
     let glowColor = 'hsla(' + hue + ', 95%, 62%, .84)';
@@ -4045,7 +3785,7 @@ function renderPoiBatch(planet, topics){
     if(normLabel.includes('desnutric')) glowColor = 'hsla(45, 100%, 58%, .68)';
     poi.style.setProperty('--poi-glow', glowColor);
 
-    // Paleta de estela por evento para un look más variado/futurista.
+    // Paleta de estela por evento para un look mÃ¡s variado/futurista.
     let trailCore = 'rgba(255,255,255,.86)';
     let trailMid = 'rgba(56,214,255,.84)';
     let trailFade = 'rgba(56,214,255,.2)';
@@ -4137,7 +3877,7 @@ function renderPoiBatch(planet, topics){
     poi.setAttribute('aria-label', topic.label);
     if(isSpecialFullPin){
       poi.classList.add('is-fullpin');
-      let fullPinImg = assetFullPinImg || './font/iconos/dengue.png';
+      let fullPinImg = './font/iconos/dengue.png';
       if(isEtasFullPin) fullPinImg = './font/iconos/ETAS.png';
       if(isDesnutricionFullPin) fullPinImg = './font/iconos/desnutricion.png';
       if(isEdasFullPin) fullPinImg = './font/iconos/EDAS.png';
@@ -4209,7 +3949,7 @@ function showNextPoiBatchAnimated(direction){
 
 function buildPoiTopics(planet){
   const topics = (planet.subs && planet.subs.length)
-    ? planet.subs.filter((t) => !(planet.id === 'vigilancia' && normalizeText(t.label).includes('eventos epidemiologicos')))
+    ? planet.subs.filter((t) => !(planet.id === 'vigilancia' && normalizeText(t.label).includes('polvora')))
     : [{ label: 'Tablero principal', url: planet.url }];
 
   topics.slice(0, PRELOAD_WARM_PER_PLANET).forEach((t, idx) => {
@@ -4220,13 +3960,9 @@ function buildPoiTopics(planet){
   poiCarouselPlanet = planet;
   poiCarouselTopics = topics.slice();
 
-  if(planet.id === 'vigilancia'){
-    poiPageChunks = buildVigilanciaCategoryPages(poiCarouselTopics);
-  } else {
-    poiPageChunks = [];
-    for(let i=0; i<poiCarouselTopics.length; i+=POI_PAGE_SIZE){
-      poiPageChunks.push(poiCarouselTopics.slice(i, i + POI_PAGE_SIZE));
-    }
+  poiPageChunks = [];
+  for(let i=0; i<poiCarouselTopics.length; i+=POI_PAGE_SIZE){
+    poiPageChunks.push(poiCarouselTopics.slice(i, i + POI_PAGE_SIZE));
   }
   if(!poiPageChunks.length) poiPageChunks = [poiCarouselTopics];
   poiPageIndex = 0;
@@ -4314,8 +4050,6 @@ zoomPlanet.addEventListener('pointerleave', () => {
 
 function openPlanetExperience(planet, anchor){
   if(!zoomOverlay) return;
-  document.body.classList.remove('dashboard-open');
-  document.body.classList.add('planet-open');
 
   enqueueDashboardPreload(planet.url, true);
 
@@ -4358,7 +4092,6 @@ function closePlanetExperience(instant){
   }
   zoomOverlay.classList.remove('zoomed');
   zoomOverlay.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('planet-open');
   zoomPreview.classList.remove('open');
   zoomPreviewFrame.src = 'about:blank';
   zoomPreviewFrame.dataset.src = '';
@@ -4553,7 +4286,7 @@ document.addEventListener('click', e=>{
 /* VISIT COUNTER */
 fetch('https://bai-revisor-backend-1081794814967.us-central1.run.app/api/visitas',{method:'POST'})
   .then(r=>r.json()).then(d=>{
-    const n = d.count?d.count.toLocaleString('es-CO'):'–';
+    const n = d.count?d.count.toLocaleString('es-CO'):'-';
     document.getElementById('vcount').textContent = n;
     document.getElementById('vfix-n').textContent = n;
   }).catch(()=>{});
@@ -4610,35 +4343,10 @@ function initSidebarNavFx(){
 initSidebarNavFx();
 </script>
 <iframe
-  class="obser-chat-frame"
   title="Asistente virtual Obser"
   src="https://observatorio-chat-frontend-1081794814967.southamerica-east1.run.app/"
+  style="position:fixed;right:0;bottom:0;width:min(640px,100vw);height:min(820px,100vh);border:0;background:transparent;z-index:2147483647;"
   allowtransparency="true"
 ></iframe>
-<script>
-(() => {
-  const chatFrame = document.querySelector('.obser-chat-frame');
-  if(!chatFrame) return;
-
-  const setChatActive = (active) => {
-    if(active){
-      document.body.classList.add('chat-active');
-      return;
-    }
-
-    document.body.classList.remove('chat-active');
-  };
-
-  chatFrame.addEventListener('click', () => setChatActive(true));
-  chatFrame.addEventListener('focus', () => setChatActive(true));
-  window.addEventListener('message', (event) => {
-    if(event.source !== chatFrame.contentWindow) return;
-    const data = event.data || {};
-    const type = typeof data === 'string' ? data : data.type || data.event || data.action;
-    if(String(type).toLowerCase().includes('close')) setChatActive(false);
-    if(String(type).toLowerCase().includes('open')) setChatActive(true);
-  });
-})();
-</script>
 </body>
 </html>
