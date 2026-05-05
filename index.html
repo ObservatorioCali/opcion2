@@ -438,9 +438,13 @@ body.cinematic-leave .cinematic-transition::after{
 .db-submenu{flex-shrink:0;display:none;flex-wrap:wrap;gap:5px;padding:8px 20px;
   background:rgba(3,6,24,.85);border-bottom:1px solid rgba(56,189,248,.07);overflow-x:auto;}
 .db-submenu.open{display:flex}
-.db-sub{padding:4px 12px;border-radius:99px;font-size:11px;font-weight:600;
-  border:1px solid rgba(56,189,248,.14);color:#6b7fa8;white-space:nowrap;transition:.2s;}
+.db-sub{padding:6px 14px;border-radius:99px;font-size:11px;font-weight:600;
+  border:1px solid rgba(56,189,248,.14);color:#6b7fa8;white-space:nowrap;transition:.2s;position:relative;z-index:1}
 .db-sub:hover,.db-sub.active{background:rgba(56,189,248,.12);color:#38bdf8;border-color:rgba(56,189,248,.4)}
+.db-sub[data-full-label]{position:relative;cursor:pointer}
+.db-sub[data-full-label]:hover{background:linear-gradient(135deg, #7c3aed, #4f46e5) !important;color:#fff !important;border-color:#a78bfa !important;box-shadow:0 0 16px rgba(124,58,237,.5)}
+.db-sub[data-full-label]:hover::after{content:attr(data-full-label);position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);background:linear-gradient(135deg, #4f46e5, #7c3aed);color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,0.4),0 0 20px rgba(124,58,237,.4);z-index:9999 !important;pointer-events:none}
+@keyframes fadeInTooltip{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%)}}
 .db-sub-ic{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;margin-right:6px;vertical-align:-2px}
 .db-sub-ic i{font-size:12px;color:currentColor;line-height:1}
 .db-frame-wrap{flex:1;min-height:0;overflow:hidden;position:relative;--db-scale:1;background:#000}
@@ -486,20 +490,22 @@ body.cinematic-leave .cinematic-transition::after{
 }
 
 /* SEARCH PANEL */
-.search-panel{position:absolute;top:52px;left:50%;transform:translateX(-50%);
+.hdr-search{position:relative}
+.search-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%);
   width:360px;max-width:92vw;z-index:300;
   background:rgba(5,9,35,.98);border:1px solid rgba(56,189,248,.18);
-  border-radius:14px;padding:10px;display:none;max-height:320px;overflow-y:auto;}
+  border-radius:14px;padding:10px;display:none;max-height:320px;overflow-y:auto;margin-top:8px}
 .search-panel.open{display:block}
 .sp-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;
-  cursor:pointer;transition:.15s;font-size:12.5px;}
-.sp-item:hover{background:rgba(56,189,248,.08)}
-.sp-ic{width:18px;height:18px;border-radius:6px;flex-shrink:0;
+  cursor:pointer;transition:.15s;font-size:12.5px;color:#e8eeff}
+.sp-item:hover{background:rgba(56,189,248,.15);color:#fff}
+.sp-item span:first-of-type{flex:1}
+.sp-ic{width:14px;height:14px;border-radius:3px;flex-shrink:0;
   display:inline-flex;align-items:center;justify-content:center;
   background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.22);color:#cfe7ff;}
-.sp-ic i{font-size:11px;line-height:1;color:currentColor}
-.sp-ic svg{width:13px;height:13px}
-.sp-ic img{width:13px !important;height:13px !important;object-fit:contain}
+.sp-ic i{font-size:10px;line-height:1;color:currentColor}
+.sp-ic svg{width:11px;height:11px}
+.sp-ic img{width:11px !important;height:11px !important;object-fit:contain}
 .sp-ic .planet-fa{font-size:11px;line-height:1;filter:none}
 .sp-cat{font-size:9px;color:#6b7fa8;margin-left:auto;white-space:nowrap}
 
@@ -1099,10 +1105,9 @@ body { margin:0; overflow-x:hidden; }
   inset: 0;
   background:
     radial-gradient(circle at 50% 52%, rgba(59,130,246,0.14) 0%, rgba(3,8,30,0.78) 45%, rgba(2,6,20,0.9) 100%),
-    linear-gradient(160deg, rgba(8,15,58,0.58), rgba(1,5,20,0.72)),
-    url('./estrellas.png');
-  background-size: cover, cover, cover;
-  background-position: center center, center center, center center;
+    linear-gradient(160deg, rgba(8,15,58,0.58), rgba(1,5,20,0.72));
+  background-size: cover, cover;
+  background-position: center center, center center;
   background-repeat: no-repeat;
   backdrop-filter: blur(8px);
 }
@@ -2329,11 +2334,11 @@ const PLANETS = [
     url:'https://lookerstudio.google.com/embed/reporting/3a4c6bdb-684d-4904-9cf4-f5fe980b6e19/page/esEzE',
     subs:[
       {label:'Población',url:'https://lookerstudio.google.com/embed/reporting/3a4c6bdb-684d-4904-9cf4-f5fe980b6e19/page/esEzE'},
-      {label:'Discapacidad',url:'https://lookerstudio.google.com/embed/reporting/f12825f8-32ae-4f4d-b230-0fb8c5ee967c/page/p2u66wwr6pd'},
-      {label:'Víctimas Conflicto',url:'https://lookerstudio.google.com/embed/reporting/319c01b1-f4cf-4954-b4d8-9dc218f52196/page/p15hanx0crd'},
-      {label:'Migrantes',url:'https://lookerstudio.google.com/embed/reporting/a3a38aee-3c8d-4b01-af5d-b3f33fadc972/page/p8yjo6uasrd'},
-      {label:'Indígenas',url:'https://lookerstudio.google.com/embed/reporting/a57d0799-b022-44fc-988e-dae8366cda93/page/p2u66wwr6pd'},
-      {label:'Privados de Libertad',url:'https://lookerstudio.google.com/embed/reporting/4ff54dc4-188e-4f5d-b501-847ff07196e4/page/p2u66wwr6pd'},
+      {label:'Población con Discapacidad',url:'https://lookerstudio.google.com/embed/reporting/f12825f8-32ae-4f4d-b230-0fb8c5ee967c/page/p2u66wwr6pd'},
+      {label:'Población Víctima Conflicto Armado',url:'https://lookerstudio.google.com/embed/reporting/319c01b1-f4cf-4954-b4d8-9dc218f52196/page/p15hanx0crd'},
+      {label:'Población Migrante',url:'https://lookerstudio.google.com/embed/reporting/a3a38aee-3c8d-4b01-af5d-b3f33fadc972/page/p8yjo6uasrd'},
+      {label:'Población Indígena',url:'https://lookerstudio.google.com/embed/reporting/a57d0799-b022-44fc-988e-dae8366cda93/page/p2u66wwr6pd'},
+      {label:'Población Privada de la Libertad',url:'https://lookerstudio.google.com/embed/reporting/4ff54dc4-188e-4f5d-b501-847ff07196e4/page/p2u66wwr6pd'},
       {label:'Aseguramiento',url:'https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE'},
       {label:'Estadísticas Vitales',url:'https://lookerstudio.google.com/embed/reporting/778ce501-f478-46d8-a8a7-7de5163587db/page/piemfr1cyvd'},
     ]
@@ -2353,9 +2358,9 @@ const PLANETS = [
     speed:44, startAngle:210,
     url:'https://lookerstudio.google.com/embed/reporting/9a0d1e0e-5df7-4e3d-8c0b-594769581a65/page/pmhi7hn8atd',
     subs:[
-      {label:'Línea 106',url:'https://lookerstudio.google.com/embed/reporting/9a0d1e0e-5df7-4e3d-8c0b-594769581a65/page/pmhi7hn8atd'},
-      {label:'PAI',url:'https://lookerstudio.google.com/embed/reporting/3ad6fe09-314e-45b5-8c6c-3fe4b792ac3e/page/pjxxw285ord'},
-      {label:'PIC',url:'https://lookerstudio.google.com/embed/reporting/69ca6df8-c1fe-4970-947b-294d2be342d4/page/pmx711ds8wd'},
+      {label:'Línea 106',fullLabel:'Línea 106',url:'https://lookerstudio.google.com/embed/reporting/9a0d1e0e-5df7-4e3d-8c0b-594769581a65/page/pmhi7hn8atd'},
+      {label:'PAI',fullLabel:'Programa Ampliado de Inmunizaciones',url:'https://lookerstudio.google.com/embed/reporting/3ad6fe09-314e-45b5-8c6c-3fe4b792ac3e/page/pjxxw285ord'},
+      {label:'PIC',fullLabel:'Plan de Intervenciones Colectivas',url:'https://lookerstudio.google.com/embed/reporting/69ca6df8-c1fe-4970-947b-294d2be342d4/page/pmx711ds8wd'},
     ]
   },
   // RING 4
@@ -2376,11 +2381,11 @@ const PLANETS = [
       {label:'Eventos Epidemiológicos',url:'https://lookerstudio.google.com/embed/reporting/75d166ba-8c0c-4d8a-a6ed-d0e0f8ad14e1/page/esEzE'},
       {label:'Dengue',url:'https://lookerstudio.google.com/embed/reporting/d65d2972-010d-44f4-aba4-7b1d9528213d/page/p7led3ssotd'},
       {label:'Desnutrición',url:'https://lookerstudio.google.com/embed/reporting/2069e9d8-6fe6-42dd-857a-d9574f046bc8/page/esEzE'},
-      {label:'EDA',url:'https://lookerstudio.google.com/embed/reporting/16e94557-889a-4774-bb20-f6e99f649094/page/esEzE'},
-      {label:'ETAs',url:'https://lookerstudio.google.com/embed/reporting/0e6bd7ae-52c0-46b2-8268-41afd8088cdd/page/p2u66wwr6pd'},
+      {label:'EDA',fullLabel:'Enfermedad Diarreica Aguda',url:'https://lookerstudio.google.com/embed/reporting/16e94557-889a-4774-bb20-f6e99f649094/page/esEzE'},
+      {label:'ETAs',fullLabel:'Enfermedades Transmitidas por Alimentos',url:'https://lookerstudio.google.com/embed/reporting/0e6bd7ae-52c0-46b2-8268-41afd8088cdd/page/p2u66wwr6pd'},
       {label:'Fiebre Amarilla',url:'https://lookerstudio.google.com/embed/reporting/fef8137e-5cb2-480b-9165-12bbb3d05640/page/esEzE'},
       {label:'Hepatitis A',url:'https://lookerstudio.google.com/embed/reporting/83fbe55f-4fa8-4c4a-b382-1cf34a25d8df/page/esEzE'},
-      {label:'IRAG',url:'https://lookerstudio.google.com/embed/reporting/9c7f244d-5fb9-4b40-a490-1386dba6545a/page/esEzE'},
+      {label:'IRAG',fullLabel:'Infección Respiratoria Aguda',url:'https://lookerstudio.google.com/embed/reporting/9c7f244d-5fb9-4b40-a490-1386dba6545a/page/esEzE'},
       {label:'Intoxicaciones',url:'https://lookerstudio.google.com/embed/reporting/2b834b80-ba04-4cc7-a4f3-f26369764b2f/page/esEzE'},
       {label:'Intento de Suicidio',url:'https://lookerstudio.google.com/embed/reporting/2fdee237-0658-4fcf-b71d-489129bc245f/page/esEzE'},
       {label:'Leptospirosis',url:'https://lookerstudio.google.com/embed/reporting/de65034a-6f62-4b27-8d2b-2d01328cd0f4/page/F5HYF'},
@@ -2391,7 +2396,7 @@ const PLANETS = [
       {label:'Suicidio',url:'https://lookerstudio.google.com/embed/reporting/03e5694b-5b02-4b62-b9bf-3053fff97b04/page/esEzE'},
       {label:'Tuberculosis',url:'https://lookerstudio.google.com/embed/reporting/3a6097ec-c835-4ea3-8675-2a610e74d318/page/esEzE'},
       {label:'Violencias',url:'https://lookerstudio.google.com/embed/reporting/98276313-0a20-42ab-b1f4-2f43d54c92de/page/esEzE'},
-      {label:'VIH',url:'https://lookerstudio.google.com/embed/reporting/884c4242-f03b-403c-8e89-595a055b222e/page/esEzE'},
+      {label:'VIH',fullLabel:'Virus de Inmunodeficiencia Humana',url:'https://lookerstudio.google.com/embed/reporting/884c4242-f03b-403c-8e89-595a055b222e/page/esEzE'},
       {label:'Vigilancia Comunitaria',url:'https://lookerstudio.google.com/embed/reporting/5c3db296-b2ea-47d4-8ca3-aa068cf83c75/page/esEzE'},
       {label:'Baja Notificación',url:'https://lookerstudio.google.com/embed/reporting/c6a116ba-a469-44c8-b2ff-8ce4bfed9390/page/esEzE'},
       {label:'Alerta Temprana',url:'https://lookerstudio.google.com/embed/reporting/96fa06fa-3995-4be8-b676-1dab8fc17372/page/pzc6ydjp6rd'},
@@ -2432,7 +2437,7 @@ const PLANETS = [
     url:'https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE',
     subs:[
       {label:'Aseguramiento',url:'https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE'},
-      {label:'APS',url:'https://lookerstudio.google.com/embed/reporting/e7169e75-e5ee-4853-b827-1a705d3db563/page/F5HYF'},
+      {label:'APS',fullLabel:'Atención Primaria en Salud',url:'https://lookerstudio.google.com/embed/reporting/e7169e75-e5ee-4853-b827-1a705d3db563/page/F5HYF'},
       {label:'Bancos de Sangre',url:'https://lookerstudio.google.com/embed/reporting/b15e676d-20f4-46a0-aba7-00e8390c77ee/page/pjxxw285ord'},
       {label:'Urgencias',url:'https://lookerstudio.google.com/embed/reporting/af77b4ff-46f6-494c-a133-a1dda960815b/page/p73az8wefxd'},
       {label:'Registro Prestadores',url:'https://lookerstudio.google.com/embed/reporting/11401c27-3483-41c4-98e2-dfd27e76b89f/page/piwcjsgh7qd'},
@@ -2440,7 +2445,7 @@ const PLANETS = [
   },
   // RING 5 — outer
   {
-    id:'polvora', label:'Vigilancia\nPólvora',
+    id:'polvora', label:'Vigilancia de pólvora - temporada decembrina',
     icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="26" height="26"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
     size:86, ring:true,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #5eead4 0%, #14b8a6 25%, #0f766e 50%, #134e4a 75%, #042f2e 100%), radial-gradient(ellipse at 70% 75%, rgba(20,184,166,0.4) 0%, transparent 50%)',
@@ -2469,8 +2474,8 @@ const PLANETS = [
     speed:62, startAngle:155,
     url:'https://lookerstudio.google.com/embed/reporting/819c53da-6099-447c-a06a-009e9e2c29c2/page/plejjb0y2td',
     subs:[
-      {label:'APTR',url:'https://lookerstudio.google.com/embed/reporting/819c53da-6099-447c-a06a-009e9e2c29c2/page/plejjb0y2td'},
-      {label:'IRCA',url:'https://lookerstudio.google.com/embed/reporting/76fc1dd8-f202-4167-9c88-88e7b1650165/page/pjxxw285ord'},
+      {label:'APTR',fullLabel:'Agresiones por Animales Potencialmente Transmisores de Rabia',url:'https://lookerstudio.google.com/embed/reporting/819c53da-6099-447c-a06a-009e9e2c29c2/page/plejjb0y2td'},
+      {label:'IRCA',fullLabel:'Índice de Riesgo de la Calidad del Agua',url:'https://lookerstudio.google.com/embed/reporting/76fc1dd8-f202-4167-9c88-88e7b1650165/page/pjxxw285ord'},
       {label:'Entornos',url:'https://lookerstudio.google.com/embed/reporting/a9e5d13d-cdbc-4a95-80ad-1b4e3a906c86/page/plejjb0y2td'},
       {label:'Vacunación Antirrábica',url:'https://lookerstudio.google.com/embed/reporting/5a3c224a-96c6-4d6f-b5eb-60be9cb2e431/page/pmhi7hn8atd'},
     ]
@@ -2479,7 +2484,7 @@ const PLANETS = [
   {
     id:'salud',
     icon:'<img src="./universosalud.png" alt="Universo Salud" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
-    size:130, ring:false,
+    size:156, ring:false,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #c4b5fd 0%, #a78bfa 25%, #8b5cf6 50%, #7c3aed 75%, #5b21b6 100%), radial-gradient(ellipse at 72% 74%, rgba(167,139,250,0.34) 0%, transparent 50%)',
     shadow:'0 0 28px rgba(167,139,250,.9), 0 0 58px rgba(124,58,237,.45)',
     shadowHover:'0 0 46px rgba(167,139,250,1), 0 0 92px rgba(124,58,237,.72)',
@@ -2539,11 +2544,10 @@ function topicIconSvg(label){
   const exact = {
     'poblacion': 'fas fa-user',
     'poblacion con discapacidad': 'fas fa-wheelchair',
-    'victimas conflicto': 'fas fa-person-rifle',
-    'victimas conflicto armado': 'fas fa-person-rifle',
-    'migrantes': 'fas fa-earth-americas',
-    'indigenas': 'fas fa-user-shield',
-    'privados de libertad': 'fas fa-person-circle-exclamation',
+    'poblacion victima conflicto armado': 'fas fa-person-rifle',
+    'poblacion migrante': 'fas fa-earth-americas',
+    'poblacion indigena': 'fas fa-user-shield',
+    'poblacion privada de la libertad': 'fas fa-person-circle-exclamation',
     'aseguramiento': 'fas fa-shield-alt',
     'estadisticas vitales': 'fas fa-chart-bar',
     'ejecucion presupuestal': 'fas fa-dollar-sign',
@@ -2719,7 +2723,7 @@ function openDB(planet){
   document.body.classList.add('dashboard-open');
   dashboardReturnPlanet = null;
   dashboardManualScale = 1;
-  dashboardIntroCollapsed = true;
+  dashboardIntroCollapsed = false;
   planetIntroCollapsed = true;
   dashboardIntroHiddenByUser = false;
   planetIntroHiddenByUser = false;
@@ -2743,6 +2747,7 @@ function openDB(planet){
       const btn = document.createElement('button');
       btn.className = 'db-sub' + (i===0?' active':'');
       btn.innerHTML = topicIconMarkup(s.label) + s.label;
+      if(s.fullLabel){btn.setAttribute('data-full-label',s.fullLabel);}
       btn.onclick = () => {
         document.querySelectorAll('.db-sub').forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
@@ -2895,25 +2900,32 @@ function setDashboardIntroContent(planet){
   const reopenBtn = document.getElementById('db-intro-reopen');
   if(!overlay || !content) return;
 
+  console.log('setDashboardIntroContent called with planet:', planet);
+  if(planet) console.log('planet.id:', planet.id);
+
   const isVigilancia = !!(planet && planet.id === 'vigilancia');
-  dashboardIntroAvailable = isVigilancia;
-  overlay.classList.toggle('with-intro', isVigilancia && !dashboardIntroCollapsed);
+  const isFinanciero = !!(planet && planet.id === 'financiero');
+  const hasIntro = isVigilancia || isFinanciero;
+  console.log('isVigilancia:', isVigilancia, 'isFinanciero:', isFinanciero, 'hasIntro:', hasIntro);
+  dashboardIntroAvailable = hasIntro;
+  overlay.classList.toggle('with-intro', hasIntro && !dashboardIntroCollapsed);
 
   if(toggleBtn){
-    toggleBtn.hidden = !isVigilancia || dashboardIntroCollapsed;
+    toggleBtn.hidden = !hasIntro || dashboardIntroCollapsed;
     toggleBtn.textContent = dashboardIntroCollapsed ? 'Mostrar info' : 'Ocultar info';
   }
   if(reopenBtn){
-    reopenBtn.hidden = !isVigilancia || !dashboardIntroCollapsed || !dashboardIntroHiddenByUser;
+    reopenBtn.hidden = !hasIntro || !dashboardIntroCollapsed || !dashboardIntroHiddenByUser;
   }
 
-  if(!isVigilancia){
+  if(!hasIntro){
     dashboardIntroHiddenByUser = false;
     content.innerHTML = '';
     return;
   }
 
-  content.innerHTML = `
+  if(isVigilancia){
+    content.innerHTML = `
     <h3>Bienvenido a Vigilancia Epidemiológica, Social y Cultural</h3>
     <p>Un espacio diseñado para convertir la información en acción. Aquí podrá explorar de manera interactiva el comportamiento de los eventos de interés en salud pública, sustentado en el rigor técnico de nuestro equipo de expertos y en el conocimiento vivo de los territorios.</p>
 
@@ -2934,9 +2946,24 @@ function setDashboardIntroContent(planet){
       <li><strong>Enfermedades no transmisibles:</strong> Análisis de condiciones crónicas y factores de riesgo poblacionales.</li>
       <li><strong>Vigilancia basada en comunidad:</strong> La cual cumple un papel importante en nuestro Observatorio, pues reconoce que nadie conoce mejor el territorio que quienes lo viven y lo caminan a diario. En este espacio, el saber de los gestores y vigías de la REVcom, se une con el análisis técnico para identificar a tiempo riesgos, alertas o brotes en los barrios antes de que se conviertan en emergencias.</li>
     </ul>
+    <p>Aquí, tu voz y tus reportes se transforman en acciones reales y oportunas, permitiéndonos cuidar la salud de todos desde la base social y fortalecer el bienestar colectivo a través de la participación ciudadana.</p>`;
+    return;
+  }
 
-    <p>Aquí, tu voz y tus reportes se transforman en acciones reales y oportunas, permitiéndonos cuidar la salud de todos desde la base social y fortalecer el bienestar colectivo a través de la participación ciudadana.</p>
-  `;
+  if(isFinanciero){
+    content.innerHTML = `
+    <h3>Ejecución Financiera</h3>
+    <p>En esta temática se presentan los tableros de ejecución presupuestal y física de los proyectos de inversión de la Secretaría de Salud del Distrito de Santiago de Cali, como también el tablero de seguimiento a los procesos del Plan Anual de Adquisiciones – PAA, referente a los procesos de contratación y el tablero de seguimiento al plan de infraestructura y dotación en salud de Cali.</p>
+
+    <h4>Tableros disponibles:</h4>
+    <ul>
+      <li><strong>Tablero de Ejecución Presupuestal:</strong> En este tablero, se presenta el monitoreo a la utilización de los recursos financieros asignados a las entidades estatales para la adquisición de bienes y servicios, y el cumplimiento de sus objetivos y metas. Implica la gestión de ingresos y gastos, el seguimiento de la ejecución y la evaluación de resultados.</li>
+      <li><strong>Tablero de Ejecución Física:</strong> En este tablero, se hace seguimiento y monitoreo de las actividades y productos programadas para un proyecto o programa durante un período de tiempo determinado.</li>
+      <li><strong>Tablero de seguimiento a procesos contractuales – PAA:</strong> En este tablero, se presenta el monitoreo al cumplimiento y ejecución de todos los procesos programados en el PAA de la Secretaría de Salud.</li>
+      <li><strong>Tablero del Plan de Infraestructura y Dotación en Salud de Cali:</strong> En este tablero, se presenta el monitoreo a los procesos contractuales, fondos y fuentes de financiación en el marco de la modernización de la infraestructura y dotación de las ESE del Distrito y sus diferentes sedes.</li>
+    </ul>`;
+    return;
+  }
 }
 
 function clamp(v, min, max){
@@ -3202,20 +3229,52 @@ function clearSideCometRepositionTimers(){
 function setPlanetIntroContent(planet){
   if(!zoomOverlay || !zoomIntroContent) return;
   const isVigilancia = !!(planet && planet.id === 'vigilancia');
-  planetIntroAvailable = isVigilancia;
-  zoomOverlay.classList.toggle('with-intro', isVigilancia && !planetIntroCollapsed);
+  const isFinanciero = !!(planet && planet.id === 'financiero');
+  const hasIntro = isVigilancia || isFinanciero;
+  planetIntroAvailable = hasIntro;
+  zoomOverlay.classList.toggle('with-intro', hasIntro && !planetIntroCollapsed);
 
   if(zoomIntroToggleBtn){
-    zoomIntroToggleBtn.hidden = !isVigilancia || planetIntroCollapsed;
+    zoomIntroToggleBtn.hidden = !hasIntro || planetIntroCollapsed;
     zoomIntroToggleBtn.textContent = planetIntroCollapsed ? 'Mostrar info' : 'Ocultar info';
   }
   if(pzIntroReopenBtn){
-    pzIntroReopenBtn.hidden = !isVigilancia || !planetIntroCollapsed || !planetIntroHiddenByUser;
+    pzIntroReopenBtn.hidden = !hasIntro || !planetIntroCollapsed || !planetIntroHiddenByUser;
   }
 
-  if(!isVigilancia){
+  if(!hasIntro){
     planetIntroHiddenByUser = false;
     zoomIntroContent.innerHTML = '';
+    return;
+  }
+
+  if(isFinanciero){
+    zoomIntroContent.innerHTML = `
+    <h3>Bienvenido a Financiero</h3>
+    <p>En esta tematica se presentan los tableros de ejecucion presupuestal y fisica de los proyectos de inversion de la Secretaria de Salud del Distrito d Santiago de Cali, como tambien el tablero de seguimiento a los procesos del Plan Anual de Adquisiciones - PAA, referente a los procesos de contratacion y el tablero de seguimiento al plan de infraestructura y dotacion en salud de Cali:</p>
+
+    <ul>
+      <li><strong>Tablero de Ejecucion Presupuestal:</strong> En este tablero, se presenta el monitoreo a la utilizacion de los recursos financieros asignados a las entidades estatales para la adquisicion de bienes y servicios, y el cumplimiento de sus objetivos y metas. Implica la gestion de ingresos y gastos, el seguimiento de la ejecucion y la evaluacion de resultados.</li>
+      <li><strong>Tablero de Ejecucion Fisica:</strong> En este tablero, se hace seguimiento y monitoreo de las actividades y productos programadas para un proyecto o programa durante un periodo de tiempo determinado.</li>
+      <li><strong>Tablero de seguimiento a procesos contractuales - PAA:</strong> En este tablero, se presenta el monitoreo al cumplimiento y ejecucion de todos los procesos programados en el PAA de la Secretaria de Salud.</li>
+      <li><strong>Tablero del Plan de Infraestructura y Dotacion en Salud de Cali:</strong> En este tablero, se presenta el monitoreo a los procesos contractuales, fondos y fuentes de financiacion en el marco de la modernizacion de la infraestructura y dotacion de las ESE del Distrito y sus diferentes sedes.</li>
+    </ul>
+  `;
+    return;
+  }
+
+  if(isFinanciero){
+    zoomIntroContent.innerHTML = `
+    <h3>Bienvenido a Financiero</h3>
+    <p>En esta temÃ¡tica se presentan los tableros de ejecuciÃ³n presupuestal y fÃ­sica de los proyectos de inversiÃ³n de la SecretarÃ­a de Salud del Distrito d Santiago de Cali, como tambiÃ©n el tablero de seguimiento a los procesos del Plan Anual de Adquisiciones â€“ PAA, referente a los procesos de contrataciÃ³n y el tablero de seguimiento al plan de infraestructura y dotaciÃ³n en salud de Cali:</p>
+
+    <ul>
+      <li><strong>Tablero de EjecuciÃ³n Presupuestal:</strong> En este tablero, se presenta el monitoreo a la utilizaciÃ³n de los recursos financieros asignados a las entidades estatales para la adquisiciÃ³n de bienes y servicios, y el cumplimiento de sus objetivos y metas. Implica la gestiÃ³n de ingresos y gastos, el seguimiento de la ejecuciÃ³n y la evaluaciÃ³n de resultados.</li>
+      <li><strong>Tablero de EjecuciÃ³n FÃ­sica:</strong> En este tablero, se hace seguimiento y monitoreo de las actividades y productos programadas para un proyecto o programa durante un perÃ­odo de tiempo determinado.</li>
+      <li><strong>Tablero de seguimiento a procesos contractuales â€“ PAA:</strong> En este tablero, se presenta el monitoreo al cumplimiento y ejecuciÃ³n de todos los procesos programados en el PAA de la SecretarÃ­a de Salud.</li>
+      <li><strong>Tablero del Plan de Infraestructura y DotaciÃ³n en Salud de Cali:</strong> En este tablero, se presenta el monitoreo a los procesos contractuales, fondos y fuentes de financiaciÃ³n en el marco de la modernizaciÃ³n de la infraestructura y dotaciÃ³n de las ESE del Distrito y sus diferentes sedes.</li>
+    </ul>
+  `;
     return;
   }
 
@@ -3753,11 +3812,11 @@ function topicLogoMarkup(topic, planet, i){
 function topicFullPinImageByPlanet(planetId, normLabel){
   const demografiaIcons = {
     'poblacion': './font/iconos/demografia/poblacion.png',
-    'discapacidad': './font/iconos/demografia/discapacidad.png',
-    'victimas conflicto': './font/iconos/demografia/victimas.png',
-    'migrantes': './font/iconos/demografia/migrantes.png',
-    'indigenas': './font/iconos/demografia/indigena.png',
-    'privados de libertad': './font/iconos/demografia/poblacionprivada.png',
+    'poblacion con discapacidad': './font/iconos/demografia/discapacidad.png',
+    'poblacion victima conflicto armado': './font/iconos/demografia/victimas.png',
+    'poblacion migrante': './font/iconos/demografia/migrantes.png',
+    'poblacion indigena': './font/iconos/demografia/indigena.png',
+    'poblacion privada de la libertad': './font/iconos/demografia/poblacionprivada.png',
     'aseguramiento': './font/iconos/demografia/poblacionasegurada.png',
     'estadisticas vitales': './font/iconos/demografia/estadisticasvitales.png'
   };
@@ -4169,9 +4228,89 @@ function renderPoiBatch(planet, topics){
       if(isVigilanciaPage2FullPin) poi.classList.add('is-vigilancia-p2-fullpin');
       if(isVigilanciaPage3FullPin) poi.classList.add('is-vigilancia-p3-fullpin');
       if(isVigilanciaPage4FullPin) poi.classList.add('is-vigilancia-p4-fullpin');
-      poi.innerHTML = '<span class="pz-fullpin-wrap"><img src="' + fullPinImg + '" alt="' + topic.label + '"></span><span class="pz-fullpin-trail"></span><span class="pz-fullpin-chip">' + topic.label.toUpperCase() + '</span>';
+      const fullLabelAttr = topic.fullLabel ? ' data-full-label="' + topic.fullLabel + '"' : '';
+      const fullPinChip = '<span class="pz-fullpin-trail"></span><span class="pz-fullpin-chip"' + fullLabelAttr + '>' + topic.label.toUpperCase() + '</span>';
+      if(topic.fullLabel){
+        const chipEl = document.createElement('div');
+        chipEl.innerHTML = fullPinChip;
+        const labelEl = chipEl.querySelector('.pz-fullpin-chip');
+        labelEl.dataset.original = topic.label.toUpperCase();
+        poi.innerHTML = '<span class="pz-fullpin-wrap"><img src="' + fullPinImg + '" alt="' + topic.label + '"></span>' + chipEl.innerHTML;
+      } else {
+        poi.innerHTML = '<span class="pz-fullpin-wrap"><img src="' + fullPinImg + '" alt="' + topic.label + '"></span>' + fullPinChip;
+      }
     } else {
-      poi.innerHTML = '<span class="pz-marker-head">' + topicLogoMarkup(topic, planet, i) + '</span><span class="pz-marker-point"></span><span class="pz-marker-trail"></span><span class="pz-marker-shadow"></span><span class="pz-poi-label">' + topic.label + '</span>';
+      const fullLabelAttr = topic.fullLabel ? ' data-full-label="' + topic.fullLabel + '"' : '';
+      const labelEl = '<span class="pz-poi-label"' + fullLabelAttr + '>' + topic.label + '</span>';
+      if(topic.fullLabel){
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = labelEl;
+        const labelSpan = tempDiv.querySelector('.pz-poi-label');
+        labelSpan.dataset.original = topic.label;
+        poi.innerHTML = '<span class="pz-marker-head">' + topicLogoMarkup(topic, planet, i) + '</span><span class="pz-marker-point"></span><span class="pz-marker-trail"></span><span class="pz-marker-shadow"></span>' + labelSpan.outerHTML;
+      } else {
+        poi.innerHTML = '<span class="pz-marker-head">' + topicLogoMarkup(topic, planet, i) + '</span><span class="pz-marker-point"></span><span class="pz-marker-trail"></span><span class="pz-marker-shadow"></span>' + labelEl;
+      }
+    }
+
+    if(topic.fullLabel){
+      const chip = poi.querySelector('.pz-fullpin-chip');
+      const label = poi.querySelector('.pz-poi-label');
+      const isAptr = topic.label === 'APTR';
+      const isIrca = topic.label === 'IRCA';
+      const isAps = topic.label === 'APS';
+      const isEda = topic.label === 'EDA';
+      const isEtas = topic.label === 'ETAs';
+      const isIrag = topic.label === 'IRAG';
+      const isVih = topic.label === 'VIH';
+      if(chip){
+        chip.addEventListener('mouseenter', () => { 
+          chip.textContent = topic.fullLabel.toUpperCase(); 
+          chip.style.background = 'linear-gradient(180deg, #0b2d63, #1a4a8a)'; 
+          chip.style.color = '#fff'; 
+          chip.style.borderColor = '#38bdf8'; 
+          chip.style.boxShadow = '0 0 24px rgba(56,189,248,.6),0 6px 16px rgba(0,0,0,.4)'; 
+          chip.style.fontWeight = '400'; 
+          chip.style.textShadow = 'none';
+          if(isAptr){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '280px';chip.style.padding = '11px 16px';}
+          if(isIrca){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '220px';chip.style.padding = '11px 16px';}
+          if(isAps){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '250px';chip.style.padding = '11px 16px';}
+          if(isEda){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '240px';chip.style.padding = '11px 16px';}
+          if(isEtas){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '300px';chip.style.padding = '11px 16px';}
+          if(isIrag){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '230px';chip.style.padding = '11px 16px';}
+          if(isVih){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '280px';chip.style.padding = '11px 16px';}
+        });
+        chip.addEventListener('mouseleave', () => { 
+          chip.textContent = chip.dataset.original; 
+          chip.style.background = ''; chip.style.color = ''; chip.style.borderColor = ''; 
+          chip.style.boxShadow = ''; chip.style.fontWeight = ''; chip.style.textShadow = '';
+          if(isAptr || isIrca || isAps || isEda || isEtas || isIrag || isVih){chip.style.whiteSpace = '';chip.style.textAlign = '';chip.style.minWidth = '';chip.style.padding = '';}
+        });
+      }
+      if(label){
+        label.addEventListener('mouseenter', () => { 
+          label.textContent = topic.fullLabel; 
+          label.style.background = 'linear-gradient(180deg, #0b2d63, #1a4a8a)'; 
+          label.style.color = '#fff'; 
+          label.style.borderColor = '#38bdf8'; 
+          label.style.boxShadow = '0 0 24px rgba(56,189,248,.6),0 6px 16px rgba(0,0,0,.4)'; 
+          label.style.fontWeight = '400'; 
+          label.style.textShadow = 'none';
+          if(isAptr){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '260px';label.style.padding = '9px 14px';}
+          if(isIrca){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '200px';label.style.padding = '9px 14px';}
+          if(isAps){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '230px';label.style.padding = '9px 14px';}
+          if(isEda){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '220px';label.style.padding = '9px 14px';}
+          if(isEtas){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '290px';label.style.padding = '9px 14px';}
+          if(isIrag){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '210px';label.style.padding = '9px 14px';}
+          if(isVih){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '260px';label.style.padding = '9px 14px';}
+        });
+        label.addEventListener('mouseleave', () => { 
+          label.textContent = label.dataset.original; 
+          label.style.background = ''; label.style.color = ''; label.style.borderColor = ''; 
+          label.style.boxShadow = ''; label.style.fontWeight = ''; label.style.textShadow = '';
+          if(isAptr || isIrca || isAps || isEda || isEtas || isIrag || isVih){label.style.whiteSpace = '';label.style.textAlign = '';label.style.minWidth = '';label.style.padding = '';}
+        });
+      }
     }
 
     if(isVigilanciaLayout){
@@ -4414,6 +4553,7 @@ function buildSearchIndex(){
   const items = [];
 
   PLANETS.forEach(p => {
+    if(!p || !p.label) return;
     const planetLabel = p.label.replace('\n', ' ');
     items.push({
       label: planetLabel,
@@ -4425,14 +4565,17 @@ function buildSearchIndex(){
     });
 
     if(p.subs){
-      p.subs.forEach(s => items.push({
-        label: s.label,
-        category: planetLabel,
-        planet: p,
-        sub: s,
-        url: null,
-        color: p.ringColor || '#38bdf8'
-      }));
+      p.subs.forEach(s => {
+        if(!s || !s.label) return;
+        items.push({
+          label: s.label,
+          category: planetLabel,
+          planet: p,
+          sub: s,
+          url: null,
+          color: p.ringColor || '#38bdf8'
+        });
+      });
     }
   });
 
@@ -4463,9 +4606,6 @@ function buildSearchIndex(){
   return unique;
 }
 
-const allItems = buildSearchIndex();
-let currentSearchResults = [];
-
 function searchItemIconMarkup(item){
   if(item && item.planet && !item.sub){
     const planetIcon = planetIconSvgById(item.planet.id);
@@ -4475,7 +4615,11 @@ function searchItemIconMarkup(item){
   return `<span class="sp-ic" aria-hidden="true">${topicIconSvg(item && item.label ? item.label : '')}</span>`;
 }
 
+let allItems = null;
+let currentSearchResults = [];
+
 function doSearch(val){
+  if(!allItems) allItems = buildSearchIndex();
   const panel = document.getElementById('search-panel');
   const q = normalizeText(val.trim());
 
@@ -4498,12 +4642,13 @@ function doSearch(val){
     return;
   }
 
-  panel.innerHTML = res.map((r, i) => `
-    <div class="sp-item" onclick="pickSearch(${i})">
-      ${searchItemIconMarkup(r)}
-      <span>${escapeHtml(r.label)}</span>
-      <span class="sp-cat">${escapeHtml(r.category)}</span>
-    </div>`).join('');
+  panel.innerHTML = res.map((r, i) => {
+    const div = document.createElement('div');
+    div.className = 'sp-item';
+    div.innerHTML = searchItemIconMarkup(r) + '<span>' + escapeHtml(r.label) + '</span><span class="sp-cat">' + escapeHtml(r.category) + '</span>';
+    div.addEventListener('click', () => pickSearch(i));
+    return div.outerHTML;
+  }).join('');
   panel.classList.add('open');
 }
 
