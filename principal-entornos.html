@@ -2263,6 +2263,21 @@ body { margin:0; overflow-x:hidden; }
    ============================================================ */
 const PLANETS = [
   {
+    id:'polvora', label:'Vigilancia de pólvora - temporada decembrina',
+    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="26" height="26"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    size:86, ring:true,
+    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #5eead4 0%, #14b8a6 25%, #0f766e 50%, #134e4a 75%, #042f2e 100%), radial-gradient(ellipse at 70% 75%, rgba(20,184,166,0.4) 0%, transparent 50%)',
+    shadow:'0 0 22px rgba(45,212,191,.95), 0 0 44px rgba(15,118,110,.5)',
+    shadowHover:'0 0 38px rgba(45,212,191,1), 0 0 76px rgba(15,118,110,.8)',
+    ringColor:'rgba(94,234,212,.85)', ringGlow:'rgba(45,212,191,.6)',
+    ringSize:'205%', ringIn:'24%', ringW:'7px', ringZ:'-22deg',
+    cx:83, cy:25,
+    orbitRx:0, orbitRy:0, orbitTilt:-18,
+    speed:62, startAngle:20,
+    url:'https://datastudio.google.com/embed/reporting/6523aa5a-0284-480a-972d-4a33f99a65ce/page/esEzE',
+    subs:null
+  },
+  {
     id:'primerospasos', label:'Primeros\nPasos',
     icon:'<img src="./primerospasos.png" alt="Primeros Pasos" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
     size:141, ring:false,
@@ -2406,6 +2421,7 @@ function topicIconSvg(label){
     'mortalidad perinatal': 'fas fa-baby',
     'mortalidad perinatal y neonatal': 'fas fa-baby',
     'polvora': 'fas fa-fire',
+    'cancer de mama y cervix': 'fas fa-ribbon',
     'suicidio': 'fas fa-times-circle',
     'tuberculosis': 'fas fa-lungs',
     'violencias': 'fas fa-exclamation-triangle',
@@ -2568,7 +2584,7 @@ function openDB(planet){
   submenu.className = 'db-submenu';
 
   const visibleSubs = (planet.subs && planet.subs.length)
-    ? planet.subs.filter((s) => !(planet.id === 'vigilancia' && normalizeText(s.label).includes('polvora')))
+    ? planet.subs.slice()
     : [];
 
   if(visibleSubs.length){
@@ -2931,6 +2947,14 @@ function getVigilanciaTopicLayout(topicNorm){
   if(topicNorm.includes('huerfan')){
     layout.fixedAngle = Math.PI;
     layout.yOffset -= 16;
+  }
+  if(topicNorm.includes('polvora')){
+    layout.fixedAngle = -Math.PI / 2;
+    layout.yOffset -= 6;
+  }
+  if(topicNorm.includes('cancer de mama y cervix')){
+    layout.fixedAngle = Math.PI / 2;
+    layout.yOffset += 2;
   }
 
   return layout;
@@ -3682,8 +3706,6 @@ function renderPoiBatch(planet, topics){
   };
 
   topics.forEach((topic, i) => {
-    if(planet.id === 'vigilancia' && normalizeText(topic.label).includes('polvora')) return;
-
     let x;
     let y;
     const topicNormForPos = normalizeText(topic.label || '');
@@ -3949,7 +3971,7 @@ function showNextPoiBatchAnimated(direction){
 
 function buildPoiTopics(planet){
   const topics = (planet.subs && planet.subs.length)
-    ? planet.subs.filter((t) => !(planet.id === 'vigilancia' && normalizeText(t.label).includes('polvora')))
+    ? planet.subs.slice()
     : [{ label: 'Tablero principal', url: planet.url }];
 
   topics.slice(0, PRELOAD_WARM_PER_PLANET).forEach((t, idx) => {

@@ -1688,9 +1688,9 @@ body { margin:0; overflow-x:hidden; }
 }
 .pz-side-comet-label {
   position: absolute;
-  left: 44px;
+  left: 54px;
   top: -8px;
-  transform: translate(-50%, -100%);
+  transform: translate(0, -100%);
   padding: 6px 12px;
   border-radius: 16px;
   border: 1px solid rgba(125,211,252,.35);
@@ -1700,6 +1700,7 @@ body { margin:0; overflow-x:hidden; }
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
+  max-width: min(340px, calc(100vw - 96px));
   opacity: .9;
 }
 @keyframes cometFlicker {
@@ -1847,26 +1848,26 @@ body { margin:0; overflow-x:hidden; }
   text-shadow: 0 8px 28px rgba(0,0,0,.65);
 }
 .pz-title p {
-  margin-top: 10px;
-  font-size: 12px;
-  color: rgba(210,228,255,.72);
+  display: none;
 }
 .pz-page-indicator {
-  margin-top: 8px;
+  margin-top: 12px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  max-width: min(520px, calc(100vw - 48px));
-  padding: 4px 9px;
-  border-radius: 14px;
-  border: 1px solid rgba(125,211,252,.25);
-  background: rgba(2,6,20,.5);
-  color: rgba(219,236,255,.8);
-  font-size: 10px;
-  font-weight: 700;
+  justify-content:center;
+  max-width: min(760px, calc(100vw - 48px));
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(125,211,252,.34);
+  background: rgba(4,12,34,.72);
+  color: #eaf4ff;
+  font-size: 15px;
+  font-weight: 800;
   line-height: 1.35;
-  letter-spacing: .2px;
-  text-align: left;
+  letter-spacing: .15px;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08);
 }
 .pz-nav {
   position: absolute;
@@ -2254,7 +2255,7 @@ body { margin:0; overflow-x:hidden; }
   <button class="pz-intro-reopen" id="pz-intro-reopen" type="button" hidden>Mostrar info</button>
   <div class="pz-title">
     <h3 id="pz-title">Planeta</h3>
-    <p>Recorre los puntos de interés y abre el tablero al hacer clic.</p>
+    <p hidden></p>
     <div class="pz-page-indicator" id="pz-page-indicator" hidden>Puntos 1/1</div>
   </div>
   <div class="pz-shell" id="pz-shell">
@@ -2394,12 +2395,13 @@ const PLANETS = [
       {label:'Mortalidad Perinatal',url:'https://lookerstudio.google.com/embed/reporting/4308501f-affc-4d2a-aab0-9a6071ddc51d/page/esEzE'},
       {label:'Pólvora',url:'https://lookerstudio.google.com/embed/reporting/6523aa5a-0284-480a-972d-4a33f99a65ce/page/esEzE'},
       {label:'Suicidio',url:'https://lookerstudio.google.com/embed/reporting/03e5694b-5b02-4b62-b9bf-3053fff97b04/page/esEzE'},
+      {label:'Cáncer de mama y cérvix',url:'https://datastudio.google.com/embed/reporting/addd3941-b6bd-4e5e-bdc3-fd8f179661fc/page/esEzE'},
       {label:'Tuberculosis',url:'https://lookerstudio.google.com/embed/reporting/3a6097ec-c835-4ea3-8675-2a610e74d318/page/esEzE'},
       {label:'Violencias',url:'https://lookerstudio.google.com/embed/reporting/98276313-0a20-42ab-b1f4-2f43d54c92de/page/esEzE'},
       {label:'VIH',fullLabel:'Virus de Inmunodeficiencia Humana',url:'https://lookerstudio.google.com/embed/reporting/884c4242-f03b-403c-8e89-595a055b222e/page/esEzE'},
       {label:'Vigilancia Comunitaria',url:'https://lookerstudio.google.com/embed/reporting/5c3db296-b2ea-47d4-8ca3-aa068cf83c75/page/esEzE'},
       {label:'Baja Notificación',url:'https://lookerstudio.google.com/embed/reporting/c6a116ba-a469-44c8-b2ff-8ce4bfed9390/page/esEzE'},
-      {label:'Alerta Temprana',url:'https://lookerstudio.google.com/embed/reporting/96fa06fa-3995-4be8-b676-1dab8fc17372/page/pzc6ydjp6rd'},
+      {label:'sistema de Alerta Temprana',url:'https://lookerstudio.google.com/embed/reporting/96fa06fa-3995-4be8-b676-1dab8fc17372/page/pzc6ydjp6rd'},
       {label:'Enfermedades Huérfanas',url:'./dashboard.html'},
     ]
   },
@@ -2580,7 +2582,7 @@ function topicIconSvg(label){
     'vih': 'fas fa-viruses',
     'vigilancia comunitaria': 'fas fa-users',
     'baja notificacion': 'fas fa-arrow-down',
-    'alerta temprana': 'fas fa-exclamation-triangle',
+    'sistema de alerta temprana': 'fas fa-exclamation-triangle',
     'ejecucion proyectos': 'fas fa-coins'
   };
 
@@ -2738,7 +2740,7 @@ function openDB(planet){
   submenu.className = 'db-submenu';
 
   const visibleSubs = (planet.subs && planet.subs.length)
-    ? planet.subs.filter((s) => !(planet.id === 'vigilancia' && normalizeText(s.label).includes('polvora')))
+    ? planet.subs.slice()
     : [];
 
   if(visibleSubs.length){
@@ -3096,28 +3098,40 @@ const PLANET_AUTO_SPIN_DPS = 12;
 const PIN_GLOBAL_SCALE = 0.85;
 const VIGILANCIA_CATEGORY_GROUPS = [
   {
-    label: 'Grupo 1. Transmisibles por vectores y ambientales',
-    topics: ['dengue', 'fiebre amarilla', 'hepatitis a', 'leptospirosis', 'tuberculosis']
+    label: 'Grupo 1. Enfermedades transmisibles y de vectores',
+    topics: ['dengue', 'irag', 'tuberculosis', 'vih']
   },
   {
-    label: 'Grupo 2. Transmisibles respiratorios, alimentarios y sexuales',
-    topics: ['eda', 'etas', 'irag', 'vih']
+    label: 'Grupo 2. Enfermedades transmitidas por agua y alimentos',
+    topics: ['eda', 'etas', 'hepatitis a']
   },
   {
-    label: 'Grupo 3. Materno-perinatales',
+    label: 'Grupo 3. Zoonosis y salud ambiental',
+    topics: ['intoxicaciones', 'leptospirosis']
+  },
+  {
+    label: 'Grupo 4. Condiciones fisiológicas y nutricionales',
+    topics: ['desnutricion']
+  },
+  {
+    label: 'Grupo 5. Salud materna y perinatal',
     topics: ['mortalidad materna', 'morbilidad materna extrema', 'mortalidad perinatal']
   },
   {
-    label: 'Grupo 4. Salud mental y violencias',
-    topics: ['intento de suicidio', 'suicidio', 'violencias']
-  },
-  {
-    label: 'Grupo 5. Riesgos y exposiciones',
-    topics: ['intoxicaciones', 'desnutricion']
-  },
-  {
     label: 'Grupo 6. Vigilancia y seguimiento',
-    topics: ['vigilancia comunitaria', 'baja notificacion', 'alerta temprana', 'enfermedades huerfanas']
+    topics: ['vigilancia comunitaria', 'baja notificacion', 'sistema de alerta temprana']
+  },
+  {
+    label: 'Grupo 7. Enfermedades inmunoprevenibles',
+    topics: ['fiebre amarilla']
+  },
+  {
+    label: 'Grupo 8. Eventos violentos o lesiones',
+    topics: ['intento de suicidio', 'suicidio', 'violencias', 'polvora']
+  },
+  {
+    label: 'Grupo 9. Enfermedades no transmisibles',
+    topics: ['enfermedades huerfanas', 'cancer de mama y cervix']
   }
 ];
 
@@ -3160,7 +3174,7 @@ function getVigilanciaTopicLayout(topicNorm){
   }
 
   // Estandar de páginas: usar slots canónicos, no solo desplazamiento en X.
-  if(topicNorm.includes('alerta temprana')){
+  if(topicNorm.includes('sistema de alerta temprana')){
     layout.fixedAngle = 0;
     layout.yOffset -= 16;
   }
@@ -3334,6 +3348,11 @@ function scheduleSideCometReposition(){
 function setSideCometForPlanet(planet){
   if(!zoomOverlay || !zoomSideComet) return;
   sideCometPlanet = null;
+  const polvoraLabel = 'Vigilancia de lesiones por polvora - Temporada decembrina';
+  const labelEl = zoomSideComet.querySelector('.pz-side-comet-label');
+  zoomSideComet.setAttribute('aria-label', 'Abrir ' + polvoraLabel);
+  zoomSideComet.setAttribute('title', polvoraLabel);
+  if(labelEl) labelEl.textContent = polvoraLabel;
 
   const isVigilancia = !!(planet && planet.id === 'vigilancia');
   if(isVigilancia) sideCometPlanet = PLANETS.find((p) => p.id === 'polvora') || null;
@@ -3810,6 +3829,10 @@ function topicLogoMarkup(topic, planet, i){
 }
 
 function topicFullPinImageByPlanet(planetId, normLabel){
+  const vigilanciaIcons = {
+    'polvora': './font/iconos/Vigilancia Epidemiológica/polvora.png',
+    'cancer de mama y cervix': './font/iconos/Vigilancia Epidemiológica/cancerdemamaycervix.png'
+  };
   const demografiaIcons = {
     'poblacion': './font/iconos/demografia/poblacion.png',
     'poblacion con discapacidad': './font/iconos/demografia/discapacidad.png',
@@ -3845,6 +3868,7 @@ function topicFullPinImageByPlanet(planetId, normLabel){
     'vacunacion antirrabica': './font/iconos/ambiente y salud/vacunacion.png'
   };
 
+  if(planetId === 'vigilancia') return vigilanciaIcons[normLabel] || '';
   if(planetId === 'demografia') return demografiaIcons[normLabel] || '';
   if(planetId === 'saludpub') return saludPublicaIcons[normLabel] || '';
   if(planetId === 'financiero') return financieroIcons[normLabel] || '';
@@ -4056,7 +4080,7 @@ function renderPoiBatch(planet, topics){
     const isDesnutricionFullPin = normLabel.includes('desnutric');
     const isEdasFullPin = (normLabel === 'eda' || normLabel.includes('edas'));
     const isEventosFullPin = normLabel.includes('eventos epidemiolog');
-    const isAlertaFullPin = normLabel.includes('alerta temprana');
+    const isAlertaFullPin = normLabel.includes('sistema de alerta temprana');
     const isHuerfanasFullPin = normLabel.includes('huerfan');
     const isFiebreAmarillaFullPin = normLabel.includes('fiebre amarilla');
     const isHepatitisAFullPin = normLabel.includes('hepatitis a');
