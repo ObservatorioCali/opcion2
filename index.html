@@ -2908,8 +2908,9 @@ function setDashboardIntroContent(planet){
   const isVigilancia = !!(planet && planet.id === 'vigilancia');
   const isFinanciero = !!(planet && planet.id === 'financiero');
   const isAmbiente = !!(planet && planet.id === 'ambiente');
-  const hasIntro = isVigilancia || isFinanciero || isAmbiente;
-  console.log('isVigilancia:', isVigilancia, 'isFinanciero:', isFinanciero, 'isAmbiente:', isAmbiente, 'hasIntro:', hasIntro);
+  const isSaludPublica = !!(planet && planet.id === 'saludpub');
+  const hasIntro = isVigilancia || isFinanciero || isAmbiente || isSaludPublica;
+  console.log('isVigilancia:', isVigilancia, 'isFinanciero:', isFinanciero, 'isAmbiente:', isAmbiente, 'isSaludPublica:', isSaludPublica, 'hasIntro:', hasIntro);
   dashboardIntroAvailable = hasIntro;
   overlay.classList.toggle('with-intro', hasIntro && !dashboardIntroCollapsed);
 
@@ -3016,6 +3017,34 @@ function setDashboardIntroContent(planet){
       <li>intervenciones realizadas en los territorios,</li>
       <li>y datos recolectados por los equipos de Ambiente y Salud en campo.</li>
     </ul>`;
+    return;
+  }
+
+  if(isSaludPublica){
+    content.innerHTML = `
+    <h3>Bienvenido a Salud Pública</h3>
+    <p>Un espacio diseñado para comprender, visualizar y fortalecer las acciones que protegen y mejoran la salud de toda la población caleña. Aquí podrá explorar de manera interactiva información estratégica orientada a la promoción de la salud, la prevención de enfermedades y el bienestar colectivo, integrando el análisis técnico con las realidades sociales y territoriales de la ciudad.</p>
+
+    <h4>¿Qué encontrará en nuestros tableros?</h4>
+    <ul>
+      <li><strong>Promoción de la Salud:</strong> Estrategias y acciones enfocadas en fomentar estilos de vida saludables y fortalecer el bienestar integral de la comunidad.</li>
+      <li><strong>Prevención de Enfermedades:</strong> Seguimiento a intervenciones, indicadores y actividades dirigidas a reducir riesgos y prevenir afectaciones en salud.</li>
+      <li><strong>Análisis Territorial y Poblacional:</strong> Visualización de información por comunas, barrios y grupos poblacionales para identificar necesidades, brechas y prioridades en salud pública.</li>
+      <li><strong>Indicadores y Tendencias:</strong> Gráficos dinámicos y reportes que permiten monitorear el comportamiento de diferentes eventos, programas y metas en salud.</li>
+      <li><strong>Participación Social y Comunitaria:</strong> Un espacio donde el conocimiento de las comunidades, líderes sociales y actores territoriales se articula con el análisis técnico para fortalecer la toma de decisiones y la construcción de entornos saludables.</li>
+    </ul>
+
+    <h4>Ejes Prioritarios de Salud Pública</h4>
+    <p>Monitoreamos y analizamos de manera integral diferentes dimensiones que impactan la calidad de vida de la población:</p>
+    <ul>
+      <li><strong>Salud Mental:</strong> Seguimiento a estrategias, factores de riesgo y eventos relacionados con el bienestar emocional y psicosocial.</li>
+      <li><strong>Salud Ambiental:</strong> Vigilancia de factores ambientales que pueden influir en la salud de las comunidades y los territorios.</li>
+      <li><strong>Enfermedades Transmisibles y No Transmisibles:</strong> Análisis de eventos prioritarios, condiciones crónicas y factores de riesgo poblacionales.</li>
+      <li><strong>Salud Sexual y Reproductiva:</strong> Monitoreo de indicadores orientados a la protección y garantía de derechos en salud.</li>
+      <li><strong>Gestión Comunitaria y Participación Ciudadana:</strong> Fortalecimiento del trabajo conjunto con las comunidades para identificar necesidades y generar respuestas oportunas.</li>
+    </ul>
+
+    <p>Aquí, la información se transforma en conocimiento útil para la toma de decisiones, promoviendo acciones integrales que contribuyen al bienestar, la equidad y una mejor calidad de vida para toda la ciudadanía.</p>`;
     return;
   }
 }
@@ -3296,7 +3325,9 @@ function setPlanetIntroContent(planet){
   if(!zoomOverlay || !zoomIntroContent) return;
   const isVigilancia = !!(planet && planet.id === 'vigilancia');
   const isFinanciero = !!(planet && planet.id === 'financiero');
-  const hasIntro = isVigilancia || isFinanciero;
+  const isAmbiente = !!(planet && planet.id === 'ambiente');
+  const isSaludPublica = !!(planet && planet.id === 'saludpub');
+  const hasIntro = isVigilancia || isFinanciero || isAmbiente || isSaludPublica;
   planetIntroAvailable = hasIntro;
   zoomOverlay.classList.toggle('with-intro', hasIntro && !planetIntroCollapsed);
 
@@ -3403,6 +3434,34 @@ function setPlanetIntroContent(planet){
       <li>intervenciones realizadas en los territorios,</li>
       <li>y datos recolectados por los equipos de Ambiente y Salud en campo.</li>
     </ul>`;
+    return;
+  }
+
+  if(isSaludPublica){
+    zoomIntroContent.innerHTML = `
+    <h3>Bienvenido a Salud Pública</h3>
+    <p>Un espacio diseñado para comprender, visualizar y fortalecer las acciones que protegen y mejoran la salud de toda la población caleña. Aquí podrá explorar de manera interactiva información estratégica orientada a la promoción de la salud, la prevención de enfermedades y el bienestar colectivo, integrando el análisis técnico con las realidades sociales y territoriales de la ciudad.</p>
+
+    <h4>¿Qué encontrará en nuestros tableros?</h4>
+    <ul>
+      <li><strong>Promoción de la Salud:</strong> Estrategias y acciones enfocadas en fomentar estilos de vida saludables y fortalecer el bienestar integral de la comunidad.</li>
+      <li><strong>Prevención de Enfermedades:</strong> Seguimiento a intervenciones, indicadores y actividades dirigidas a reducir riesgos y prevenir afectaciones en salud.</li>
+      <li><strong>Análisis Territorial y Poblacional:</strong> Visualización de información por comunas, barrios y grupos poblacionales para identificar necesidades, brechas y prioridades en salud pública.</li>
+      <li><strong>Indicadores y Tendencias:</strong> Gráficos dinámicos y reportes que permiten monitorear el comportamiento de diferentes eventos, programas y metas en salud.</li>
+      <li><strong>Participación Social y Comunitaria:</strong> Un espacio donde el conocimiento de las comunidades, líderes sociales y actores territoriales se articula con el análisis técnico para fortalecer la toma de decisiones y la construcción de entornos saludables.</li>
+    </ul>
+
+    <h4>Ejes Prioritarios de Salud Pública</h4>
+    <p>Monitoreamos y analizamos de manera integral diferentes dimensiones que impactan la calidad de vida de la población:</p>
+    <ul>
+      <li><strong>Salud Mental:</strong> Seguimiento a estrategias, factores de riesgo y eventos relacionados con el bienestar emocional y psicosocial.</li>
+      <li><strong>Salud Ambiental:</strong> Vigilancia de factores ambientales que pueden influir en la salud de las comunidades y los territorios.</li>
+      <li><strong>Enfermedades Transmisibles y No Transmisibles:</strong> Análisis de eventos prioritarios, condiciones crónicas y factores de riesgo poblacionales.</li>
+      <li><strong>Salud Sexual y Reproductiva:</strong> Monitoreo de indicadores orientados a la protección y garantía de derechos en salud.</li>
+      <li><strong>Gestión Comunitaria y Participación Ciudadana:</strong> Fortalecimiento del trabajo conjunto con las comunidades para identificar necesidades y generar respuestas oportunas.</li>
+    </ul>
+
+    <p>Aquí, la información se transforma en conocimiento útil para la toma de decisiones, promoviendo acciones integrales que contribuyen al bienestar, la equidad y una mejor calidad de vida para toda la ciudadanía.</p>`;
     return;
   }
 }
