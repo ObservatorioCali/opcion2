@@ -2927,8 +2927,8 @@ function setDashboardIntroContent(planet){
     return;
   }
 
-if(isVigilancia){
-    zoomIntroContent.innerHTML = `
+  if(isVigilancia){
+    content.innerHTML = `
     <h3>Bienvenido a Vigilancia Epidemiológica, Social y Cultural</h3>
     <p>Un espacio diseñado para convertir la información en acción. Aquí podrá explorar de manera interactiva el comportamiento de los eventos de interés en salud pública, sustentado en el rigor técnico de nuestro equipo de expertos y en el conocimiento vivo de los territorios.</p>
 
@@ -2952,58 +2952,6 @@ if(isVigilancia){
     <p>Aquí, tu voz y tus reportes se transforman en acciones reales y oportunas, permitiéndonos cuidar la salud de todos desde la base social y fortalecer el bienestar colectivo a través de la participación ciudadana.</p>`;
     return;
   }
-
-  if(isAmbiente){
-    zoomIntroContent.innerHTML = `
-    <h3>Ambiente y Salud</h3>
-    <p>En este espacio encontrará información sobre cómo el ambiente, los animales, la vivienda y el territorio pueden influir en la salud de las personas y las comunidades.</p>
-
-    <h4>Nuestros tableros permiten conocer y visualizar:</h4>
-    <ul>
-      <li>enfermedades relacionadas con el ambiente,</li>
-      <li>riesgos sanitarios en los territorios,</li>
-      <li>prevención de enfermedades transmitidas por animales,</li>
-      <li>Acciones para promover entornos más saludables y seguros.</li>
-    </ul>
-
-    <h4>¿Por qué es importante?</h4>
-    <p>Porque la salud no depende solo de hospitales o enfermedades. También está relacionada con:</p>
-    <ul>
-      <li>la vivienda.</li>
-      <li>el agua.</li>
-      <li>los residuos.</li>
-      <li>los animales.</li>
-      <li>el barrio donde vivimos.</li>
-      <li>Las condiciones del entorno.</li>
-    </ul>
-
-    <h4>Por eso:</h4>
-    <ul>
-      <li>el territorio se analiza para identificar riesgos.</li>
-      <li>la vivienda y el entorno ayudan a entender las condiciones de salud.</li>
-      <li>los animales también hacen parte del análisis sanitario.</li>
-      <li>la participación de la comunidad es fundamental para prevenir enfermedades y mejorar la calidad de vida.</li>
-    </ul>
-
-    <h4>¿Qué herramientas usamos?</h4>
-    <p>Utilizamos mapas y sistemas de información geográfica (SIG) para identificar:</p>
-    <ul>
-      <li>zonas con mayor riesgo.</li>
-      <li>distribución de enfermedades.</li>
-      <li>y territorios priorizados para intervención.</li>
-    </ul>
-
-    <h4>¿De dónde provienen los datos?</h4>
-    <p>La información de los tableros proviene de:</p>
-    <ul>
-      <li>SIVIGILA (Sistema de Vigilancia en Salud Pública),</li>
-      <li>vigilancia zoonótica.</li>
-      <li>intervenciones realizadas en los territorios,</li>
-      <li>y datos recolectados por los equipos de Ambiente y Salud en campo.</li>
-    </ul>`;
-    return;
-  }
-}
 
   if(isFinanciero){
     content.innerHTML = `
@@ -3366,37 +3314,8 @@ function setPlanetIntroContent(planet){
     return;
   }
 
-  if(isFinanciero){
+  if(isVigilancia){
     zoomIntroContent.innerHTML = `
-    <h3>Bienvenido a Financiero</h3>
-    <p>En esta tematica se presentan los tableros de ejecucion presupuestal y fisica de los proyectos de inversion de la Secretaria de Salud del Distrito d Santiago de Cali, como tambien el tablero de seguimiento a los procesos del Plan Anual de Adquisiciones - PAA, referente a los procesos de contratacion y el tablero de seguimiento al plan de infraestructura y dotacion en salud de Cali:</p>
-
-    <ul>
-      <li><strong>Tablero de Ejecucion Presupuestal:</strong> En este tablero, se presenta el monitoreo a la utilizacion de los recursos financieros asignados a las entidades estatales para la adquisicion de bienes y servicios, y el cumplimiento de sus objetivos y metas. Implica la gestion de ingresos y gastos, el seguimiento de la ejecucion y la evaluacion de resultados.</li>
-      <li><strong>Tablero de Ejecucion Fisica:</strong> En este tablero, se hace seguimiento y monitoreo de las actividades y productos programadas para un proyecto o programa durante un periodo de tiempo determinado.</li>
-      <li><strong>Tablero de seguimiento a procesos contractuales - PAA:</strong> En este tablero, se presenta el monitoreo al cumplimiento y ejecucion de todos los procesos programados en el PAA de la Secretaria de Salud.</li>
-      <li><strong>Tablero del Plan de Infraestructura y Dotacion en Salud de Cali:</strong> En este tablero, se presenta el monitoreo a los procesos contractuales, fondos y fuentes de financiacion en el marco de la modernizacion de la infraestructura y dotacion de las ESE del Distrito y sus diferentes sedes.</li>
-    </ul>
-  `;
-    return;
-  }
-
-  if(isFinanciero){
-    zoomIntroContent.innerHTML = `
-    <h3>Bienvenido a Financiero</h3>
-    <p>En esta temÃ¡tica se presentan los tableros de ejecuciÃ³n presupuestal y fÃ­sica de los proyectos de inversiÃ³n de la SecretarÃ­a de Salud del Distrito d Santiago de Cali, como tambiÃ©n el tablero de seguimiento a los procesos del Plan Anual de Adquisiciones â€“ PAA, referente a los procesos de contrataciÃ³n y el tablero de seguimiento al plan de infraestructura y dotaciÃ³n en salud de Cali:</p>
-
-    <ul>
-      <li><strong>Tablero de EjecuciÃ³n Presupuestal:</strong> En este tablero, se presenta el monitoreo a la utilizaciÃ³n de los recursos financieros asignados a las entidades estatales para la adquisiciÃ³n de bienes y servicios, y el cumplimiento de sus objetivos y metas. Implica la gestiÃ³n de ingresos y gastos, el seguimiento de la ejecuciÃ³n y la evaluaciÃ³n de resultados.</li>
-      <li><strong>Tablero de EjecuciÃ³n FÃ­sica:</strong> En este tablero, se hace seguimiento y monitoreo de las actividades y productos programadas para un proyecto o programa durante un perÃ­odo de tiempo determinado.</li>
-      <li><strong>Tablero de seguimiento a procesos contractuales â€“ PAA:</strong> En este tablero, se presenta el monitoreo al cumplimiento y ejecuciÃ³n de todos los procesos programados en el PAA de la SecretarÃ­a de Salud.</li>
-      <li><strong>Tablero del Plan de Infraestructura y DotaciÃ³n en Salud de Cali:</strong> En este tablero, se presenta el monitoreo a los procesos contractuales, fondos y fuentes de financiaciÃ³n en el marco de la modernizaciÃ³n de la infraestructura y dotaciÃ³n de las ESE del Distrito y sus diferentes sedes.</li>
-    </ul>
-  `;
-    return;
-  }
-
-  zoomIntroContent.innerHTML = `
     <h3>Bienvenido a Vigilancia Epidemiológica, Social y Cultural</h3>
     <p>Un espacio diseñado para convertir la información en acción. Aquí podrá explorar de manera interactiva el comportamiento de los eventos de interés en salud pública, sustentado en el rigor técnico de nuestro equipo de expertos y en el conocimiento vivo de los territorios.</p>
 
@@ -3418,8 +3337,74 @@ function setPlanetIntroContent(planet){
       <li><strong>Vigilancia basada en comunidad:</strong> La cual cumple un papel importante en nuestro Observatorio, pues reconoce que nadie conoce mejor el territorio que quienes lo viven y lo caminan a diario. En este espacio, el saber de los gestores y vigías de la REVcom, se une con el análisis técnico para identificar a tiempo riesgos, alertas o brotes en los barrios antes de que se conviertan en emergencias.</li>
     </ul>
 
-    <p>Aquí, tu voz y tus reportes se transforman en acciones reales y oportunas, permitiéndonos cuidar la salud de todos desde la base social y fortalecer el bienestar colectivo a través de la participación ciudadana.</p>
-  `;
+    <p>Aquí, tu voz y tus reportes se transforman en acciones reales y oportunas, permitiéndonos cuidar la salud de todos desde la base social y fortalecer el bienestar colectivo a través de la participación ciudadana.</p>`;
+    return;
+  }
+
+  if(isFinanciero){
+    zoomIntroContent.innerHTML = `
+    <h3>Bienvenido a Financiero</h3>
+    <p>En esta temática se presentan los tableros de ejecución presupuestal y física de los proyectos de inversión de la Secretaría de Salud del Distrito de Santiago de Cali, como también el tablero de seguimiento a los procesos del Plan Anual de Adquisiciones – PAA, referente a los procesos de contratación y el tablero de seguimiento al plan de infraestructura y dotación en salud de Cali.</p>
+
+    <ul>
+      <li><strong>Tablero de Ejecución Presupuestal:</strong> En este tablero, se presenta el monitoreo a la utilización de los recursos financieros asignados a las entidades estatales para la adquisición de bienes y servicios, y el cumplimiento de sus objetivos y metas. Implica la gestión de ingresos y gastos, el seguimiento de la ejecución y la evaluación de resultados.</li>
+      <li><strong>Tablero de Ejecución Física:</strong> En este tablero, se hace seguimiento y monitoreo de las actividades y productos programadas para un proyecto o programa durante un período de tiempo determinado.</li>
+      <li><strong>Tablero de seguimiento a procesos contractuales – PAA:</strong> En este tablero, se presenta el monitoreo al cumplimiento y ejecución de todos los procesos programados en el PAA de la Secretaría de Salud.</li>
+      <li><strong>Tablero del Plan de Infraestructura y Dotación en Salud de Cali:</strong> En este tablero, se presenta el monitoreo a los procesos contractuales, fondos y fuentes de financiación en el marco de la modernización de la infraestructura y dotación de las ESE del Distrito y sus diferentes sedes.</li>
+    </ul>`;
+    return;
+  }
+
+  if(isAmbiente){
+    zoomIntroContent.innerHTML = `
+    <h3>Ambiente y Salud</h3>
+    <p>En este espacio encontrará información sobre cómo el ambiente, los animales, la vivienda y el territorio pueden influir en la salud de las personas y las comunidades.</p>
+
+    <h4>Nuestros tableros permiten conocer y visualizar:</h4>
+    <ul>
+      <li>enfermedades relacionadas con el ambiente,</li>
+      <li>riesgos sanitarios en los territorios,</li>
+      <li>prevención de enfermedades transmitidas por animales,</li>
+      <li>Acciones para promover entornos más saludables y seguros.</li>
+    </ul>
+
+    <h4>¿Por qué es importante?</h4>
+    <p>Porque la salud no depende solo de hospitales o enfermedades. También está relacionada con:</p>
+    <ul>
+      <li>la vivienda.</li>
+      <li>el agua.</li>
+      <li>los residuos.</li>
+      <li>los animales.</li>
+      <li>el barrio donde vivimos.</li>
+      <li>Las condiciones del entorno.</li>
+    </ul>
+
+    <h4>Por eso:</h4>
+    <ul>
+      <li>el territorio se analiza para identificar riesgos.</li>
+      <li>la vivienda y el entorno ayudan a entender las condiciones de salud.</li>
+      <li>los animales también hacen parte del análisis sanitario.</li>
+      <li>la participación de la comunidad es fundamental para prevenir enfermedades y mejorar la calidad de vida.</li>
+    </ul>
+
+    <h4>¿Qué herramientas usamos?</h4>
+    <p>Utilizamos mapas y sistemas de información geográfica (SIG) para identificar:</p>
+    <ul>
+      <li>zonas con mayor riesgo.</li>
+      <li>distribución de enfermedades.</li>
+      <li>y territorios priorizados para intervención.</li>
+    </ul>
+
+    <h4>¿De dónde provienen los datos?</h4>
+    <p>La información de los tableros proviene de:</p>
+    <ul>
+      <li>SIVIGILA (Sistema de Vigilancia en Salud Pública),</li>
+      <li>vigilancia zoonótica.</li>
+      <li>intervenciones realizadas en los territorios,</li>
+      <li>y datos recolectados por los equipos de Ambiente y Salud en campo.</li>
+    </ul>`;
+    return;
+  }
 }
 
 function updateSideCometPosition(){
