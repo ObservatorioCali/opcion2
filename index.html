@@ -499,14 +499,14 @@ body.cinematic-leave .cinematic-transition::after{
 .sp-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;
   cursor:pointer;transition:.15s;font-size:12.5px;color:#e8eeff}
 .sp-item:hover{background:rgba(56,189,248,.15);color:#fff}
-.sp-item span:first-of-type{flex:1}
-.sp-ic{width:14px;height:14px;border-radius:3px;flex-shrink:0;
+.sp-label{flex:1;min-width:0}
+.sp-ic{width:18px;height:18px;border-radius:4px;flex:0 0 18px;
   display:inline-flex;align-items:center;justify-content:center;
   background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.22);color:#cfe7ff;}
-.sp-ic i{font-size:10px;line-height:1;color:currentColor}
-.sp-ic svg{width:11px;height:11px}
-.sp-ic img{width:11px !important;height:11px !important;object-fit:contain}
-.sp-ic .planet-fa{font-size:11px;line-height:1;filter:none}
+.sp-ic i{font-size:11px;line-height:1;color:currentColor}
+.sp-ic svg{width:12px;height:12px}
+.sp-ic img{width:12px !important;height:12px !important;object-fit:contain}
+.sp-ic .planet-fa{font-size:12px;line-height:1;filter:none}
 .sp-cat{font-size:9px;color:#6b7fa8;margin-left:auto;white-space:nowrap}
 
 body.hi-contrast{filter:invert(1) hue-rotate(180deg)}
@@ -1962,11 +1962,22 @@ body { margin:0; overflow-x:hidden; }
   color: #d7ebff;
 }
 .pz-preview-head b { font-size: 12px; }
-.pz-preview iframe {
+.pz-preview-body {
   width: 100%;
-  height: 180px;
-  border: none;
-  background: #06112e;
+  min-height: 180px;
+  max-height: min(320px, 46vh);
+  overflow-y: auto;
+  padding: 12px 14px 38px;
+  background: linear-gradient(180deg, rgba(6,17,46,.96), rgba(4,12,34,.96));
+  color: rgba(226,238,255,.92);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.pz-preview-body p + p {
+  margin-top: 10px;
+}
+.pz-preview-body strong {
+  color: #f5fbff;
 }
 .pz-preview-note {
   position: absolute;
@@ -2281,7 +2292,7 @@ body { margin:0; overflow-x:hidden; }
       <b id="pz-preview-title">Vista previa</b>
       <span>Preview</span>
     </div>
-    <iframe id="pz-preview-frame" src="about:blank" loading="lazy"></iframe>
+    <div class="pz-preview-body" id="pz-preview-body"></div>
     <div class="pz-preview-note">Haz clic en el punto para abrir el tablero completo.</div>
   </div>
 </div>
@@ -3109,7 +3120,7 @@ const zoomGlobeCanvas = document.getElementById('pz-globe-canvas');
 const zoomTitle = document.getElementById('pz-title');
 const zoomPreview = document.getElementById('pz-preview');
 const zoomPreviewTitle = document.getElementById('pz-preview-title');
-const zoomPreviewFrame = document.getElementById('pz-preview-frame');
+const zoomPreviewBody = document.getElementById('pz-preview-body');
 const zoomCloseBtn = document.getElementById('pz-close-btn');
 const zoomPageIndicator = document.getElementById('pz-page-indicator');
 const zoomPoiNav = document.getElementById('pz-nav');
@@ -3169,6 +3180,199 @@ let globeTextureLoader = null;
 let globeLightKey = null;
 let globeLightRim = null;
 let globeCloudSpin = 0;
+
+const POI_PREVIEW_INTROS = {
+  'sistema de alerta temprana': [
+    'El tablero del <strong>Sistema de Alerta Temprana SAT</strong> consolida información de señales notificadas, brotes, eventos asociados y fuentes de notificación para apoyar la detección oportuna de riesgos en salud colectiva.',
+    'Incluye reportes provenientes de laboratorios, vigilancia comunitaria e instituciones de salud, además de módulos sobre brotes registrados, personas afectadas y tendencias epidemiológicas.'
+  ],
+  'violencias': [
+    'Este tablero permite visualizar el comportamiento epidemiológico de los casos notificados relacionados con diferentes tipos de violencia.',
+    'La comunidad puede consultar distribución de casos por sexo, identidad de género, orientación sexual, curso de vida, régimen de salud, afiliación, características del agresor, pertenencia étnica y estrato socioeconómico, junto con distribución espacial y comportamiento epidemiológico.'
+  ],
+  'eda': [
+    'El tablero de <strong>Enfermedad Diarreica Aguda (EDA)</strong> permite visualizar el comportamiento epidemiológico de los casos notificados en el territorio.',
+    'Incluye número total de casos, tasas de morbilidad, distribución por sexo, casos en menores de cinco años, hospitalizaciones asociadas, canal de notificación e informes descriptivos para comparar la evolución del evento.'
+  ],
+  'polvora': [
+    'El tablero de <strong>lesiones por pólvora</strong> visualiza el comportamiento epidemiológico de los casos notificados asociados al uso, manipulación o exposición a artefactos pirotécnicos, especialmente durante la temporada decembrina.',
+    'Presenta número de casos, distribución por sexo, edad, curso de vida, régimen de seguridad social y datos sobre menores afectados, quemaduras, amputaciones y fallecimientos asociados.'
+  ],
+  'dengue': [
+    'El tablero de <strong>dengue</strong> permite visualizar el comportamiento epidemiológico de este evento endémico y sus formas de gravedad.',
+    'La comunidad puede consultar casos de dengue sin signos de alarma, con signos de alarma y dengue grave, además de hospitalización, mortalidad, régimen de salud, curso de vida, distribución por sexo, tendencia anual y mensual y análisis espacial.'
+  ],
+  'desnutricion': [
+    'El tablero de <strong>desnutrición en menores de 5 años</strong> permite visualizar el comportamiento epidemiológico de los casos notificados en la población infantil.',
+    'Incluye número de casos, clasificación según tipo de desnutrición, grupos de edad afectados, distribución por sexo, régimen de seguridad social, condición final, contexto familiar, casos en instituciones de salud, tendencias y distribución espacial.'
+  ],
+  'mortalidad materna': [
+    'El tablero de <strong>mortalidad materna</strong> permite visualizar el comportamiento epidemiológico de los casos notificados.',
+    'Muestra razón de mortalidad materna, comparaciones con indicadores nacionales, características sociodemográficas, análisis espacial, tendencias epidemiológicas y el informe descriptivo realizado por el epidemiólogo referente.'
+  ],
+  'morbilidad materna extrema': [
+    'El tablero de <strong>morbilidad materna extrema</strong> permite visualizar el comportamiento epidemiológico de los casos relacionados con complicaciones graves durante el embarazo, parto o puerperio.',
+    'Incluye distribución por grupo de edad, estrato socioeconómico, nacionalidad y pertenencia étnica, además de análisis espacial, tendencias, canal endémico e informe descriptivo.'
+  ],
+  'mortalidad perinatal': [
+    'El tablero de <strong>mortalidad perinatal y neonatal tardía</strong> permite visualizar el comportamiento epidemiológico de las muertes fetales y neonatales notificadas.',
+    'Presenta distribución por peso al nacer, momento de ocurrencia, sexo del recién nacido, periodos perinatales de riesgo, causas asociadas, análisis espacial, tendencias y características maternas.'
+  ],
+  'baja notificacion': [
+    'El tablero de <strong>baja notificación</strong> permite visualizar el comportamiento epidemiológico de eventos de interés en salud pública con bajo número de casos notificados durante el año.',
+    'Consolida eventos como tosferina, meningitis, difteria, cólera, viruela símica, parálisis flácida aguda, sarampión y rubéola, entre otros, con seguimiento semanal y anual e informe descriptivo.'
+  ],
+  'tuberculosis': [
+    'El tablero de <strong>tuberculosis</strong> permite visualizar el comportamiento epidemiológico de los casos notificados de tuberculosis sensible y farmacorresistente.',
+    'Incluye número total de casos e incidencias, distribución por sexo, curso de vida, régimen de seguridad social, pertenencia étnica, estrato socioeconómico, tipos de resistencia, tendencias y análisis espacial.'
+  ],
+  'intoxicaciones': [
+    'El tablero de <strong>intoxicaciones</strong> permite visualizar el comportamiento epidemiológico de los casos notificados asociados a intoxicaciones por diferentes agentes y sustancias químicas.',
+    'Ofrece distribución por sexo, curso de vida, pertenencia étnica, estado civil, grupos especiales, características clínicas, análisis espacial y sustancias químicas involucradas.'
+  ],
+  'aps': [
+    'El tablero de <strong>Atención Primaria en Salud (APS)</strong> permite visualizar características sociodemográficas, familiares y de vivienda de la población intervenida mediante estrategias de atención en salud en el territorio.',
+    'La comunidad puede consultar número de viviendas, hogares, familias y personas caracterizadas, además de población vulnerable, composición familiar, condiciones de vivienda y distribución espacial de las encuestas.'
+  ],
+  'irag': [
+    'El tablero de <strong>IRAG</strong> permite visualizar el comportamiento epidemiológico de los eventos asociados a infección respiratoria aguda, infección respiratoria aguda grave, IRAG inusitado y COVID-19.',
+    'Incluye casos confirmados, probables y descartados, vigilancia centinela, morbilidad por IRA y comportamiento de agentes etiológicos como influenza, rinovirus, coronavirus, adenovirus y otros virus respiratorios.'
+  ],
+  'salud mental': [
+    'El tablero temático de <strong>salud mental</strong> permite consolidar y visualizar información relacionada con eventos y problemáticas que afectan el bienestar emocional y psicológico de la población en Santiago de Cali.',
+    'La comunidad puede consultar caracterización de la población, relación con otros eventos de salud mental, poblaciones priorizadas, indicadores de salud mental y estrategias de intervención y respuesta.'
+  ],
+  'enfermedades huerfanas': [
+    'El tablero de <strong>enfermedades huérfanas</strong> permite visualizar el comportamiento epidemiológico de los casos notificados de enfermedades raras o de baja prevalencia.',
+    'Incluye distribución por sexo, curso de vida, régimen de seguridad social, ubicación territorial, comparativos anuales, análisis poblacional, distribución espacial y el informe descriptivo realizado por el epidemiólogo referente.'
+  ],
+  'cancer de mama y cervix': [
+    'El tablero de <strong>cáncer de mama y cérvix</strong> permite visualizar el comportamiento epidemiológico de los casos notificados y sus principales características poblacionales.',
+    'La comunidad puede consultar distribución de casos, análisis por curso de vida, variables sociodemográficas y comportamiento territorial para apoyar el seguimiento del evento.'
+  ]
+  ,
+  'vih': [
+    'El tablero del <strong>Virus de la Inmunodeficiencia Humana (VIH)</strong> presenta un panorama general del comportamiento epidemiologico y sociodemografico de los casos notificados.',
+    'La comunidad podra encontrar informacion organizada sobre la distribucion de casos por barrios. Tambien cuenta con modulos de informacion clinica, coinfecciones, tendencias epidemiologicas y el informe descriptivo por semana del referente del epidemiologo.'
+  ],
+  'intento de suicidio': [
+    'El tablero de <strong>intento de suicidio</strong> permite visualizar el comportamiento epidemiologico y sociodemografico de los casos notificados en el territorio.',
+    'La comunidad encontrara informacion relacionada con la distribucion de casos en variables como sexo, curso de vida, intentos previos, sustancia de intoxicacion, distribucion espacial, distribucion de casos en las instituciones educativas, caracteristicas clinicas, factores de riesgo, comportamiento epidemiologico y el informe descriptivo por semana del referente del epidemiologo.'
+  ],
+  'hepatitis a': [
+    'El tablero de <strong>Hepatitis A</strong> permite visualizar el comportamiento epidemiologico de los casos notificados, facilitando el seguimiento y analisis.',
+    'La comunidad podra encontrar informacion relacionada con la distribucion de casos segun sexo, curso de vida, pertenencia etnica, poblaciones de interes y estrato socioeconomico. Ademas, incluye distribucion espacial, comportamiento epidemiologico y el informe descriptivo por semana del referente del epidemiologo.'
+  ],
+  'suicidio': [
+    'El tablero de <strong>Suicidio</strong> permite visualizar el comportamiento epidemiologico de los casos notificados por comite.',
+    'La comunidad encontrara informacion relacionada con la distribucion de casos en variables como sexo, curso de vida, mecanismo empleado, ultimo ano de estudios, distribucion espacial, distribucion de casos en las instituciones educativas, comportamiento epidemiologico de los ultimos anos y el informe descriptivo por semana del referente del epidemiologo.'
+  ],
+  'etas': [
+    'El tablero de <strong>brotes transmitidos por alimentos</strong> permite visualizar el comportamiento epidemiologico de los eventos asociados al consumo de alimentos o agua contaminada, facilitando el seguimiento de los brotes identificados en el territorio.',
+    'La comunidad podra encontrar informacion sobre el numero de brotes, distribucion de casos segun sexo y grupos de edad. Ademas, incorpora informacion sobre alimentos involucrados, comportamiento epidemiologico, riesgo asociado al agua, distribucion espacial y modos o fuentes de transmision identificadas durante las investigaciones epidemiologicas.'
+  ],
+  'fiebre amarilla': [
+    'El tablero de <strong>Fiebre Amarilla</strong> permite visualizar el comportamiento epidemiologico de los casos confirmados y fallecimientos asociados a este evento de interes en salud publica, tanto a nivel nacional como en Santiago de Cali.',
+    'La comunidad podra encontrar informacion consolidada sobre el numero de casos y muertes registradas, asi como la distribucion territorial de los eventos por departamentos, facilitando la identificacion de zonas con presencia y mayor afectacion por la enfermedad.'
+  ],
+  'vigilancia comunitaria': [
+    'Este tablero de <strong>Vigilancia Comunitaria</strong> permite visualizar las senales y situaciones de interes en salud publica notificadas directamente por la comunidad a traves de vigias y agentes comunitarios.',
+    'La comunidad podra encontrar informacion relacionada con el numero de situaciones reportadas, estado de las notificaciones, tipo de situacion, caracteristicas sociodemograficas de las personas afectadas, distribucion espacial de las alertas, regimen de salud, pertenencia etnica, grupos poblacionales y agentes comunitarios participantes.'
+  ],
+  'spa': [
+    'El tablero de <strong>sustancias psicoactivas (SPA)</strong> permite visualizar el comportamiento epidemiologico de los casos relacionados con el consumo y atencion en salud asociados al uso de sustancias psicoactivas.',
+    'La comunidad podra encontrar informacion relacionada con la distribucion de casos segun sexo, curso de vida, asegurador y grupos etarios, permitiendo identificar poblaciones con mayor afectacion y patrones asociados al consumo de SPA.'
+  ],
+  'pai': [
+    'El tablero del <strong>Programa Ampliado de Inmunizaciones (PAI)</strong> permite visualizar el comportamiento de las coberturas de vacunacion en la poblacion del territorio.',
+    'La comunidad podra encontrar informacion relacionada con esquemas de vacunacion, grupos poblacionales priorizados, seguimiento de alertas y distribucion territorial de las jornadas de inmunizacion. Ademas, el tablero integra modulos de analisis por comuna y corregimiento, oferta de servicios de vacunacion y monitoreo de acciones orientadas a la prevencion de enfermedades inmunoprevenibles.'
+  ],
+  'pic': [
+    'El tablero del <strong>Plan de Intervenciones Colectivas (PIC)</strong> permite visualizar el seguimiento y ejecucion de las acciones en salud publica desarrolladas por las Empresas Sociales del Estado (ESE) en el territorio.',
+    'La comunidad podra encontrar informacion relacionada con actividades de promocion de la salud, gestion del riesgo y atencion primaria en salud en los diferentes entornos y cursos de vida. Ademas, el tablero integra modulos de analisis territorial, seguimiento de metas y monitoreo de intervenciones orientadas al mejoramiento de la calidad de vida de la poblacion.'
+  ],
+  'vacunacion antirrabica': [
+    'El tablero de <strong>vacunacion antirrabica</strong> permite visualizar las acciones de prevencion y control de la rabia animal mediante jornadas de vacunacion en perros y gatos.',
+    'La comunidad podra encontrar informacion relacionada con coberturas de vacunacion, distribucion territorial de las jornadas y caracterizacion de la poblacion animal intervenida. Ademas, el tablero integra modulos de vigilancia zoonotica, seguimiento territorial y analisis de intervenciones en salud publica orientadas a la prevencion del riesgo por rabia.'
+  ],
+  'bancos de sangre': [
+    'El tablero de <strong>Banco de Sangre</strong> permite visualizar la disponibilidad de sangre y hemocomponentes en las instituciones de salud del territorio.',
+    'La comunidad podra encontrar informacion relacionada con el abastecimiento para transfusiones, disponibilidad de componentes sanguineos y monitoreo de la capacidad de respuesta de los servicios de salud. Ademas, el tablero integra modulos de seguimiento y analisis del suministro de sangre para la atencion medica y hospitalaria.'
+  ],
+  'irca': [
+    'El tablero del <strong>Indice de Riesgo de la Calidad del Agua (IRCA)</strong> permite visualizar el estado y nivel de riesgo de la calidad del agua para consumo humano en diferentes zonas del territorio.',
+    'La comunidad podra encontrar informacion relacionada con calidad del agua por comuna y corregimiento, niveles de riesgo para la salud, muestras analizadas y ubicacion de prestadores y acueductos. Ademas, el tablero integra modulos sobre fuentes hidricas utilizadas para el abastecimiento, seguimiento territorial y analisis de condiciones que requieren intervencion para garantizar agua segura para la comunidad.'
+  ],
+  'linea 106': [
+    'El tablero de la <strong>Linea 106</strong> permite visualizar el comportamiento de las atenciones y orientaciones en salud mental reportadas por la comunidad.',
+    'La comunidad podra encontrar informacion relacionada con las principales situaciones emocionales y psicosociales, caracterizacion de la poblacion atendida y problematicas asociadas a violencia psicologica, violencia fisica, negligencia y otras afectaciones al bienestar emocional. Ademas, el tablero integra modulos de analisis poblacional, distribucion territorial y seguimiento de situaciones relacionadas con la salud mental en el territorio.'
+  ],
+  'aptr': [
+    'El tablero de <strong>agresiones por animales potencialmente transmisores de rabia (APTR-ZOO)</strong> permite visualizar el comportamiento de los casos de exposicion y agresiones ocasionadas por animales en el territorio.',
+    'La comunidad podra encontrar informacion relacionada con el tipo de animal agresor, clasificacion del riesgo, caracterizacion de los casos y seguimiento de la atencion en salud. Ademas, el tablero integra modulos de vigilancia epidemiologica y zoonotica, analisis territorial y monitoreo del riesgo de exposicion humana a rabia.'
+  ],
+  'registro prestadores': [
+    'El tablero del <strong>Registro Especial de Prestadores de Servicios de Salud (REPS)</strong> permite visualizar la oferta y distribucion de los servicios de salud habilitados en el territorio.',
+    'La comunidad podra encontrar informacion relacionada con hospitales, clinicas, IPS, profesionales independientes y demas prestadores de servicios de salud disponibles en la ciudad. Ademas, el tablero integra modulos de analisis territorial, caracterizacion de prestadores y consulta de la capacidad instalada de atencion en salud.'
+  ],
+  'entornos': [
+    'El tablero de <strong>entornos saludables</strong> permite visualizar las condiciones sanitarias, ambientales y sociales identificadas en viviendas y comunidades del territorio.',
+    'La comunidad podra encontrar informacion relacionada con agua para consumo, manejo de residuos, presencia de vectores, animales domesticos, alimentos y practicas saludables. Ademas, el tablero integra modulos de gestion territorial, promocion de entornos saludables y analisis de factores de riesgo que impactan la calidad de vida de la poblacion.'
+  ],
+  'leptospirosis': [
+    'El tablero de <strong>leptospirosis</strong> permite visualizar el comportamiento epidemiologico de los casos notificados en el territorio.',
+    'La comunidad podra encontrar informacion relacionada con distribucion temporal y espacial de los casos, caracteristicas sociodemograficas de la poblacion afectada y factores de exposicion asociados al evento. Ademas, el tablero integra modulos de analisis epidemiologico, sintomas relacionados, contacto con animales y condiciones ambientales asociadas al riesgo de transmision.'
+  ],
+  'eda': [
+    'El tablero de <strong>morbilidad por Enfermedad Diarreica Aguda (EDA)</strong> permite visualizar el comportamiento epidemiologico de los casos notificados en el territorio.',
+    'La comunidad podra encontrar informacion relacionada con el total de casos, tasas de morbilidad, distribucion segun sexo, casos en menores de cinco anos y hospitalizaciones asociadas, apoyando el analisis oportuno de este evento de interes en salud publica. Ademas, el tablero incluye modulos sobre comportamiento epidemiologico, canal de notificacion e informes descriptivos, permitiendo comparar la evolucion de los casos entre diferentes anos epidemiologicos y detectar incrementos o cambios en la tendencia.'
+  ],
+  'irag': [
+    'El tablero de <strong>eventos respiratorios</strong> permite visualizar el comportamiento epidemiologico de los eventos asociados a infeccion respiratoria aguda (IRA), infeccion respiratoria aguda grave (IRAG), IRAG inusitado y COVID-19.',
+    'La comunidad podra encontrar informacion relacionada con casos confirmados, probables y descartados. Ademas, el tablero integra modulos de vigilancia centinela, morbilidad por IRA y comportamiento de agentes etiologicos como influenza, rinovirus, coronavirus, adenovirus y otros virus respiratorios.'
+  ],
+  'aps': [
+    'Este tablero de <strong>Atencion Primaria en Salud (APS)</strong> permite visualizar las caracteristicas sociodemograficas, familiares y de vivienda de la poblacion intervenida a traves de las estrategias de atencion en salud en el territorio.',
+    'La comunidad podra encontrar informacion relacionada con el numero de viviendas, hogares, familias y personas caracterizadas, asi como datos sobre poblacion vulnerable, composicion familiar, condiciones de vivienda y distribucion espacial de las encuestas realizadas.'
+  ]
+};
+
+function getPoiPreviewIntro(topic){
+  const key = normalizeText((topic && (topic.fullLabel || topic.label)) || '');
+  if(POI_PREVIEW_INTROS[key]) return POI_PREVIEW_INTROS[key];
+  if(key.includes('mortalidad perinatal')) return POI_PREVIEW_INTROS['mortalidad perinatal'];
+  if(key.includes('salud mental')) return POI_PREVIEW_INTROS['salud mental'];
+  if(key.includes('cancer de mama y cervix')) return POI_PREVIEW_INTROS['cancer de mama y cervix'];
+  if(key.includes('sistema de alerta temprana')) return POI_PREVIEW_INTROS['sistema de alerta temprana'];
+  if(key.includes('baja notificacion')) return POI_PREVIEW_INTROS['baja notificacion'];
+  if(key.includes('enfermedades huerfanas')) return POI_PREVIEW_INTROS['enfermedades huerfanas'];
+  if(key.includes('enfermedad diarreica aguda')) return POI_PREVIEW_INTROS['eda'];
+  if(key.includes('infeccion respiratoria aguda')) return POI_PREVIEW_INTROS['irag'];
+  if(key.includes('intento de suicidio')) return POI_PREVIEW_INTROS['intento de suicidio'];
+  if(key === 'vih' || key.includes('inmunodeficiencia humana')) return POI_PREVIEW_INTROS['vih'];
+  if(key.includes('hepatitis a')) return POI_PREVIEW_INTROS['hepatitis a'];
+  if(key.includes('fiebre amarilla')) return POI_PREVIEW_INTROS['fiebre amarilla'];
+  if(key.includes('vigilancia comunitaria')) return POI_PREVIEW_INTROS['vigilancia comunitaria'];
+  if(key === 'etas' || key.includes('transmitidas por alimentos')) return POI_PREVIEW_INTROS['etas'];
+  if(key.includes('suicidio')) return POI_PREVIEW_INTROS['suicidio'];
+  if(key.includes('spa')) return POI_PREVIEW_INTROS['spa'];
+  if(key.includes('aps') || key.includes('atencion primaria en salud')) return POI_PREVIEW_INTROS['aps'];
+  if(key.includes('irag')) return POI_PREVIEW_INTROS['irag'];
+  if(key === 'pai' || key.includes('programa ampliado de inmunizaciones')) return POI_PREVIEW_INTROS['pai'];
+  if(key === 'pic' || key.includes('plan de intervenciones colectivas')) return POI_PREVIEW_INTROS['pic'];
+  if(key.includes('vacunacion antirrabica')) return POI_PREVIEW_INTROS['vacunacion antirrabica'];
+  if(key.includes('bancos de sangre') || key.includes('banco de sangre')) return POI_PREVIEW_INTROS['bancos de sangre'];
+  if(key === 'irca' || key.includes('indice de riesgo de la calidad del agua')) return POI_PREVIEW_INTROS['irca'];
+  if(key.includes('linea 106')) return POI_PREVIEW_INTROS['linea 106'];
+  if(key === 'aptr' || key.includes('agresiones por animales potencialmente transmisores de rabia')) return POI_PREVIEW_INTROS['aptr'];
+  if(key.includes('registro prestadores') || key.includes('reps') || key.includes('registro especial de prestadores')) return POI_PREVIEW_INTROS['registro prestadores'];
+  if(key.includes('entornos')) return POI_PREVIEW_INTROS['entornos'];
+  if(key.includes('leptospirosis')) return POI_PREVIEW_INTROS['leptospirosis'];
+  return [
+    'Este tablero consolida informaci\u00f3n del evento para apoyar su seguimiento y an\u00e1lisis en el territorio.',
+    'Haz clic para abrir el tablero completo y explorar sus indicadores, distribuciones y tendencias.'
+  ];
+}
 
 const PRELOAD_MAX_TOTAL = 14;
 const PRELOAD_MAX_CONCURRENT = 2;
@@ -3917,21 +4121,10 @@ function positionPreviewAtPoi(poiEl, driftX, driftY){
 
 function showPoiPreview(topic, poiEl){
   const isHuerfanasTopic = normalizeText(topic && topic.label ? topic.label : '').includes('huerfan');
-  if(isHuerfanasTopic){
-    if(zoomPreviewTimer){ clearTimeout(zoomPreviewTimer); zoomPreviewTimer = null; }
-    activePreviewPoi = null;
-    zoomPreview.classList.remove('open');
-    return;
-  }
-
-  const previewUrl = normalizeLookerEmbedUrl(topic.url);
   if(zoomPreviewTimer){ clearTimeout(zoomPreviewTimer); zoomPreviewTimer = null; }
-  enqueueDashboardPreload(previewUrl, true);
-  zoomPreviewTitle.textContent = topic.label;
-  if(zoomPreviewFrame.dataset.src !== previewUrl){
-    zoomPreviewFrame.src = previewUrl;
-    zoomPreviewFrame.dataset.src = previewUrl;
-  }
+  zoomPreviewTitle.textContent = topic.fullLabel || topic.label;
+  const introLines = getPoiPreviewIntro(topic);
+  zoomPreviewBody.innerHTML = introLines.map((line) => '<p>' + line + '</p>').join('');
 
   activePreviewPoi = poiEl || null;
   positionPreviewAtPoi(activePreviewPoi, 0, 0);
@@ -4671,8 +4864,7 @@ function closePlanetExperience(instant){
   zoomOverlay.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('planet-open');
   zoomPreview.classList.remove('open');
-  zoomPreviewFrame.src = 'about:blank';
-  zoomPreviewFrame.dataset.src = '';
+  if(zoomPreviewBody) zoomPreviewBody.innerHTML = '';
   stopPlanetAutoSpin();
   stopPlanetInertia();
   clearPoiCarousel();
@@ -4814,13 +5006,13 @@ function doSearch(val){
     return;
   }
 
-  panel.innerHTML = res.map((r, i) => {
-    const div = document.createElement('div');
-    div.className = 'sp-item';
-    div.innerHTML = searchItemIconMarkup(r) + '<span>' + escapeHtml(r.label) + '</span><span class="sp-cat">' + escapeHtml(r.category) + '</span>';
-    div.addEventListener('click', () => pickSearch(i));
-    return div.outerHTML;
-  }).join('');
+  panel.innerHTML = res.map((r, i) =>
+    '<div class="sp-item" data-search-idx="' + i + '">' +
+      searchItemIconMarkup(r) +
+      '<span class="sp-label">' + escapeHtml(r.label) + '</span>' +
+      '<span class="sp-cat">' + escapeHtml(r.category) + '</span>' +
+    '</div>'
+  ).join('');
   panel.classList.add('open');
 }
 
@@ -4859,6 +5051,14 @@ document.getElementById('srch').addEventListener('keydown', e => {
   if(e.key === 'Escape'){
     document.getElementById('search-panel').classList.remove('open');
   }
+});
+
+document.getElementById('search-panel').addEventListener('click', e => {
+  const item = e.target.closest('.sp-item[data-search-idx]');
+  if(!item) return;
+  const idx = Number(item.dataset.searchIdx);
+  if(Number.isNaN(idx)) return;
+  pickSearch(idx);
 });
 
 document.addEventListener('click', e=>{
