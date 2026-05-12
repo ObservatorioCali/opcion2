@@ -2743,24 +2743,28 @@ function setDashboardIntroContent(planet){
   if(!overlay || !content) return;
 
   const isVigilancia = !!(planet && planet.id === 'vigilancia');
-  dashboardIntroAvailable = isVigilancia;
-  overlay.classList.toggle('with-intro', isVigilancia && !dashboardIntroCollapsed);
+  const isFinanciero = !!(planet && planet.id === 'financiero');
+  const isAmbiente = !!(planet && planet.id === 'ambiente');
+  const hasIntro = isVigilancia || isFinanciero || isAmbiente;
+  dashboardIntroAvailable = hasIntro;
+  overlay.classList.toggle('with-intro', hasIntro && !dashboardIntroCollapsed);
 
   if(toggleBtn){
-    toggleBtn.hidden = !isVigilancia || dashboardIntroCollapsed;
+    toggleBtn.hidden = !hasIntro || dashboardIntroCollapsed;
     toggleBtn.textContent = dashboardIntroCollapsed ? 'Mostrar info' : 'Ocultar info';
   }
   if(reopenBtn){
-    reopenBtn.hidden = !isVigilancia || !dashboardIntroCollapsed || !dashboardIntroHiddenByUser;
+    reopenBtn.hidden = !hasIntro || !dashboardIntroCollapsed || !dashboardIntroHiddenByUser;
   }
 
-  if(!isVigilancia){
+  if(!hasIntro){
     dashboardIntroHiddenByUser = false;
     content.innerHTML = '';
     return;
   }
 
-  content.innerHTML = `
+  if(isVigilancia){
+    content.innerHTML = `
     <h3>Bienvenido a Vigilancia Epidemiológica, Social y Cultural</h3>
     <p>Un espacio diseñado para convertir la información en acción. Aquí podrá explorar de manera interactiva el comportamiento de los eventos de interés en salud pública, sustentado en el rigor técnico de nuestro equipo de expertos y en el conocimiento vivo de los territorios.</p>
 
@@ -2782,8 +2786,75 @@ function setDashboardIntroContent(planet){
       <li><strong>Vigilancia basada en comunidad:</strong> La cual cumple un papel importante en nuestro Observatorio, pues reconoce que nadie conoce mejor el territorio que quienes lo viven y lo caminan a diario. En este espacio, el saber de los gestores y vigías de la REVcom, se une con el análisis técnico para identificar a tiempo riesgos, alertas o brotes en los barrios antes de que se conviertan en emergencias.</li>
     </ul>
 
-    <p>Aquí, tu voz y tus reportes se transforman en acciones reales y oportunas, permitiéndonos cuidar la salud de todos desde la base social y fortalecer el bienestar colectivo a través de la participación ciudadana.</p>
-  `;
+    <p>Aquí, tu voz y tus reportes se transforman en acciones reales y oportunas, permitiéndonos cuidar la salud de todos desde la base social y fortalecer el bienestar colectivo a través de la participación ciudadana.</p>`;
+    return;
+  }
+
+  if(isFinanciero){
+    content.innerHTML = `
+    <h3>Ejecución Financiera</h3>
+    <p>En esta temática se presentan los tableros de ejecución presupuestal y física de los proyectos de inversión de la Secretaría de Salud del Distrito de Santiago de Cali, como también el tablero de seguimiento a los procesos del Plan Anual de Adquisiciones – PAA, referente a los procesos de contratación y el tablero de seguimiento al plan de infraestructura y dotación en salud de Cali.</p>
+
+    <h4>Tableros disponibles:</h4>
+    <ul>
+      <li><strong>Tablero de Ejecución Presupuestal:</strong> En este tablero, se presenta el monitoreo a la utilización de los recursos financieros asignados a las entidades estatales para la adquisición de bienes y servicios, y el cumplimiento de sus objetivos y metas. Implica la gestión de ingresos y gastos, el seguimiento de la ejecución y la evaluación de resultados.</li>
+      <li><strong>Tablero de Ejecución Física:</strong> En este tablero, se hace seguimiento y monitoreo de las actividades y productos programadas para un proyecto o programa durante un período de tiempo determinado.</li>
+      <li><strong>Tablero de seguimiento a procesos contractuales – PAA:</strong> En este tablero, se presenta el monitoreo al cumplimiento y ejecución de todos los procesos programados en el PAA de la Secretaría de Salud.</li>
+      <li><strong>Tablero del Plan de Infraestructura y Dotación en Salud de Cali:</strong> En este tablero, se presenta el monitoreo a los procesos contractuales, fondos y fuentes de financiación en el marco de la modernización de la infraestructura y dotación de las ESE del Distrito y sus diferentes sedes.</li>
+    </ul>`;
+    return;
+  }
+
+  if(isAmbiente){
+    content.innerHTML = `
+    <h3>Ambiente y Salud</h3>
+    <p>En este espacio encontrará información sobre cómo el ambiente, los animales, la vivienda y el territorio pueden influir en la salud de las personas y las comunidades.</p>
+
+    <h4>Nuestros tableros permiten conocer y visualizar:</h4>
+    <ul>
+      <li>enfermedades relacionadas con el ambiente,</li>
+      <li>riesgos sanitarios en los territorios,</li>
+      <li>prevención de enfermedades transmitidas por animales,</li>
+      <li>Acciones para promover entornos más saludables y seguros.</li>
+    </ul>
+
+    <h4>¿Por qué es importante?</h4>
+    <p>Porque la salud no depende solo de hospitales o enfermedades. También está relacionada con:</p>
+    <ul>
+      <li>la vivienda.</li>
+      <li>el agua.</li>
+      <li>los residuos.</li>
+      <li>los animales.</li>
+      <li>el barrio donde vivimos.</li>
+      <li>Las condiciones del entorno.</li>
+    </ul>
+
+    <h4>Por eso:</h4>
+    <ul>
+      <li>el territorio se analiza para identificar riesgos.</li>
+      <li>la vivienda y el entorno ayudan a entender las condiciones de salud.</li>
+      <li>los animales también hacen parte del análisis sanitario.</li>
+      <li>la participación de la comunidad es fundamental para prevenir enfermedades y mejorar la calidad de vida.</li>
+    </ul>
+
+    <h4>¿Qué herramientas usamos?</h4>
+    <p>Utilizamos mapas y sistemas de información geográfica (SIG) para identificar:</p>
+    <ul>
+      <li>zonas con mayor riesgo.</li>
+      <li>distribución de enfermedades.</li>
+      <li>y territorios priorizados para intervención.</li>
+    </ul>
+
+    <h4>¿De dónde provienen los datos?</h4>
+    <p>La información de los tableros proviene de:</p>
+    <ul>
+      <li>SIVIGILA (Sistema de Vigilancia en Salud Pública),</li>
+      <li>vigilancia zoonótica.</li>
+      <li>intervenciones realizadas en los territorios,</li>
+      <li>y datos recolectados por los equipos de Ambiente y Salud en campo.</li>
+    </ul>`;
+    return;
+  }
 }
 
 function clamp(v, min, max){
@@ -2976,24 +3047,28 @@ function clearSideCometRepositionTimers(){
 function setPlanetIntroContent(planet){
   if(!zoomOverlay || !zoomIntroContent) return;
   const isVigilancia = !!(planet && planet.id === 'vigilancia');
-  planetIntroAvailable = isVigilancia;
-  zoomOverlay.classList.toggle('with-intro', isVigilancia && !planetIntroCollapsed);
+  const isFinanciero = !!(planet && planet.id === 'financiero');
+  const isAmbiente = !!(planet && planet.id === 'ambiente');
+  const hasIntro = isVigilancia || isFinanciero || isAmbiente;
+  planetIntroAvailable = hasIntro;
+  zoomOverlay.classList.toggle('with-intro', hasIntro && !planetIntroCollapsed);
 
   if(zoomIntroToggleBtn){
-    zoomIntroToggleBtn.hidden = !isVigilancia || planetIntroCollapsed;
+    zoomIntroToggleBtn.hidden = !hasIntro || planetIntroCollapsed;
     zoomIntroToggleBtn.textContent = planetIntroCollapsed ? 'Mostrar info' : 'Ocultar info';
   }
   if(pzIntroReopenBtn){
-    pzIntroReopenBtn.hidden = !isVigilancia || !planetIntroCollapsed || !planetIntroHiddenByUser;
+    pzIntroReopenBtn.hidden = !hasIntro || !planetIntroCollapsed || !planetIntroHiddenByUser;
   }
 
-  if(!isVigilancia){
+  if(!hasIntro){
     planetIntroHiddenByUser = false;
     zoomIntroContent.innerHTML = '';
     return;
   }
 
-  zoomIntroContent.innerHTML = `
+  if(isVigilancia){
+    zoomIntroContent.innerHTML = `
     <h3>Bienvenido a Vigilancia Epidemiológica, Social y Cultural</h3>
     <p>Un espacio diseñado para convertir la información en acción. Aquí podrá explorar de manera interactiva el comportamiento de los eventos de interés en salud pública, sustentado en el rigor técnico de nuestro equipo de expertos y en el conocimiento vivo de los territorios.</p>
 
@@ -3015,8 +3090,74 @@ function setPlanetIntroContent(planet){
       <li><strong>Vigilancia basada en comunidad:</strong> La cual cumple un papel importante en nuestro Observatorio, pues reconoce que nadie conoce mejor el territorio que quienes lo viven y lo caminan a diario. En este espacio, el saber de los gestores y vigías de la REVcom, se une con el análisis técnico para identificar a tiempo riesgos, alertas o brotes en los barrios antes de que se conviertan en emergencias.</li>
     </ul>
 
-    <p>Aquí, tu voz y tus reportes se transforman en acciones reales y oportunas, permitiéndonos cuidar la salud de todos desde la base social y fortalecer el bienestar colectivo a través de la participación ciudadana.</p>
-  `;
+    <p>Aquí, tu voz y tus reportes se transforman en acciones reales y oportunas, permitiéndonos cuidar la salud de todos desde la base social y fortalecer el bienestar colectivo a través de la participación ciudadana.</p>`;
+    return;
+  }
+
+  if(isFinanciero){
+    zoomIntroContent.innerHTML = `
+    <h3>Bienvenido a Financiero</h3>
+    <p>En esta temática se presentan los tableros de ejecución presupuestal y física de los proyectos de inversión de la Secretaría de Salud del Distrito de Santiago de Cali, como también el tablero de seguimiento a los procesos del Plan Anual de Adquisiciones – PAA, referente a los procesos de contratación y el tablero de seguimiento al plan de infraestructura y dotación en salud de Cali.</p>
+
+    <ul>
+      <li><strong>Tablero de Ejecución Presupuestal:</strong> En este tablero, se presenta el monitoreo a la utilización de los recursos financieros asignados a las entidades estatales para la adquisición de bienes y servicios, y el cumplimiento de sus objetivos y metas. Implica la gestión de ingresos y gastos, el seguimiento de la ejecución y la evaluación de resultados.</li>
+      <li><strong>Tablero de Ejecución Física:</strong> En este tablero, se hace seguimiento y monitoreo de las actividades y productos programadas para un proyecto o programa durante un período de tiempo determinado.</li>
+      <li><strong>Tablero de seguimiento a procesos contractuales – PAA:</strong> En este tablero, se presenta el monitoreo al cumplimiento y ejecución de todos los procesos programados en el PAA de la Secretaría de Salud.</li>
+      <li><strong>Tablero del Plan de Infraestructura y Dotación en Salud de Cali:</strong> En este tablero, se presenta el monitoreo a los procesos contractuales, fondos y fuentes de financiación en el marco de la modernización de la infraestructura y dotación de las ESE del Distrito y sus diferentes sedes.</li>
+    </ul>`;
+    return;
+  }
+
+  if(isAmbiente){
+    zoomIntroContent.innerHTML = `
+    <h3>Ambiente y Salud</h3>
+    <p>En este espacio encontrará información sobre cómo el ambiente, los animales, la vivienda y el territorio pueden influir en la salud de las personas y las comunidades.</p>
+
+    <h4>Nuestros tableros permiten conocer y visualizar:</h4>
+    <ul>
+      <li>enfermedades relacionadas con el ambiente,</li>
+      <li>riesgos sanitarios en los territorios,</li>
+      <li>prevención de enfermedades transmitidas por animales,</li>
+      <li>Acciones para promover entornos más saludables y seguros.</li>
+    </ul>
+
+    <h4>¿Por qué es importante?</h4>
+    <p>Porque la salud no depende solo de hospitales o enfermedades. También está relacionada con:</p>
+    <ul>
+      <li>la vivienda.</li>
+      <li>el agua.</li>
+      <li>los residuos.</li>
+      <li>los animales.</li>
+      <li>el barrio donde vivimos.</li>
+      <li>Las condiciones del entorno.</li>
+    </ul>
+
+    <h4>Por eso:</h4>
+    <ul>
+      <li>el territorio se analiza para identificar riesgos.</li>
+      <li>la vivienda y el entorno ayudan a entender las condiciones de salud.</li>
+      <li>los animales también hacen parte del análisis sanitario.</li>
+      <li>la participación de la comunidad es fundamental para prevenir enfermedades y mejorar la calidad de vida.</li>
+    </ul>
+
+    <h4>¿Qué herramientas usamos?</h4>
+    <p>Utilizamos mapas y sistemas de información geográfica (SIG) para identificar:</p>
+    <ul>
+      <li>zonas con mayor riesgo.</li>
+      <li>distribución de enfermedades.</li>
+      <li>y territorios priorizados para intervención.</li>
+    </ul>
+
+    <h4>¿De dónde provienen los datos?</h4>
+    <p>La información de los tableros proviene de:</p>
+    <ul>
+      <li>SIVIGILA (Sistema de Vigilancia en Salud Pública),</li>
+      <li>vigilancia zoonótica.</li>
+      <li>intervenciones realizadas en los territorios,</li>
+      <li>y datos recolectados por los equipos de Ambiente y Salud en campo.</li>
+    </ul>`;
+    return;
+  }
 }
 
 function updateSideCometPosition(){
