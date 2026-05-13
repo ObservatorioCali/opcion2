@@ -407,12 +407,13 @@ body.cinematic-leave .cinematic-transition::after{
 .db-overlay.open{display:flex}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .db-modal{display:flex;flex-direction:column;flex:1;min-height:0}
-.db-topbar{flex-shrink:0;height:52px;display:flex;align-items:center;gap:12px;padding:0 20px;
+.db-topbar{flex-shrink:0;height:64px;display:flex;align-items:center;gap:14px;padding:0 24px;
   background:rgba(4,8,32,.96);border-bottom:1px solid rgba(56,189,248,.1);}
-.db-dot{width:26px;height:26px;border-radius:50%;flex-shrink:0}
-.db-topbar h2{font-size:14px;font-weight:700;flex:1}
-.db-back{display:flex;align-items:center;gap:6px;padding:6px 16px;border-radius:99px;
-  font-size:12px;font-weight:600;color:#38bdf8;border:1px solid rgba(56,189,248,.25);transition:.2s;}
+.db-dot{width:30px;height:30px;border-radius:50%;flex-shrink:0}
+.db-topbar h2{font-size:18px;font-weight:800;flex:1;color:#f4f9ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.db-back{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:99px;
+  font-size:14px;font-weight:800;color:#38bdf8;border:1px solid rgba(56,189,248,.25);transition:.2s;}
+.db-back svg{width:16px;height:16px}
 .db-back:hover{background:rgba(56,189,248,.1)}
 .db-intro-toggle,.pz-intro-toggle{position:absolute;top:10px;right:10px;z-index:7;display:inline-flex;
   align-items:center;gap:6px;padding:7px 12px;border-radius:12px;font-size:11px;font-weight:800;
@@ -428,29 +429,29 @@ body.cinematic-leave .cinematic-transition::after{
   box-shadow:0 6px 12px rgba(2,6,20,.4), 0 0 12px rgba(56,189,248,.2);transition:.2s;}
 .db-intro-reopen:hover{transform:translateY(-1px);background:linear-gradient(180deg, rgba(22,56,110,.9), rgba(8,24,64,.92));}
 .db-intro-toggle[hidden],.pz-intro-toggle[hidden],.db-intro-reopen[hidden],.pz-intro-reopen[hidden]{display:none !important;}
-.db-fs{padding:6px 10px;border-radius:8px;font-size:16px;color:#6b7fa8;
+.db-fs{padding:9px 13px;border-radius:10px;font-size:18px;color:#6b7fa8;
   border:1px solid rgba(56,189,248,.1);transition:.2s;}
 .db-fs:hover{color:#fff}
-.db-zoom{display:flex;align-items:center;gap:6px;margin-right:4px}
-.db-zoom-lbl{font-size:11px;color:#87a3cf;font-weight:600}
-.db-zbtn{width:24px;height:24px;border-radius:6px;border:1px solid rgba(56,189,248,.22);
-  display:flex;align-items:center;justify-content:center;font-size:13px;color:#d7ebff;
+.db-zoom{display:flex;align-items:center;gap:8px;margin-right:6px}
+.db-zoom-lbl{font-size:13px;color:#87a3cf;font-weight:700}
+.db-zbtn{width:32px;height:32px;border-radius:8px;border:1px solid rgba(56,189,248,.22);
+  display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#d7ebff;
   background:rgba(8,16,48,.65);transition:.2s}
 .db-zbtn:hover{background:rgba(56,189,248,.14)}
-.db-zval{min-width:42px;text-align:center;font-size:11px;font-weight:700;color:#d7ebff;
-  padding:3px 6px;border-radius:999px;border:1px solid rgba(56,189,248,.2);background:rgba(8,16,48,.45)}
-.db-submenu{flex-shrink:0;display:none;flex-wrap:wrap;gap:5px;padding:8px 20px;
+.db-zval{min-width:56px;text-align:center;font-size:13px;font-weight:800;color:#d7ebff;
+  padding:7px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.2);background:rgba(8,16,48,.45)}
+.db-submenu{flex-shrink:0;display:none;flex-wrap:wrap;gap:8px;padding:10px 24px;
   background:rgba(3,6,24,.85);border-bottom:1px solid rgba(56,189,248,.07);overflow-x:auto;}
 .db-submenu.open{display:flex}
-.db-sub{padding:6px 14px;border-radius:99px;font-size:11px;font-weight:600;
+.db-sub{padding:9px 18px;border-radius:99px;font-size:13px;font-weight:800;
   border:1px solid rgba(56,189,248,.14);color:#6b7fa8;white-space:nowrap;transition:.2s;position:relative;z-index:1}
 .db-sub:hover,.db-sub.active{background:rgba(56,189,248,.12);color:#38bdf8;border-color:rgba(56,189,248,.4)}
 .db-sub[data-full-label]{position:relative;cursor:pointer}
 .db-sub[data-full-label]:hover{background:linear-gradient(135deg, #7c3aed, #4f46e5) !important;color:#fff !important;border-color:#a78bfa !important;box-shadow:0 0 16px rgba(124,58,237,.5)}
 .db-sub[data-full-label]:hover::after{content:attr(data-full-label);position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);background:linear-gradient(135deg, #4f46e5, #7c3aed);color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,0.4),0 0 20px rgba(124,58,237,.4);z-index:9999 !important;pointer-events:none}
 @keyframes fadeInTooltip{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%)}}
-.db-sub-ic{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;margin-right:6px;vertical-align:-2px}
-.db-sub-ic i{font-size:12px;color:currentColor;line-height:1}
+.db-sub-ic{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;margin-right:8px;vertical-align:-4px}
+.db-sub-ic i{font-size:15px;color:currentColor;line-height:1}
 .db-frame-wrap{flex:1;min-height:0;overflow:hidden;position:relative;--db-scale:1;background:#000}
 .db-frame{position:absolute;top:0;left:0;border:none;background:#000;display:block;
   width:100%;height:100%;
@@ -2125,15 +2126,15 @@ body { margin:0; overflow-x:hidden; }
         <svg class="sb-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
       </summary>
       <div class="sb-submenu">
-        <a href="#" class="sb-item sb-sub-item thematic-mental" onclick="openDashboard('https://lookerstudio.google.com/embed/reporting/971daa1f-038e-4588-be09-4ddcd86ae81d/page/pogjvoicp1d');return false;">
+        <a href="#" class="sb-item sb-sub-item thematic-mental" onclick="openDashboard('https://lookerstudio.google.com/embed/reporting/971daa1f-038e-4588-be09-4ddcd86ae81d/page/pogjvoicp1d', null, 'Salud Mental');return false;">
           <img src="./font/iconos/HablarSana.png" alt="" class="sb-link-ic">
           <span>En-torno a tu Salud mental</span>
         </a>
-        <a href="#" class="sb-item sb-sub-item thematic-pasos" onclick="openDashboard('https://lookerstudio.google.com/embed/reporting/3aff0c16-eeef-4fc3-bd94-382b32799b60/page/pogjvoicp1d');return false;">
+        <a href="#" class="sb-item sb-sub-item thematic-pasos" onclick="openDashboard('https://lookerstudio.google.com/embed/reporting/3aff0c16-eeef-4fc3-bd94-382b32799b60/page/pogjvoicp1d', null, 'Primeros Pasos');return false;">
           <img src="./font/iconos/Maternidad.png" alt="" class="sb-link-ic">
           <span>En-torno a tus primeros pasos</span>
         </a>
-        <a href="#" class="sb-item sb-sub-item thematic-bienestar" onclick="openDashboard('https://lookerstudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/pogjvoicp1d');return false;">
+        <a href="#" class="sb-item sb-sub-item thematic-bienestar" onclick="openDashboard('https://lookerstudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/pogjvoicp1d', null, 'Bienestar');return false;">
           <img src="./font/iconos/Bienestar.png" alt="" class="sb-link-ic">
           <span>En-torno a tu Bienestar</span>
         </a>
@@ -2720,12 +2721,23 @@ positionPlanets();
 /* ============================================================
    OPEN / CLOSE DASHBOARD
    ============================================================ */
-function openDashboard(url, returnPlanet){
+function dashboardTitleText(title, fallbackPlanet){
+  if(title && String(title).trim()) return String(title).trim();
+  if(fallbackPlanet && fallbackPlanet.label) return fallbackPlanet.label.replace('\n',' ');
+  return 'Tablero';
+}
+
+function setDashboardTitle(title, fallbackPlanet){
+  const titleEl = document.getElementById('db-title');
+  if(titleEl) titleEl.textContent = dashboardTitleText(title, fallbackPlanet);
+}
+
+function openDashboard(url, returnPlanet, dashboardTitle){
   const dashboardUrl = normalizeLookerEmbedUrl(url);
   document.body.classList.remove('planet-open');
   document.body.classList.add('dashboard-open');
   dashboardMenuReturnUrl = null;
-  document.getElementById('db-title').textContent = '';
+  setDashboardTitle(dashboardTitle, returnPlanet);
   dashboardIntroCollapsed = true;
   planetIntroCollapsed = true;
   dashboardIntroHiddenByUser = false;
@@ -2750,7 +2762,6 @@ function openDB(planet){
   dashboardIntroHiddenByUser = false;
   planetIntroHiddenByUser = false;
   setDashboardIntroContent(planet);
-  document.getElementById('db-title').textContent = planet.label.replace('\n',' ');
   const dot = document.getElementById('db-dot');
   dot.style.background = planet.grad;
   dot.style.boxShadow = planet.shadow;
@@ -2773,13 +2784,16 @@ function openDB(planet){
       btn.onclick = () => {
         document.querySelectorAll('.db-sub').forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
+        setDashboardTitle(s.fullLabel || s.label, planet);
         document.getElementById('db-frame').src = normalizeLookerEmbedUrl(s.url);
         requestAnimationFrame(updateDashboardFrameScale);
       };
       submenu.appendChild(btn);
     });
+    setDashboardTitle(visibleSubs[0].fullLabel || visibleSubs[0].label, planet);
     document.getElementById('db-frame').src = normalizeLookerEmbedUrl(visibleSubs[0].url);
   } else {
+    setDashboardTitle(planet.label.replace('\n',' '), planet);
     document.getElementById('db-frame').src = normalizeLookerEmbedUrl(planet.url);
   }
   document.getElementById('db-overlay').classList.add('open');
@@ -4806,7 +4820,7 @@ function renderPoiBatch(planet, topics){
     poi.addEventListener('click', (ev) => {
       ev.stopPropagation();
       closePlanetExperience(true);
-      openDashboard(topic.url, planet);
+      openDashboard(topic.url, planet, topic.fullLabel || topic.label);
     });
 
     zoomPoiLayer.appendChild(poi);
@@ -4903,7 +4917,7 @@ function finishPlanetDrag(ev){
     const hit = pickGlobePoint();
     if(hit && hit.userData && hit.userData.topic && hit.userData.planet){
       closePlanetExperience(true);
-      openDashboard(hit.userData.topic.url, hit.userData.planet);
+      openDashboard(hit.userData.topic.url, hit.userData.planet, hit.userData.topic.fullLabel || hit.userData.topic.label);
       return;
     }
     startPlanetAutoSpin();
@@ -5053,7 +5067,7 @@ function buildSearchIndex(){
 
   document.querySelectorAll('.sb-nav a[onclick]').forEach(link => {
     const rawText = (link.textContent || '').trim();
-    const match = (link.getAttribute('onclick') || '').match(/openDashboard\('([^']+)'\)/);
+    const match = (link.getAttribute('onclick') || '').match(/openDashboard\('([^']+)'/);
     if(rawText && match && match[1]){
       items.push({
         label: rawText,
@@ -5135,7 +5149,7 @@ function pickSearch(idx){
   input.value = '';
 
   if(item.url){
-    openDashboard(item.url);
+    openDashboard(item.url, null, item.fullLabel || item.label);
     return;
   }
 
