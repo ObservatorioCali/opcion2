@@ -123,15 +123,15 @@ body.dashboard-open .obser-chat-frame{
 
 .galaxy-center-link{
   position:absolute;
-  left:53%;
-  top:50%;
+  left:34%;
+  top:78%;
   transform:translate(-50%,-50%);
   z-index:16;
   display:flex;
   align-items:center;
   justify-content:center;
-  width:130px;
-  height:130px;
+  width:169px;
+  height:169px;
   border-radius:50%;
   border:1px solid transparent;
   background:transparent;
@@ -2028,6 +2028,7 @@ body { margin:0; overflow-x:hidden; }
   pointer-events: none;
   overflow: hidden;
 }
+.mobile-obser-card{display:none}
 @keyframes poiPulse {
   0% { transform: scale(.7); opacity: .9; }
   100% { transform: scale(1.45); opacity: 0; }
@@ -2038,6 +2039,382 @@ body { margin:0; overflow-x:hidden; }
   .pz-preview { width: min(300px, 92vw); }
   .pz-intro-panel { display: none !important; }
   .pz-side-comet { display: none !important; }
+}
+@media(max-width: 768px){
+  html,body{
+    height:auto;
+    min-height:100%;
+    overflow-x:hidden;
+    overflow-y:auto;
+    background:#020614 url('./estrellas movil.png') center top / cover repeat-y;
+  }
+  body{
+    display:block;
+    background:#020614 url('./estrellas movil.png') center top / cover repeat-y;
+  }
+  .obser-chat-frame{display:none !important}
+  .sidebar{
+    display:flex !important;
+    position:fixed !important;
+    top:0 !important;
+    left:0 !important;
+    width:min(82vw, 320px) !important;
+    height:100dvh !important;
+    z-index:520 !important;
+    transform:translateX(0);
+    transition:transform .28s cubic-bezier(.2,.72,.12,1), box-shadow .28s ease;
+    background:
+      radial-gradient(circle at 22% 6%, rgba(76,29,149,.28), transparent 30%),
+      linear-gradient(180deg, rgba(2,7,33,.98) 0%, rgba(4,9,42,.98) 48%, rgba(5,7,32,.99) 100%) !important;
+    border-right:1px solid rgba(124,58,237,.36) !important;
+    box-shadow:24px 0 48px rgba(0,0,0,.56), 0 0 22px rgba(76,29,149,.22);
+  }
+  .sidebar.collapsed{
+    transform:translateX(-105%) !important;
+    width:min(82vw, 320px) !important;
+  }
+  .sidebar .sb-brand,
+  .sidebar .sb-logo{
+    border-bottom-color:rgba(124,58,237,.24);
+    background:linear-gradient(180deg, rgba(5,12,46,.2), rgba(5,8,34,.55));
+  }
+  .sidebar .sb-item{
+    color:rgba(203,213,255,.72);
+    background:transparent;
+  }
+  .sidebar .sb-item:hover,
+  .sidebar .sb-active{
+    background:linear-gradient(135deg, rgba(30,41,102,.86), rgba(55,28,118,.64)) !important;
+    border-color:rgba(139,92,246,.42) !important;
+    box-shadow:inset 0 0 0 1px rgba(99,102,241,.16), 0 0 18px rgba(76,29,149,.2) !important;
+  }
+  .sidebar .sb-stats{
+    background:linear-gradient(180deg, rgba(4,10,42,.92), rgba(7,10,50,.96));
+    border-color:rgba(99,102,241,.34);
+    box-shadow:0 0 18px rgba(76,29,149,.18), inset 0 1px 0 rgba(168,85,247,.08);
+  }
+  .sidebar .sb-city-img{
+    filter:brightness(.72) saturate(1.05) hue-rotate(8deg);
+  }
+  .app-layout,
+  .app-layout.sb-hidden{
+    display:block;
+    width:100%;
+    min-height:calc(100svh + 790px);
+    height:auto;
+    margin-left:0;
+    overflow:visible;
+  }
+  .main-col{
+    display:block;
+    min-height:calc(100svh + 790px);
+    height:auto;
+    overflow:visible;
+  }
+  .stage{
+    width:100%;
+    min-height:calc(100svh + 790px);
+    height:calc(100svh + 790px);
+    overflow:hidden;
+    padding-bottom:40px;
+    background:
+      linear-gradient(180deg, rgba(1,3,15,.18) 0%, rgba(1,3,15,.28) 100%),
+      url('./estrellas movil.png') center top / cover repeat-y,
+      linear-gradient(90deg, #01030f 0%, #03061a 44%, #050724 100%);
+  }
+  .galaxy-bg{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:100svh;
+    min-height:640px;
+    inset:0 0 auto 0;
+    overflow:hidden;
+    background-image:url('./galaxia-entornos-movil.png');
+    background-repeat:no-repeat;
+    background-position:right 108px;
+    background-size:auto 62%;
+  }
+  .galaxy-bg img{display:none}
+  .galaxy-bg::after{
+    background:
+      linear-gradient(90deg, rgba(1,3,15,.97) 0%, rgba(1,3,15,.88) 34%, rgba(1,3,15,.32) 62%, rgba(1,3,15,0) 88%),
+      linear-gradient(180deg, rgba(2,6,20,.08) 0%, rgba(2,6,20,.02) 58%, rgba(2,6,20,.86) 100%);
+  }
+  .hdr{
+    top:22px;
+    left:82px;
+    right:20px;
+    height:46px;
+    padding:0;
+    gap:10px;
+    z-index:240;
+    pointer-events:none;
+  }
+  .hdr-search{
+    height:46px;
+    min-width:0;
+    max-width:none;
+    margin:0;
+    padding:0 14px;
+    border-radius:23px;
+    gap:10px;
+    background:rgba(8,10,36,.78);
+    border:1px solid rgba(167,139,250,.46);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 0 24px rgba(124,58,237,.16);
+  }
+  .hdr-search svg{width:18px;height:18px;flex:0 0 auto}
+  .hdr-search input{font-size:clamp(14px,3.6vw,18px);color:#f4f1ff}
+  .hdr-search input::placeholder{font-size:clamp(14px,3.6vw,18px);color:rgba(226,220,255,.6)}
+  .hdr-right{flex:0 0 auto;margin-left:0}
+  .hdr-acc{gap:0}
+  .acc-b{
+    width:42px;
+    height:46px;
+    border-radius:0;
+    border-color:rgba(168,85,247,.62);
+    background:rgba(12,10,40,.76);
+    color:#fff;
+    font-size:18px;
+  }
+  .acc-b:first-child{border-radius:20px 0 0 20px}
+  .acc-b:nth-child(2){border-left:0;border-radius:0 20px 20px 0}
+  .acc-b:last-child{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    margin-left:10px;
+  }
+  #sb-open-btn{
+    display:flex !important;
+    position:fixed !important;
+    top:28px !important;
+    left:24px !important;
+    width:50px !important;
+    height:50px !important;
+    z-index:260 !important;
+    align-items:center;
+    justify-content:center;
+    border-radius:50% !important;
+    border:1px solid rgba(139,92,246,.8) !important;
+    background:rgba(8,10,38,.72) !important;
+    box-shadow:0 0 22px rgba(124,58,237,.72), inset 0 1px 0 rgba(255,255,255,.08) !important;
+    color:#fff !important;
+  }
+  #sb-open-btn svg{width:28px;height:28px}
+  .hero-txt{
+    left:24px;
+    top:132px;
+    transform:none;
+    z-index:18;
+    max-width:58vw;
+  }
+  .hero-txt h1{
+    font-size:clamp(26px, 9.5vw, 34px);
+    line-height:1.18;
+    letter-spacing:0;
+  }
+  .hero-txt p{
+    max-width:52vw;
+    margin-top:14px;
+    font-size:clamp(14px, 4vw, 16px);
+    line-height:1.45;
+    color:rgba(255,255,255,.9);
+  }
+  .hero-stat-row{display:none}
+  .hero-universe-btn{
+    width:min(300px, calc(100vw - 96px));
+    min-height:62px;
+    margin-top:18px;
+    padding:11px 18px;
+    justify-content:center;
+    border-radius:28px;
+    font-size:clamp(13px, 3.45vw, 15px);
+    line-height:1.25;
+    text-align:center;
+    background:linear-gradient(135deg,#2563eb 0%,#7c3aed 72%,#8b5cf6 100%);
+    border-color:rgba(125,211,252,.54);
+    box-shadow:0 0 26px rgba(59,130,246,.58), inset 0 1px 0 rgba(255,255,255,.22);
+  }
+  .galaxy-center-link{
+    left:50%;
+    top:calc(100svh + 350px);
+    width:150px;
+    height:150px;
+    z-index:16;
+    color:transparent;
+    font-size:0;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+  }
+  .galaxy-center-link::after{display:none}
+  .planet-field{
+    top:calc(100svh + 82px);
+    margin-top:0;
+    left:0;
+    right:0;
+    height:640px;
+    inset:calc(100svh + 82px) 0 auto 0;
+    z-index:14;
+    pointer-events:none;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 50% 43%, rgba(34,197,94,.18), transparent 19%),
+      radial-gradient(ellipse at 50% 45%, rgba(59,130,246,.14), transparent 36%),
+      radial-gradient(ellipse at 50% 45%, rgba(124,58,237,.12), transparent 56%),
+      linear-gradient(180deg, rgba(1,3,15,.82) 0%, rgba(4,6,26,.72) 18%, rgba(1,3,15,.9) 100%);
+  }
+  .planet-field::before,
+  .planet-field::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:42%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    pointer-events:none;
+  }
+  .planet-field::before{
+    width:92vw;
+    max-width:390px;
+    height:335px;
+    border:2px dotted rgba(124,58,237,.72);
+    box-shadow:0 0 22px rgba(124,58,237,.62), inset 0 0 18px rgba(37,99,235,.18);
+    opacity:.9;
+  }
+  .planet-field::after{
+    width:78vw;
+    max-width:330px;
+    height:225px;
+    border:2px dotted rgba(96,165,250,.64);
+    box-shadow:0 0 18px rgba(59,130,246,.38);
+    opacity:.86;
+  }
+  .p-anchor{pointer-events:all}
+  .p-sphere{
+    width:78px !important;
+    height:78px !important;
+    box-shadow:var(--ps),0 0 24px rgba(255,255,255,.08) !important;
+  }
+  .p-ring-outer{
+    width:150% !important;
+    height:150% !important;
+  }
+  .p-ring-outer::before{border-width:4px !important}
+  .p-ring-outer::after{border-width:2px !important}
+  .p-label{
+    display:block;
+    margin-top:8px;
+    font-size:9.5px;
+    line-height:1.15;
+    letter-spacing:0;
+    opacity:1;
+    text-shadow:0 2px 10px rgba(0,0,0,.9),0 0 14px rgba(124,58,237,.32);
+  }
+  #anchor-universo_osac{
+    left:50% !important;
+    top:42% !important;
+    z-index:4;
+  }
+  #anchor-universo_osac .p-sphere{
+    width:170px !important;
+    height:170px !important;
+    border-radius:50%;
+    background:transparent !important;
+    box-shadow:none !important;
+  }
+  #anchor-universo_osac .p-sphere img{
+    display:block;
+    width:100% !important;
+    height:100% !important;
+    object-fit:contain;
+    filter:drop-shadow(0 0 28px rgba(249,115,22,.82)) drop-shadow(0 0 78px rgba(251,146,60,.5));
+  }
+  #anchor-universo_osac .p-sphere::before,
+  #anchor-universo_osac .p-sphere::after{display:none}
+  #anchor-universo_osac .p-label{display:none}
+  #anchor-saludmental{left:50% !important;top:16% !important}
+  #anchor-primerospasos{left:13% !important;top:40% !important;z-index:6}
+  #anchor-bienestar{left:87% !important;top:40% !important;z-index:6}
+  #anchor-primerospasos .p-sphere,
+  #anchor-bienestar .p-sphere{
+    opacity:1;
+    filter:saturate(1.16) brightness(1.08);
+  }
+  #anchor-polvora{display:none !important}
+  .mobile-obser-card{
+    position:absolute;
+    left:18px;
+    right:18px;
+    top:calc(100svh + 665px);
+    min-height:106px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    z-index:30;
+    padding:14px 18px;
+    border-radius:28px;
+    border:1px solid rgba(168,85,247,.58);
+    background:linear-gradient(135deg, rgba(8,10,36,.88), rgba(16,10,54,.82));
+    color:#fff;
+    box-shadow:0 0 30px rgba(124,58,237,.28), inset 0 1px 0 rgba(255,255,255,.08);
+    text-align:left;
+  }
+  .mobile-obser-avatar{
+    width:78px;
+    height:78px;
+    object-fit:contain;
+    border-radius:20px;
+    filter:drop-shadow(0 0 16px rgba(34,211,238,.38));
+    flex:0 0 auto;
+  }
+  .mobile-obser-copy{display:flex;flex-direction:column;gap:7px;min-width:0;flex:1}
+  .mobile-obser-copy strong{
+    font-size:24px;
+    color:#9b6cff;
+    letter-spacing:.5px;
+  }
+  .mobile-obser-copy span{
+    font-size:17px;
+    color:rgba(255,255,255,.9);
+  }
+  .mobile-obser-action{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    background:linear-gradient(135deg,#4c1d95,#7c3aed);
+    border:1px solid rgba(168,85,247,.7);
+    box-shadow:0 0 24px rgba(124,58,237,.56);
+    flex:0 0 auto;
+  }
+  .mobile-obser-card--hero{
+    top:616px;
+    min-height:88px;
+    gap:12px;
+    padding:10px 14px;
+    border-radius:24px;
+  }
+  .mobile-obser-card--hero .mobile-obser-avatar{
+    width:62px;
+    height:62px;
+  }
+  .mobile-obser-card--hero .mobile-obser-copy strong{
+    font-size:21px;
+  }
+  .mobile-obser-card--hero .mobile-obser-copy span{
+    font-size:15px;
+  }
+  .mobile-obser-card--hero .mobile-obser-action{
+    width:50px;
+    height:50px;
+    font-size:23px;
+  }
 }
 </style>
 </head>
@@ -2175,13 +2552,13 @@ body { margin:0; overflow-x:hidden; }
   <div class="galaxy-bg"><img src="galaxia.jpg" alt="galaxia"></div>
 
   <div class="hero-txt">
-    <h1>Explora el <span class="g">universo</span><br>de la salud<br>en Cali</h1>
-    <p>Conectamos datos,<br>cuidamos vidas y<br>construimos un futuro<br>más saludable.</p>
+    <h1>Explora el <span class="g">universo</span><br>de los En-tornos de Salud.</h1>
+<p>Descubre cómo los entornos saludables<br>conectan comunidades, servicios y bienestar a cada rincón de la ciudad.</p>
     <div class="hero-stat-row">
       <div class="hs"><div class="v" id="vcount">-</div><div class="l">Visitas totales</div></div>
       <div class="hs"><div class="v">55+</div><div class="l">Tableros activos</div></div>
     </div>
-    <a class="hero-universe-btn" href="./index.html">universo osac</a>
+    <a class="hero-universe-btn" href="#planet-field">Conoce el universo En-torno a tu Salud</a>
   </div>
 
   <a class="galaxy-center-link" href="./index.html" data-cinematic-nav="index">
@@ -2191,6 +2568,23 @@ body { margin:0; overflow-x:hidden; }
   <!-- Planet field: planets positioned absolutely over galaxy rings -->
   <div class="planet-field" id="planet-field"></div>
 
+  <button class="mobile-obser-card mobile-obser-card--hero" type="button" aria-label="Abrir asistente Obser AI">
+    <img class="mobile-obser-avatar" src="./font/iconos/movil/obser_ai.png" alt="" aria-hidden="true">
+    <span class="mobile-obser-copy">
+      <strong>Obser · AI</strong>
+      <span>¿En qué puedo ayudarte hoy?</span>
+    </span>
+    <span class="mobile-obser-action"><i class="far fa-comment-dots" aria-hidden="true"></i></span>
+  </button>
+
+  <button class="mobile-obser-card" type="button" aria-label="Abrir asistente Obser AI">
+    <img class="mobile-obser-avatar" src="./font/iconos/movil/obser_ai.png" alt="" aria-hidden="true">
+    <span class="mobile-obser-copy">
+      <strong>Obser · AI</strong>
+      <span>¿En qué puedo ayudarte hoy?</span>
+    </span>
+    <span class="mobile-obser-action"><i class="far fa-comment-dots" aria-hidden="true"></i></span>
+  </button>
 
 </main>
 
@@ -2305,7 +2699,7 @@ const PLANETS = [
     shadowHover:'0 0 46px rgba(56,189,248,1), 0 0 92px rgba(14,165,233,.72)',
     ringColor:'rgba(125,211,252,.82)', ringGlow:'rgba(56,189,248,.56)',
     ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'-16deg',
-    cx:24, cy:50,
+    cx:30, cy:50,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:42, startAngle:200,
     url:'https://lookerstudio.google.com/embed/reporting/3aff0c16-eeef-4fc3-bd94-382b32799b60/page/pogjvoicp1d',
@@ -2320,7 +2714,7 @@ const PLANETS = [
     shadowHover:'0 0 46px rgba(74,222,128,1), 0 0 92px rgba(22,163,74,.72)',
     ringColor:'rgba(134,239,172,.82)', ringGlow:'rgba(74,222,128,.56)',
     ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'14deg',
-    cx:74, cy:26,
+    cx:76, cy:50,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:42, startAngle:320,
     url:'https://lookerstudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/pogjvoicp1d',
@@ -2335,7 +2729,7 @@ const PLANETS = [
     shadowHover:'0 0 46px rgba(167,139,250,1), 0 0 92px rgba(124,58,237,.72)',
     ringColor:'rgba(196,181,253,.82)', ringGlow:'rgba(167,139,250,.56)',
     ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'-12deg',
-    cx:72, cy:55,
+    cx:76, cy:28,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:42, startAngle:70,
     url:'https://lookerstudio.google.com/embed/reporting/971daa1f-038e-4588-be09-4ddcd86ae81d/page/pogjvoicp1d',
@@ -2351,7 +2745,7 @@ const PLANETS = [
     shadowHover:'0 0 46px rgba(167,139,250,1), 0 0 92px rgba(124,58,237,.72)',
     ringColor:'rgba(196,181,253,.82)', ringGlow:'rgba(167,139,250,.56)',
     ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'-12deg',
-    cx:34, cy:75,
+    cx:34, cy:78,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:42, startAngle:70,
     url:'./index.html',
@@ -2380,7 +2774,15 @@ if(cinematicNavLink){
   cinematicNavLink.addEventListener('click', navigateToIndexWithCinematicTransition);
 }
 if(heroUniverseBtn){
-  heroUniverseBtn.addEventListener('click', navigateToIndexWithCinematicTransition);
+  heroUniverseBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    if(!field) return;
+    const fieldTop = field.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({
+      top: Math.max(0, fieldTop - 12),
+      behavior: 'smooth'
+    });
+  });
 }
 
 function planetIconSvgById(id){
@@ -4515,7 +4917,7 @@ function toggleSidebar() {
   const btn = document.getElementById('sb-open-btn');
   const isCollapsed = sb.classList.toggle('collapsed');
   layout.classList.toggle('sb-hidden', isCollapsed);
-  btn.style.display = isCollapsed ? 'block' : 'none';
+  btn.style.display = (isCollapsed || (window.matchMedia && window.matchMedia('(max-width: 768px)').matches)) ? 'block' : 'none';
 }
 
 function initSidebarNavFx(){

@@ -25,7 +25,6 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit}
 }
 
 /* Al pasar el mouse o abrir el chat, toma tamaño grande */
-.obser-chat-frame:hover,
 body.chat-active .obser-chat-frame{
   width:min(640px,100vw);
   height:min(820px,100vh);
@@ -95,6 +94,7 @@ body.dashboard-open .obser-chat-frame{
 .hero-txt p{font-size:12px;color:rgba(232,238,255,.65);margin-top:10px;line-height:1.65;
   text-shadow:0 1px 10px rgba(0,0,0,.95);}
 .hero-stat-row{display:flex;gap:22px;margin-top:18px}
+.hero-stat-icon{display:none}
 .hs .v{font-size:18px;font-weight:800;color:#fff;text-shadow:0 0 16px rgba(56,189,248,.6)}
 .hs .l{font-size:10px;color:#6b7fa8}
 .hero-entornos-btn{
@@ -153,7 +153,7 @@ body.dashboard-open .obser-chat-frame{
   transition:border-color .2s ease, box-shadow .2s ease;
 }
 .galaxy-center-link::after{
-  content:"Ir al Observatorio de Salud Publica";
+  content:"Ir al Observatorio de Salud Pública";
   position:absolute;
   left:50%;
   top:calc(100% + 8px);
@@ -1131,6 +1131,7 @@ body { margin:0; overflow-x:hidden; }
   opacity: .74;
   pointer-events: none;
 }
+.pz-mobile-toolbar{display:none}
 .pz-shell {
   position: absolute;
   left: var(--sx, 50%);
@@ -2059,6 +2060,8 @@ body { margin:0; overflow-x:hidden; }
   pointer-events: none;
   overflow: hidden;
 }
+.mobile-obser-card{display:none}
+.mobile-planets-anchor{display:none}
 @keyframes poiPulse {
   0% { transform: scale(.7); opacity: .9; }
   100% { transform: scale(1.45); opacity: 0; }
@@ -2069,6 +2072,933 @@ body { margin:0; overflow-x:hidden; }
   .pz-preview { width: min(300px, 92vw); }
   .pz-intro-panel { display: none !important; }
   .pz-side-comet { display: none !important; }
+}
+@media(max-width: 768px){
+  body.planet-open,
+  body.dashboard-open{
+    width:100%;
+    height:100dvh;
+    overflow:hidden;
+    position:fixed;
+    inset:0;
+  }
+  .planet-zoom-overlay{
+    overflow-y:hidden;
+    overflow-x:hidden;
+    background:#020614;
+    height:100dvh;
+  }
+  .planet-zoom-overlay.open{
+    min-height:100dvh;
+  }
+  .planet-zoom-overlay.open::before{
+    display:none;
+  }
+  .planet-zoom-overlay .pz-backdrop{
+    position:fixed;
+    min-height:100dvh;
+    background:
+      radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--pz-glow, rgba(56,189,248,.55)) 24%, transparent 76%) 0%, transparent 25%),
+      radial-gradient(circle at 48% 55%, rgba(124,58,237,.26) 0%, rgba(2,6,20,.18) 42%, rgba(2,6,20,.92) 100%),
+      url('./estrellas movil.png') center top / cover repeat-y,
+      linear-gradient(180deg,#020614 0%,#050724 100%);
+    backdrop-filter:none;
+  }
+  .planet-zoom-overlay .pz-backdrop::after{
+    display:none;
+  }
+  .pz-mobile-toolbar{
+    position:absolute;
+    top:30px;
+    left:96px;
+    right:20px;
+    z-index:8;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto auto;
+    gap:10px;
+    align-items:center;
+  }
+  .pz-mobile-search,
+  .pz-mobile-acc,
+  .pz-mobile-info{
+    height:56px;
+    border:1px solid rgba(168,85,247,.56);
+    background:rgba(7,11,38,.72);
+    color:rgba(239,232,255,.92);
+    box-shadow:0 0 22px rgba(124,58,237,.22), inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter:blur(10px);
+  }
+  .pz-mobile-search{
+    min-width:0;
+    display:flex;
+    align-items:center;
+    gap:0;
+    padding:0 16px;
+    border-radius:26px;
+    color:rgba(230,221,255,.72);
+    font-size:17px;
+    white-space:nowrap;
+    overflow:hidden;
+  }
+  .pz-mobile-search span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .pz-mobile-acc{
+    display:flex;
+    align-items:center;
+    border-radius:20px;
+    overflow:hidden;
+    font-size:17px;
+    font-weight:800;
+  }
+  .pz-mobile-acc span{
+    width:43px;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .pz-mobile-acc span + span{
+    border-left:1px solid rgba(168,85,247,.44);
+  }
+  .pz-mobile-info{
+    width:56px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+    font-weight:900;
+    font-style:italic;
+    line-height:1;
+  }
+  .pz-mobile-info[aria-pressed="true"]{
+    background:linear-gradient(180deg, rgba(124,58,237,.92), rgba(59,7,100,.88));
+    color:#fff;
+    box-shadow:0 0 26px rgba(168,85,247,.42), inset 0 1px 0 rgba(255,255,255,.18);
+  }
+  .pz-close{
+    top:30px;
+    left:28px;
+    width:58px;
+    height:58px;
+    padding:0;
+    border-radius:50%;
+    justify-content:center;
+    background:rgba(7,11,38,.72);
+    border-color:rgba(168,85,247,.66);
+    box-shadow:0 0 24px rgba(124,58,237,.32), inset 0 1px 0 rgba(255,255,255,.08);
+    color:#fff;
+    font-size:0;
+    z-index:9;
+  }
+  .pz-close svg{
+    width:25px;
+    height:25px;
+  }
+  .pz-intro-reopen{
+    display:none !important;
+  }
+  .pz-title{
+    top:132px;
+    width:calc(100vw - 44px);
+    z-index:6;
+  }
+  .pz-title::before{
+    display:none;
+  }
+  .pz-title::after{
+    display:none;
+  }
+  .pz-title h3{
+    max-width:310px;
+    margin:0 auto;
+    font-size:clamp(20px, 6.1vw, 27px);
+    line-height:1.06;
+    letter-spacing:0;
+    text-transform:uppercase;
+  }
+  .pz-page-indicator{
+    margin-top:12px;
+    max-width:calc(100vw - 74px);
+    padding:9px 16px;
+    border-color:var(--pz-accent, rgba(248,113,113,.72));
+    background:rgba(3,7,24,.7);
+    color:#fff;
+    font-size:12.5px;
+    box-shadow:0 0 22px color-mix(in srgb, var(--pz-glow, rgba(248,113,113,.55)) 45%, transparent 55%);
+  }
+  .planet-zoom-overlay.zoomed .pz-shell{
+    top:462px;
+    width:min(58vw, 285px);
+    height:min(58vw, 285px);
+  }
+  .pz-poi-layer.vigilancia-layout::before{
+    inset:-23%;
+    border-style:dotted;
+    border-color:rgba(210,224,255,.48);
+    box-shadow:0 0 26px rgba(124,58,237,.24), inset 0 0 18px rgba(255,255,255,.04);
+  }
+  .pz-poi{
+    --poi-scale:.9 !important;
+  }
+  .pz-marker-head{
+    width:132px;
+    height:132px;
+  }
+  .pz-marker-head .pz-poi-logo{
+    width:84px;
+    height:84px;
+  }
+  .pz-marker-head .pz-poi-logo img{
+    width:78%;
+    height:78%;
+  }
+  .pz-marker-head .pz-poi-logo img.topic-dengue-img{
+    width:102%;
+    height:102%;
+  }
+  .pz-marker-head .pz-poi-logo svg{
+    width:42px;
+    height:42px;
+  }
+  .pz-marker-head .pz-poi-logo i{
+    font-size:40px;
+  }
+  .pz-marker-point{
+    top:124px;
+  }
+  .pz-marker-trail{
+    top:132px;
+  }
+  .pz-marker-shadow{
+    top:164px;
+  }
+  .pz-poi.is-fullpin{
+    --fullpin-w:98px;
+    --fullpin-h:120px;
+    --fullpin-img-scale:.58;
+  }
+  .pz-poi-label,
+  .pz-fullpin-chip{
+    font-size:12px;
+    max-width:130px;
+  }
+  .pz-fullpin-chip{
+    top:calc(var(--fullpin-center-y, 44%) + ((var(--fullpin-h, 283px) * var(--fullpin-img-scale, 1)) / 2) + 8px);
+    min-width:88px;
+    padding:0 0 16px;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    color:#fff;
+    box-shadow:none;
+    letter-spacing:0;
+    line-height:1.1;
+    text-shadow:0 2px 10px rgba(0,0,0,.9),0 0 12px var(--poi-glow, rgba(125,211,252,.7));
+    overflow:visible;
+  }
+  .pz-fullpin-chip::before{
+    content:"";
+    position:absolute;
+    left:8px;
+    right:8px;
+    top:calc(100% - 6px);
+    height:5px;
+    border:0;
+    border-radius:999px;
+    background:rgba(116,123,153,.5);
+    box-shadow:none;
+  }
+  .pz-fullpin-chip::after{
+    content:"";
+    position:absolute;
+    left:8px;
+    top:calc(100% - 6px);
+    width:58%;
+    height:5px;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--poi-glow, rgba(125,211,252,.9)), rgba(255,255,255,.78));
+    opacity:1;
+    box-shadow:0 0 10px var(--poi-glow, rgba(125,211,252,.55));
+  }
+  .pz-nav{
+    top:758px;
+    bottom:auto;
+    padding:8px 12px;
+    gap:16px;
+    border-color:rgba(168,85,247,.4);
+    background:rgba(5,8,28,.72);
+  }
+  .pz-nav-btn{
+    width:46px;
+    height:46px;
+    font-size:34px;
+    border:1px solid rgba(248,174,255,.7);
+    background:rgba(8,10,38,.86);
+    color:#fff;
+    box-shadow:0 0 20px rgba(168,85,247,.34), inset 0 1px 0 rgba(255,255,255,.14);
+  }
+  .pz-nav-btn:first-child,
+  .pz-nav-btn:not(:disabled):first-child{
+    background:rgba(8,10,38,.86);
+  }
+  .planet-zoom-overlay.with-side-comet .pz-side-comet{
+    display:flex !important;
+    left:24px;
+    top:690px;
+    width:70px;
+    height:70px;
+    opacity:1;
+  }
+  .pz-side-comet-core{
+    width:70px;
+    height:70px;
+  }
+  .pz-side-comet-label{
+    left:82px;
+    top:8px;
+    width:180px;
+    white-space:normal;
+    text-align:left;
+    font-size:13px;
+    line-height:1.25;
+    text-transform:none;
+    color:#fff;
+    background:rgba(8,13,38,.76);
+    border:1px solid rgba(148,163,184,.42);
+    border-radius:10px;
+    padding:10px 12px;
+    transform:none;
+  }
+  .planet-zoom-overlay.with-intro .pz-intro-panel{
+    display:block !important;
+    position:fixed;
+    top:104px;
+    left:20px;
+    right:20px;
+    bottom:auto;
+    width:auto;
+    max-height:calc(100dvh - 124px);
+    border-radius:20px;
+    border-color:rgba(168,85,247,.68);
+    background:linear-gradient(180deg, rgba(5,8,34,.88), rgba(4,7,26,.94));
+    box-shadow:0 0 28px rgba(124,58,237,.24), inset 0 1px 0 rgba(255,255,255,.08);
+    overflow:auto;
+    padding-bottom:18px;
+    z-index:12;
+  }
+  .db-overlay{
+    overflow:hidden;
+    backdrop-filter:none;
+  }
+  .db-modal{
+    width:100%;
+    height:100%;
+  }
+  .db-topbar{
+    height:54px;
+    padding:0 12px;
+    gap:8px;
+  }
+  .db-topbar h2{
+    font-size:13px;
+  }
+  .db-dot{
+    width:22px;
+    height:22px;
+  }
+  .db-back{
+    padding:8px 12px;
+    font-size:0;
+  }
+  .db-back svg{
+    width:20px;
+    height:20px;
+  }
+  .db-zoom,
+  .db-fs,
+  .db-submenu{
+    display:none !important;
+  }
+  .db-frame-wrap{
+    width:100%;
+    height:calc(100% - 54px);
+  }
+  .db-frame{
+    width:100% !important;
+    height:100% !important;
+  }
+  .db-overlay.with-intro .db-frame{
+    width:100% !important;
+  }
+  .pz-intro-inner{
+    padding:26px 24px 8px 86px;
+    min-height:240px;
+  }
+  .pz-intro-inner::before{
+    content:"i";
+    position:absolute;
+    left:32px;
+    top:28px;
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#9b5cff;
+    font-size:30px;
+    font-weight:900;
+    font-style:italic;
+    border:2px solid rgba(124,58,237,.9);
+    box-shadow:0 0 18px rgba(124,58,237,.42);
+  }
+  .pz-intro-inner h3{
+    font-size:22px;
+    line-height:1.2;
+    margin-bottom:18px;
+  }
+  .pz-intro-inner h4{
+    font-size:18px;
+    line-height:1.25;
+    margin-top:22px;
+    color:#8b5cf6;
+  }
+  .pz-intro-inner p,
+  .pz-intro-inner li{
+    font-size:15px;
+    line-height:1.5;
+  }
+  .pz-intro-inner ul{
+    padding-left:20px;
+  }
+  .pz-preview{
+    display:none !important;
+  }
+  html,body{
+    height:auto;
+    min-height:100%;
+    overflow-x:hidden;
+    overflow-y:auto;
+    background:#020614 url('./estrellas movil.png') center top / cover repeat-y;
+  }
+  body{
+    display:block;
+    background:#020614 url('./estrellas movil.png') center top / cover repeat-y;
+  }
+  .obser-chat-frame{display:none !important}
+  .sidebar{
+    display:flex !important;
+    position:fixed !important;
+    top:0 !important;
+    left:0 !important;
+    width:min(82vw, 320px) !important;
+    height:100dvh !important;
+    z-index:520 !important;
+    transform:translateX(0);
+    transition:transform .28s cubic-bezier(.2,.72,.12,1), box-shadow .28s ease;
+    background:
+      radial-gradient(circle at 22% 6%, rgba(76,29,149,.28), transparent 30%),
+      linear-gradient(180deg, rgba(2,7,33,.98) 0%, rgba(4,9,42,.98) 48%, rgba(5,7,32,.99) 100%) !important;
+    border-right:1px solid rgba(124,58,237,.36) !important;
+    box-shadow:24px 0 48px rgba(0,0,0,.56), 0 0 22px rgba(76,29,149,.22);
+  }
+  .sidebar.collapsed{
+    transform:translateX(-105%) !important;
+    width:min(82vw, 320px) !important;
+  }
+  .sidebar .sb-brand{
+    border-bottom-color:rgba(124,58,237,.24);
+    background:linear-gradient(180deg, rgba(5,12,46,.2), rgba(5,8,34,.55));
+  }
+  .sidebar .sb-item{
+    color:rgba(203,213,255,.72);
+    background:transparent;
+  }
+  .sidebar .sb-item:hover,
+  .sidebar .sb-active{
+    background:linear-gradient(135deg, rgba(30,41,102,.86), rgba(55,28,118,.64)) !important;
+    border-color:rgba(139,92,246,.42) !important;
+    box-shadow:inset 0 0 0 1px rgba(99,102,241,.16), 0 0 18px rgba(76,29,149,.2) !important;
+  }
+  .sidebar .sb-stats{
+    background:linear-gradient(180deg, rgba(4,10,42,.92), rgba(7,10,50,.96));
+    border-color:rgba(99,102,241,.34);
+    box-shadow:0 0 18px rgba(76,29,149,.18), inset 0 1px 0 rgba(168,85,247,.08);
+  }
+  .sidebar .sb-city-img{
+    filter:brightness(.72) saturate(1.05) hue-rotate(8deg);
+  }
+  .app-layout,
+  .app-layout.sb-hidden{
+    display:block;
+    width:100%;
+    min-height:calc(100svh + 650px);
+    height:auto;
+    margin-left:0;
+    overflow:visible;
+  }
+  .main-col{
+    display:block;
+    min-height:calc(100svh + 650px);
+    height:auto;
+    overflow:visible;
+  }
+  .stage{
+    width:100%;
+    min-height:calc(100svh + 650px);
+    height:calc(100svh + 650px);
+    overflow:hidden;
+    padding-bottom:40px;
+    background:
+      linear-gradient(180deg, rgba(1,3,15,.18) 0%, rgba(1,3,15,.28) 100%),
+      url('./estrellas movil.png') center top / cover repeat-y,
+      linear-gradient(90deg, #01030f 0%, #03061a 44%, #050724 100%);
+  }
+  .galaxy-bg{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:100svh;
+    min-height:640px;
+    inset:0 0 auto 0;
+    overflow:hidden;
+    background-image:url('./galaxia-movil.jpg');
+    background-repeat:no-repeat;
+    background-position:right 108px;
+    background-size:auto 62%;
+  }
+  .galaxy-bg img{
+    display:none;
+  }
+  .galaxy-bg::after{
+    background:
+      linear-gradient(90deg, rgba(1,3,15,.97) 0%, rgba(1,3,15,.88) 34%, rgba(1,3,15,.32) 62%, rgba(1,3,15,0) 88%),
+      linear-gradient(180deg, rgba(2,6,20,.08) 0%, rgba(2,6,20,.02) 58%, rgba(2,6,20,.86) 100%);
+  }
+
+  .hdr{
+    top:22px;
+    left:82px;
+    right:20px;
+    height:46px;
+    padding:0;
+    gap:10px;
+    z-index:240;
+    pointer-events:none;
+  }
+  .hdr-search{
+    height:46px;
+    min-width:0;
+    max-width:none;
+    margin:0;
+    padding:0 14px;
+    border-radius:23px;
+    gap:10px;
+    background:rgba(8,10,36,.78);
+    border:1px solid rgba(167,139,250,.46);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 0 24px rgba(124,58,237,.16);
+  }
+  .hdr-search svg{width:18px;height:18px;flex:0 0 auto}
+  .hdr-search input{font-size:clamp(14px,3.6vw,18px);color:#f4f1ff}
+  .hdr-search input::placeholder{font-size:clamp(14px,3.6vw,18px);color:rgba(226,220,255,.6)}
+  .hdr-right{flex:0 0 auto;margin-left:0}
+  .hdr-chip{display:none}
+  .hdr-acc{gap:0}
+  .acc-b{
+    width:42px;
+    height:46px;
+    border-radius:0;
+    border-color:rgba(168,85,247,.62);
+    background:rgba(12,10,40,.76);
+    color:#fff;
+    font-size:18px;
+  }
+  .acc-b:first-child{border-radius:20px 0 0 20px}
+  .acc-b:last-child{border-radius:20px;margin-left:10px}
+  .acc-b:nth-child(2){border-left:0;border-radius:0 20px 20px 0}
+  .acc-b:last-child{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+  }
+  #sb-open-btn{
+    display:flex !important;
+    position:fixed !important;
+    top:28px !important;
+    left:24px !important;
+    width:50px !important;
+    height:50px !important;
+    z-index:260 !important;
+    align-items:center;
+    justify-content:center;
+    border-radius:50% !important;
+    border:1px solid rgba(139,92,246,.8) !important;
+    background:rgba(8,10,38,.72) !important;
+    box-shadow:0 0 22px rgba(124,58,237,.72), inset 0 1px 0 rgba(255,255,255,.08) !important;
+    color:#fff !important;
+  }
+  #sb-open-btn svg{width:28px;height:28px}
+
+  .hero-txt{
+    left:clamp(28px,5vw,40px);
+    top:140px;
+    transform:none;
+    z-index:18;
+    max-width:min(315px, 47vw);
+  }
+  .hero-txt h1{
+    font-size:clamp(28px, 8vw, 34px);
+    line-height:1.18;
+    letter-spacing:0;
+  }
+  .hero-txt h1 .g{
+    background:linear-gradient(90deg,#5d8cff,#a855f7);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .hero-txt p{
+    margin-top:14px;
+    font-size:clamp(14px, 4vw, 16px);
+    line-height:1.45;
+    color:rgba(255,255,255,.9);
+  }
+  .hero-stat-row{
+    margin-top:18px;
+    gap:18px;
+    align-items:center;
+    flex-wrap:nowrap;
+  }
+  .hero-stat-row .hs{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-width:0;
+  }
+  .hero-stat-icon{
+    display:block;
+    width:42px;
+    height:42px;
+    object-fit:contain;
+    flex:0 0 auto;
+    filter:drop-shadow(0 0 12px rgba(124,58,237,.45));
+  }
+  .hero-stat-copy{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+  }
+  .hs .v{
+    font-size:26px;
+    line-height:1;
+    text-shadow:0 0 18px rgba(139,92,246,.56);
+  }
+  .hs .l{
+    margin-top:4px;
+    font-size:12px;
+    line-height:1.2;
+    max-width:120px;
+    color:rgba(255,255,255,.75);
+  }
+  .hero-entornos-btn{
+    width:min(300px, 40vw);
+    min-height:66px;
+    margin-top:18px;
+    padding:11px 18px;
+    justify-content:space-between;
+    border-radius:28px;
+    font-size:clamp(14px, 3.7vw, 15px);
+    line-height:1.35;
+    text-align:left;
+    background:linear-gradient(135deg,#2563eb 0%,#7c3aed 72%,#8b5cf6 100%);
+    border-color:rgba(125,211,252,.54);
+    box-shadow:0 0 26px rgba(59,130,246,.58), inset 0 1px 0 rgba(255,255,255,.22);
+  }
+  .hero-entornos-btn i{font-size:25px}
+
+  .galaxy-center-link{
+    left:68%;
+    top:420px;
+    width:min(320px, 42vw);
+    height:min(320px, 42vw);
+    z-index:13;
+    color:transparent;
+    font-size:0;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+  }
+  .galaxy-center-link::before{
+    display:none;
+  }
+  .galaxy-center-link::after{display:none}
+
+  .mobile-planets-anchor{
+    display:block;
+    position:absolute;
+    top:100svh;
+    left:0;
+    width:1px;
+    height:1px;
+    pointer-events:none;
+  }
+
+  .planet-field{
+    top:100svh;
+    margin-top:-58px;
+    left:0;
+    right:0;
+    height:640px;
+    inset:100svh 0 auto 0;
+    z-index:14;
+    pointer-events:none;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 50% 43%, rgba(34,197,94,.18), transparent 19%),
+      radial-gradient(ellipse at 50% 45%, rgba(59,130,246,.14), transparent 36%),
+      radial-gradient(ellipse at 50% 45%, rgba(124,58,237,.12), transparent 56%),
+      linear-gradient(180deg, rgba(1,3,15,.82) 0%, rgba(4,6,26,.72) 18%, rgba(1,3,15,.9) 100%);
+  }
+  .planet-field::before,
+  .planet-field::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:52%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    pointer-events:none;
+  }
+  .planet-field::before{
+    top:42%;
+    width:92vw;
+    max-width:390px;
+    height:335px;
+    border:2px dotted rgba(124,58,237,.72);
+    box-shadow:
+      0 0 22px rgba(124,58,237,.62),
+      inset 0 0 18px rgba(37,99,235,.18);
+    opacity:.9;
+  }
+  .planet-field::after{
+    top:42%;
+    width:78vw;
+    max-width:330px;
+    height:225px;
+    border:2px dotted rgba(96,165,250,.64);
+    box-shadow:0 0 18px rgba(59,130,246,.38);
+    opacity:.86;
+  }
+  .p-anchor{pointer-events:all}
+  .p-sphere{
+    width:52px !important;
+    height:52px !important;
+    box-shadow:var(--ps),0 0 24px rgba(255,255,255,.08) !important;
+  }
+  .p-sphere .planet-fa{font-size:23px}
+  .p-ring-outer{
+    width:150% !important;
+    height:150% !important;
+  }
+  .p-ring-outer::before{
+    border-width:4px !important;
+  }
+  .p-ring-outer::after{
+    border-width:2px !important;
+  }
+  .p-label{
+    margin-top:8px;
+    font-size:9.5px;
+    line-height:1.15;
+    letter-spacing:0;
+    opacity:1;
+    text-shadow:0 2px 10px rgba(0,0,0,.9),0 0 14px rgba(124,58,237,.32);
+  }
+  #anchor-salud{
+    left:50% !important;
+    top:42% !important;
+    z-index:4;
+  }
+  #anchor-salud .p-sphere{
+    width:140px !important;
+    height:140px !important;
+    border-radius:50%;
+    background:transparent !important;
+    box-shadow:none !important;
+  }
+  #anchor-salud .p-sphere img{
+    display:block;
+    width:100% !important;
+    height:100% !important;
+    object-fit:contain;
+    filter:drop-shadow(0 0 28px rgba(74,222,128,.75)) drop-shadow(0 0 78px rgba(34,197,94,.42));
+  }
+  #anchor-salud .p-sphere::before{
+    display:none;
+  }
+  #anchor-salud .p-sphere::after{
+    display:none;
+  }
+  #anchor-salud .p-label{
+    display:none;
+  }
+
+  #anchor-saludpub{left:50% !important;top:16% !important}
+  #anchor-demografia{left:22% !important;top:26% !important}
+  #anchor-vigilancia{left:78% !important;top:26% !important}
+  #anchor-planeacion{left:18% !important;top:43% !important}
+  #anchor-ambiente{left:83% !important;top:43% !important}
+  #anchor-financiero{left:34% !important;top:62% !important}
+  #anchor-prestacion{left:66% !important;top:62% !important}
+
+  .mobile-obser-card{
+    position:absolute;
+    left:24px;
+    right:24px;
+    top:585px;
+    min-height:88px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    z-index:30;
+    padding:10px 14px;
+    border-radius:24px;
+    border:1px solid rgba(168,85,247,.58);
+    background:linear-gradient(135deg, rgba(8,10,36,.88), rgba(16,10,54,.82));
+    color:#fff;
+    box-shadow:0 0 30px rgba(124,58,237,.28), inset 0 1px 0 rgba(255,255,255,.08);
+    text-align:left;
+  }
+  .mobile-obser-avatar{
+    width:62px;
+    height:62px;
+    object-fit:contain;
+    border-radius:20px;
+    filter:drop-shadow(0 0 16px rgba(34,211,238,.38));
+    flex:0 0 auto;
+  }
+  .mobile-obser-copy{display:flex;flex-direction:column;gap:7px;min-width:0;flex:1}
+  .mobile-obser-copy strong{
+    font-size:21px;
+    color:#9b6cff;
+    letter-spacing:.5px;
+  }
+  .mobile-obser-copy span{
+    font-size:15px;
+    color:rgba(255,255,255,.9);
+  }
+  .mobile-obser-action{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+    background:linear-gradient(135deg,#4c1d95,#7c3aed);
+    border:1px solid rgba(168,85,247,.7);
+    box-shadow:0 0 24px rgba(124,58,237,.56);
+    flex:0 0 auto;
+  }
+  .mobile-obser-card--planets{
+    top:calc(100svh + 535px);
+    min-height:106px;
+    gap:16px;
+    padding:14px 18px;
+    border-radius:28px;
+  }
+  .mobile-obser-card--planets .mobile-obser-avatar{
+    width:78px;
+    height:78px;
+  }
+  .mobile-obser-card--planets .mobile-obser-copy strong{
+    font-size:24px;
+  }
+  .mobile-obser-card--planets .mobile-obser-copy span{
+    font-size:17px;
+  }
+  .mobile-obser-card--planets .mobile-obser-action{
+    width:58px;
+    height:58px;
+    font-size:26px;
+  }
+}
+@media(max-width: 768px) and (orientation: portrait){
+  .db-overlay.open{
+    top:0;
+    left:0;
+    right:auto;
+    bottom:auto;
+    width:100dvh;
+    height:100dvw;
+    transform:rotate(90deg) translateY(-100%);
+    transform-origin:top left;
+  }
+  .db-overlay.open .db-modal{
+    width:100dvh;
+    height:100dvw;
+  }
+}
+@media(max-width: 420px){
+  .galaxy-bg{
+    left:0;
+    inset:0 0 auto 0;
+    background-position:right 108px;
+    background-size:auto 62%;
+  }
+  .galaxy-bg::after{
+    background:
+      linear-gradient(90deg, rgba(1,3,15,.97) 0%, rgba(1,3,15,.82) 30%, rgba(1,3,15,.24) 60%, rgba(1,3,15,0) 86%),
+      linear-gradient(180deg, rgba(2,6,20,.08) 0%, rgba(2,6,20,.02) 58%, rgba(2,6,20,.86) 100%);
+  }
+  .hero-txt{
+    left:24px;
+    top:132px;
+    max-width:58vw;
+  }
+  .hero-txt h1{
+    font-size:clamp(26px, 9.5vw, 34px);
+  }
+  .hero-txt p{
+    max-width:52vw;
+  }
+  .hero-entornos-btn{
+    width:min(280px, calc(100vw - 96px));
+    min-height:62px;
+    margin-top:18px;
+  }
+  .hero-stat-row{
+    gap:12px;
+  }
+  .hero-stat-icon{
+    width:38px;
+    height:38px;
+  }
+  .hs .v{
+    font-size:23px;
+  }
+  .hs .l{
+    font-size:11px;
+    max-width:92px;
+  }
+  .galaxy-center-link{
+    left:68%;
+    top:405px;
+    width:44vw;
+    height:44vw;
+  }
+  .mobile-obser-card{
+    top:570px;
+    left:18px;
+    right:18px;
+  }
+  .mobile-obser-card--planets{
+    top:calc(100svh + 525px);
+  }
 }
 </style>
 </head>
@@ -2207,24 +3137,43 @@ body { margin:0; overflow-x:hidden; }
 
   <div class="hero-txt">
     <h1>Explora el <span class="g">universo</span><br>de la salud<br>en Cali</h1>
-    <p>Conectamos datos,<br>cuidamos vidas y<br>construimos un futuro<br>más saludable.</p>
+    <p>Conectamos datos,<br>cuidamos vidas.</p>
     <div class="hero-stat-row">
-      <div class="hs"><div class="v" id="vcount">–</div><div class="l">Visitas totales</div></div>
-      <div class="hs"><div class="v">55+</div><div class="l">Tableros activos</div></div>
+      <div class="hs">
+        <img class="hero-stat-icon" src="./font/iconos/movil/vistas.png" alt="" aria-hidden="true">
+        <div class="hero-stat-copy"><div class="v" id="vcount">–</div><div class="l">Visitas totales</div></div>
+      </div>
     </div>
     <a class="hero-entornos-btn" href="./principal-entornos.html" data-cinematic-nav="entornos">
-      <span>Conoce el nuevo Universo de los en-tornos de la salud de Cali</span>
+      <span>En-torno a tu Salud</span>
       <i class="fas fa-arrow-right" aria-hidden="true"></i>
     </a>
   </div>
 
   <a class="galaxy-center-link" href="https://www.cali.gov.co/salud/publicaciones/169285/observatorio-de-salud-publica/" target="_blank" rel="noopener noreferrer">
-    Ir al Observatorio de Salud Publica
+    Ir al Observatorio de Salud Pública
   </a>
 
   <!-- Planet field: planets positioned absolutely over galaxy rings -->
+  <div id="mobile-planets-anchor" class="mobile-planets-anchor" aria-hidden="true"></div>
   <div class="planet-field" id="planet-field"></div>
 
+  <button class="mobile-obser-card" type="button" aria-label="Abrir asistente Obser AI">
+    <img class="mobile-obser-avatar" src="./font/iconos/movil/obser_ai.png" alt="" aria-hidden="true">
+    <span class="mobile-obser-copy">
+      <strong>Obser · AI</strong>
+      <span>¿En qué puedo ayudarte hoy?</span>
+    </span>
+    <span class="mobile-obser-action"><i class="far fa-comment-dots" aria-hidden="true"></i></span>
+  </button>
+  <button class="mobile-obser-card mobile-obser-card--planets" type="button" aria-label="Abrir asistente Obser AI">
+    <img class="mobile-obser-avatar" src="./font/iconos/movil/obser_ai.png" alt="" aria-hidden="true">
+    <span class="mobile-obser-copy">
+      <strong>Obser · AI</strong>
+      <span>¿En qué puedo ayudarte hoy?</span>
+    </span>
+    <span class="mobile-obser-action"><i class="far fa-comment-dots" aria-hidden="true"></i></span>
+  </button>
 
 </main>
 
@@ -2269,6 +3218,16 @@ body { margin:0; overflow-x:hidden; }
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Volver al sistema
   </button>
+  <div class="pz-mobile-toolbar">
+    <div class="pz-mobile-search">
+      <span>Buscar tablero...</span>
+    </div>
+    <div class="pz-mobile-acc">
+      <span>A−</span>
+      <span>A+</span>
+    </div>
+    <button class="pz-mobile-info" id="pz-mobile-info" type="button" aria-label="Mostrar información">i</button>
+  </div>
   <button class="pz-intro-reopen" id="pz-intro-reopen" type="button" hidden>Mostrar info</button>
   <div class="pz-title">
     <h3 id="pz-title">Planeta</h3>
@@ -2524,6 +3483,7 @@ const PLANETS = [
 const field = document.getElementById('planet-field');
 const stage = document.getElementById('stage');
 const entornosNavLinks = document.querySelectorAll('[data-cinematic-nav="entornos"]');
+const entornosSidebarSummary = document.querySelector('.sb-details > summary.sb-item');
 
 function navigateToEntornosWithCinematicTransition(event){
   if(event) event.preventDefault();
@@ -2537,6 +3497,13 @@ function navigateToEntornosWithCinematicTransition(event){
 entornosNavLinks.forEach((link) => {
   link.addEventListener('click', navigateToEntornosWithCinematicTransition);
 });
+if(entornosSidebarSummary){
+  entornosSidebarSummary.addEventListener('click', (event) => {
+    if(window.matchMedia && window.matchMedia('(max-width: 768px)').matches){
+      navigateToEntornosWithCinematicTransition(event);
+    }
+  });
+}
 
 function planetIconSvgById(id){
   const icons = {
@@ -2894,28 +3861,35 @@ if(dbIntroReopenBtn){
 
 const pzIntroToggleBtn = document.getElementById('pz-intro-toggle');
 const pzIntroReopenBtn = document.getElementById('pz-intro-reopen');
+const pzMobileInfoBtn = document.getElementById('pz-mobile-info');
+function isPlanetMobileView(){
+  return window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+}
+function setPlanetIntroExpanded(expanded){
+  if(!planetIntroAvailable || !zoomOverlay) return;
+  planetIntroCollapsed = !expanded;
+  planetIntroHiddenByUser = !expanded;
+  zoomOverlay.classList.toggle('with-intro', expanded);
+  if(pzIntroToggleBtn){
+    pzIntroToggleBtn.hidden = !expanded;
+    pzIntroToggleBtn.textContent = expanded ? 'Ocultar info' : 'Mostrar info';
+  }
+  if(pzIntroReopenBtn) pzIntroReopenBtn.hidden = true;
+  if(pzMobileInfoBtn) pzMobileInfoBtn.setAttribute('aria-pressed', expanded ? 'true' : 'false');
+}
 if(pzIntroToggleBtn){
   pzIntroToggleBtn.addEventListener('click', () => {
-    if(!planetIntroAvailable || !zoomOverlay) return;
-    planetIntroCollapsed = !planetIntroCollapsed;
-    planetIntroHiddenByUser = planetIntroCollapsed;
-    zoomOverlay.classList.toggle('with-intro', !planetIntroCollapsed);
-    pzIntroToggleBtn.textContent = planetIntroCollapsed ? 'Mostrar info' : 'Ocultar info';
-    pzIntroToggleBtn.hidden = planetIntroCollapsed;
-    if(pzIntroReopenBtn) pzIntroReopenBtn.hidden = !(planetIntroCollapsed && planetIntroHiddenByUser);
+    setPlanetIntroExpanded(planetIntroCollapsed);
   });
 }
 if(pzIntroReopenBtn){
   pzIntroReopenBtn.addEventListener('click', () => {
-    if(!planetIntroAvailable || !zoomOverlay) return;
-    planetIntroCollapsed = false;
-    zoomOverlay.classList.add('with-intro');
-    if(pzIntroToggleBtn){
-      pzIntroToggleBtn.hidden = false;
-      pzIntroToggleBtn.textContent = 'Ocultar info';
-    }
-    planetIntroHiddenByUser = false;
-    pzIntroReopenBtn.hidden = true;
+    setPlanetIntroExpanded(true);
+  });
+}
+if(pzMobileInfoBtn){
+  pzMobileInfoBtn.addEventListener('click', () => {
+    setPlanetIntroExpanded(planetIntroCollapsed);
   });
 }
 
@@ -3623,6 +4597,10 @@ function setPlanetIntroContent(planet){
   if(pzIntroReopenBtn){
     pzIntroReopenBtn.hidden = !hasIntro || !planetIntroCollapsed || !planetIntroHiddenByUser;
   }
+  if(pzMobileInfoBtn){
+    pzMobileInfoBtn.hidden = !hasIntro;
+    pzMobileInfoBtn.setAttribute('aria-pressed', hasIntro && !planetIntroCollapsed ? 'true' : 'false');
+  }
 
   if(!hasIntro){
     planetIntroHiddenByUser = false;
@@ -4250,6 +5228,10 @@ function hidePoiPreviewSoon(){
 }
 
 function setZoomPlanetStyle(planet){
+  if(zoomOverlay){
+    zoomOverlay.style.setProperty('--pz-accent', planet.ringColor || 'rgba(125,211,252,.85)');
+    zoomOverlay.style.setProperty('--pz-glow', planet.ringGlow || 'rgba(56,189,248,.6)');
+  }
   zoomPlanet.style.background = planet.grad + ', radial-gradient(circle at 68% 70%, rgba(1,10,40,0.68) 0%, transparent 42%)';
   zoomPlanet.style.boxShadow = '0 0 0 1px rgba(125,211,252,0.18), 0 0 90px rgba(37,99,235,0.35), 0 0 180px rgba(59,130,246,0.22), inset 0 0 50px rgba(15,23,42,0.55), ' + planet.shadow;
   if(ensureGlobe3D()){
@@ -4958,8 +5940,27 @@ function openPlanetExperience(planet, anchor){
   zoomShell.style.setProperty('--ss', String(startScale));
   zoomShell.style.setProperty('--fs', finalSize + 'px');
 
+  const titleWrap = zoomTitle.closest('.pz-title');
+  const titleIcons = {
+    financiero: '\uf51e',
+    demografia: '\uf0c0',
+    saludpub: '\uf21e',
+    vigilancia: '\uf06e',
+    planeacion: '\uf46d',
+    prestacion: '\uf0f8',
+    ambiente: '\uf06c',
+    salud: '\uf21e'
+  };
+  if(titleWrap) titleWrap.dataset.icon = titleIcons[planet.id] || '\uf111';
   zoomTitle.textContent = planet.label.replace('\n', ' ');
   setZoomPlanetStyle(planet);
+  if(isPlanetMobileView()){
+    planetIntroCollapsed = true;
+    planetIntroHiddenByUser = true;
+  } else {
+    planetIntroCollapsed = false;
+    planetIntroHiddenByUser = false;
+  }
   setPlanetIntroContent(planet);
   setSideCometForPlanet(planet);
   if(zoomGlobeCanvas) zoomGlobeCanvas.style.display = 'none';
@@ -4969,6 +5970,8 @@ function openPlanetExperience(planet, anchor){
 
   zoomOverlay.classList.add('open');
   zoomOverlay.setAttribute('aria-hidden', 'false');
+  zoomOverlay.scrollTop = 0;
+  if(isPlanetMobileView()) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   requestAnimationFrame(() => {
     zoomOverlay.classList.add('zoomed');
     startPlanetAutoSpin();
@@ -5233,7 +6236,7 @@ function toggleSidebar() {
   const btn = document.getElementById('sb-open-btn');
   const isCollapsed = sb.classList.toggle('collapsed');
   layout.classList.toggle('sb-hidden', isCollapsed);
-  btn.style.display = isCollapsed ? 'block' : 'none';
+  btn.style.display = (isCollapsed || (window.matchMedia && window.matchMedia('(max-width: 768px)').matches)) ? 'block' : 'none';
 }
 
 function initSidebarNavFx(){
