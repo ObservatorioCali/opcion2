@@ -94,7 +94,16 @@ body.dashboard-open .obser-chat-frame{
 .hero-txt p{font-size:12px;color:rgba(232,238,255,.65);margin-top:10px;line-height:1.65;
   text-shadow:0 1px 10px rgba(0,0,0,.95);}
 .hero-stat-row{display:flex;gap:22px;margin-top:18px}
-.hero-stat-icon{display:none}
+.hero-stat-row .hs{display:flex;align-items:center;gap:8px}
+.hero-stat-icon{
+  display:block;
+  width:30px;
+  height:30px;
+  object-fit:contain;
+  flex:0 0 auto;
+  filter:drop-shadow(0 0 10px rgba(56,189,248,.34));
+}
+.hero-stat-copy{display:flex;flex-direction:column;min-width:0}
 .hs .v{font-size:18px;font-weight:800;color:#fff;text-shadow:0 0 16px rgba(56,189,248,.6)}
 .hs .l{font-size:10px;color:#6b7fa8}
 .hero-entornos-btn{
@@ -130,6 +139,7 @@ body.dashboard-open .obser-chat-frame{
 .hero-entornos-btn span{
   min-width:0;
 }
+.hero-entornos-btn-label--mobile{display:none}
 
 .galaxy-center-link{
   position:absolute;
@@ -2679,6 +2689,7 @@ body { margin:0; overflow-x:hidden; }
     gap:8px;
     min-width:0;
   }
+  .hero-stat-row .hs--boards{display:none}
   .hero-stat-icon{
     display:block;
     width:42px;
@@ -2718,6 +2729,8 @@ body { margin:0; overflow-x:hidden; }
     border-color:rgba(125,211,252,.54);
     box-shadow:0 0 26px rgba(59,130,246,.58), inset 0 1px 0 rgba(255,255,255,.22);
   }
+  .hero-entornos-btn-label--desktop{display:none}
+  .hero-entornos-btn-label--mobile{display:inline}
   .hero-entornos-btn i{font-size:25px}
 
   .galaxy-center-link{
@@ -3143,9 +3156,14 @@ body { margin:0; overflow-x:hidden; }
         <img class="hero-stat-icon" src="./font/iconos/movil/vistas.png" alt="" aria-hidden="true">
         <div class="hero-stat-copy"><div class="v" id="vcount">–</div><div class="l">Visitas totales</div></div>
       </div>
+      <div class="hs hs--boards">
+        <img class="hero-stat-icon" src="./font/iconos/movil/tableros.png" alt="" aria-hidden="true">
+        <div class="hero-stat-copy"><div class="v">55+</div><div class="l">Tableros activos</div></div>
+      </div>
     </div>
     <a class="hero-entornos-btn" href="./principal-entornos.html" data-cinematic-nav="entornos">
-      <span>En-torno a tu Salud</span>
+      <span class="hero-entornos-btn-label hero-entornos-btn-label--desktop">Conoce el universo En-torno a tu Salud</span>
+      <span class="hero-entornos-btn-label hero-entornos-btn-label--mobile">En-torno a tu Salud</span>
       <i class="fas fa-arrow-right" aria-hidden="true"></i>
     </a>
   </div>

@@ -93,6 +93,16 @@ body.dashboard-open .obser-chat-frame{
 .hero-txt p{font-size:12px;color:rgba(232,238,255,.65);margin-top:10px;line-height:1.65;
   text-shadow:0 1px 10px rgba(0,0,0,.95);}
 .hero-stat-row{display:flex;gap:22px;margin-top:18px}
+.hero-stat-row .hs{display:flex;align-items:center;gap:8px}
+.hero-stat-icon{
+  display:block;
+  width:30px;
+  height:30px;
+  object-fit:contain;
+  flex:0 0 auto;
+  filter:drop-shadow(0 0 10px rgba(56,189,248,.34));
+}
+.hero-stat-copy{display:flex;flex-direction:column;min-width:0}
 .hs .v{font-size:18px;font-weight:800;color:#fff;text-shadow:0 0 16px rgba(56,189,248,.6)}
 .hs .l{font-size:10px;color:#6b7fa8}
 .hero-universe-btn{
@@ -120,6 +130,7 @@ body.dashboard-open .obser-chat-frame{
   box-shadow:0 18px 38px rgba(14,165,233,.34), 0 0 36px rgba(124,58,237,.32);
   filter:saturate(1.08);
 }
+.hero-universe-btn-label--mobile{display:none}
 
 .galaxy-center-link{
   position:absolute;
@@ -2237,6 +2248,8 @@ body { margin:0; overflow-x:hidden; }
     border-color:rgba(125,211,252,.54);
     box-shadow:0 0 26px rgba(59,130,246,.58), inset 0 1px 0 rgba(255,255,255,.22);
   }
+  .hero-universe-btn-label--desktop{display:none}
+  .hero-universe-btn-label--mobile{display:inline}
   .galaxy-center-link{
     left:50%;
     top:calc(100svh + 350px);
@@ -2555,10 +2568,19 @@ body { margin:0; overflow-x:hidden; }
     <h1>Explora el <span class="g">universo</span><br>de los En-tornos de Salud.</h1>
 <p>Descubre cómo los entornos saludables<br>conectan comunidades, servicios y bienestar a cada rincón de la ciudad.</p>
     <div class="hero-stat-row">
-      <div class="hs"><div class="v" id="vcount">-</div><div class="l">Visitas totales</div></div>
-      <div class="hs"><div class="v">55+</div><div class="l">Tableros activos</div></div>
+      <div class="hs">
+        <img class="hero-stat-icon" src="./font/iconos/movil/vistas.png" alt="" aria-hidden="true">
+        <div class="hero-stat-copy"><div class="v" id="vcount">-</div><div class="l">Visitas totales</div></div>
+      </div>
+      <div class="hs">
+        <img class="hero-stat-icon" src="./font/iconos/movil/tableros.png" alt="" aria-hidden="true">
+        <div class="hero-stat-copy"><div class="v">55+</div><div class="l">Tableros activos</div></div>
+      </div>
     </div>
-    <a class="hero-universe-btn" href="#planet-field">Conoce el universo En-torno a tu Salud</a>
+    <a class="hero-universe-btn" href="./index.html">
+      <span class="hero-universe-btn-label hero-universe-btn-label--desktop">Conoce el universo OSAC</span>
+      <span class="hero-universe-btn-label hero-universe-btn-label--mobile">Conoce el universo En-torno a tu Salud</span>
+    </a>
   </div>
 
   <a class="galaxy-center-link" href="./index.html" data-cinematic-nav="index">
@@ -2775,13 +2797,17 @@ if(cinematicNavLink){
 }
 if(heroUniverseBtn){
   heroUniverseBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    if(!field) return;
-    const fieldTop = field.getBoundingClientRect().top + window.pageYOffset;
-    window.scrollTo({
-      top: Math.max(0, fieldTop - 12),
-      behavior: 'smooth'
-    });
+    if(window.matchMedia && window.matchMedia('(max-width: 768px)').matches){
+      event.preventDefault();
+      if(!field) return;
+      const fieldTop = field.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: Math.max(0, fieldTop - 12),
+        behavior: 'smooth'
+      });
+      return;
+    }
+    navigateToIndexWithCinematicTransition(event);
   });
 }
 
