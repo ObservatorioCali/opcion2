@@ -13,6 +13,25 @@ body{font-family:'Inter',system-ui,sans-serif;background:#020614;color:#e8eeff;d
 button{cursor:pointer;font:inherit;border:none;background:none;color:inherit}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:rgba(56,189,248,.2);border-radius:99px}
+.obser-chat-frame{
+  position:fixed;
+  right:0;
+  bottom:0;
+  width:360px;
+  height:260px;
+  border:0;
+  background:transparent;
+  z-index:2147483647 !important;
+}
+.obser-chat-frame:hover,
+body.chat-active .obser-chat-frame{
+  width:min(640px,100vw);
+  height:min(820px,100vh);
+}
+body.planet-open .obser-chat-frame,
+body.dashboard-open .obser-chat-frame{
+  display:none;
+}
 
 /* HEADER */
 .hdr{position:fixed;top:0;left:216px;right:0;z-index:200;height:56px;display:flex;align-items:center;
@@ -2563,6 +2582,7 @@ function openDashboard(url, returnPlanet){
   document.getElementById('db-frame').src = dashboardUrl;
   dashboardReturnPlanet = returnPlanet || null;
   document.getElementById('db-overlay').classList.add('open');
+  document.body.classList.add('dashboard-open');
   requestAnimationFrame(updateDashboardFrameScale);
 }
 
@@ -2606,6 +2626,7 @@ function openDB(planet){
     document.getElementById('db-frame').src = normalizeLookerEmbedUrl(planet.url);
   }
   document.getElementById('db-overlay').classList.add('open');
+  document.body.classList.add('dashboard-open');
   requestAnimationFrame(updateDashboardFrameScale);
 }
 
@@ -2631,6 +2652,7 @@ function closeDB(){
   planetIntroHiddenByUser = false;
   setDashboardIntroContent(null);
   document.getElementById('db-overlay').classList.remove('open');
+  document.body.classList.remove('dashboard-open');
   document.getElementById('db-frame').src = 'about:blank';
   if(returnPlanet){
     setTimeout(() => openPlanetExperience(returnPlanet), 30);
@@ -4239,6 +4261,7 @@ function openPlanetExperience(planet, anchor){
   zoomPreview.classList.remove('open');
 
   zoomOverlay.classList.add('open');
+  document.body.classList.add('planet-open');
   zoomOverlay.setAttribute('aria-hidden', 'false');
   requestAnimationFrame(() => {
     zoomOverlay.classList.add('zoomed');
@@ -4267,11 +4290,13 @@ function closePlanetExperience(instant){
 
   if(instant){
     zoomOverlay.classList.remove('open');
+    document.body.classList.remove('planet-open');
     return;
   }
 
   zoomCloseTimer = setTimeout(() => {
     zoomOverlay.classList.remove('open');
+    document.body.classList.remove('planet-open');
     zoomCloseTimer = null;
   }, 240);
 }
@@ -4506,10 +4531,38 @@ function initSidebarNavFx(){
 initSidebarNavFx();
 </script>
 <iframe
+  class="obser-chat-frame"
   title="Asistente virtual Obser"
   src="https://observatorio-chat-frontend-1081794814967.southamerica-east1.run.app/"
-  style="position:fixed;right:0;bottom:0;width:min(640px,100vw);height:min(820px,100vh);border:0;background:transparent;z-index:2147483647;"
   allowtransparency="true"
 ></iframe>
+<script>
+(() => {
+  const chatFrame = document.querySelector('.obser-chat-frame');
+
+  const collapseChat = () => {
+    document.body.classList.remove('chat-active');
+  };
+
+  if (chatFrame) {
+    chatFrame.addEventListener('mouseleave', collapseChat);
+    chatFrame.addEventListener('blur', collapseChat);
+  }
+
+  window.addEventListener('message', (event) => {
+    const data = event.data;
+
+    if (!data || typeof data !== 'object') return;
+
+    if (data.type === 'obser-chat-open') {
+      document.body.classList.add('chat-active');
+    }
+
+    if (data.type === 'obser-chat-close') {
+      collapseChat();
+    }
+  });
+})();
+</script>
 </body>
 </html>

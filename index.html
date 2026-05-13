@@ -17,14 +17,18 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit}
   position:fixed;
   right:0;
   bottom:0;
-  width:min(640px,100vw);
-  height:min(820px,100vh);
+  width:360px;
+  height:260px;
   border:0;
   background:transparent;
-  z-index:9;
+  z-index:2147483647 !important;
 }
+
+/* Al pasar el mouse o abrir el chat, toma tamaño grande */
+.obser-chat-frame:hover,
 body.chat-active .obser-chat-frame{
-  z-index:2147483647;
+  width:min(640px,100vw);
+  height:min(820px,100vh);
 }
 body.planet-open .obser-chat-frame,
 body.dashboard-open .obser-chat-frame{
@@ -1311,6 +1315,7 @@ body { margin:0; overflow-x:hidden; }
     transform: translate(-50%, -50%) translateZ(2px) rotateX(-7deg) rotateY(54deg) rotateZ(calc(var(--pin-tilt, 0deg) - 18deg)) scale(.72);
   }
 }
+
 @keyframes poiSwapOutRight {
   from {
     opacity: 1;
@@ -2373,6 +2378,7 @@ const PLANETS = [
       {label:'Línea 106',fullLabel:'Línea 106',url:'https://lookerstudio.google.com/embed/reporting/9a0d1e0e-5df7-4e3d-8c0b-594769581a65/page/pmhi7hn8atd'},
       {label:'PAI',fullLabel:'Programa Ampliado de Inmunizaciones',url:'https://lookerstudio.google.com/embed/reporting/3ad6fe09-314e-45b5-8c6c-3fe4b792ac3e/page/pjxxw285ord'},
       {label:'PIC',fullLabel:'Plan de Intervenciones Colectivas',url:'https://lookerstudio.google.com/embed/reporting/69ca6df8-c1fe-4970-947b-294d2be342d4/page/pmx711ds8wd'},
+      {label:'Estilos de vida saludable',url:'https://datastudio.google.com/embed/reporting/c1a51f8d-bc72-4235-bf97-b5e8ed8c37f0/page/p_favx0x7s2d'},
     ]
   },
   // RING 4
@@ -2452,7 +2458,7 @@ const PLANETS = [
       {label:'Aseguramiento',url:'https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE'},
       {label:'APS',fullLabel:'Atención Primaria en Salud',url:'https://lookerstudio.google.com/embed/reporting/e7169e75-e5ee-4853-b827-1a705d3db563/page/F5HYF'},
       {label:'Bancos de Sangre',url:'https://lookerstudio.google.com/embed/reporting/b15e676d-20f4-46a0-aba7-00e8390c77ee/page/pjxxw285ord'},
-      {label:'Urgencias',url:'https://lookerstudio.google.com/embed/reporting/af77b4ff-46f6-494c-a133-a1dda960815b/page/p73az8wefxd'},
+      {label:'Urgencias',fullLabel:'Ocupación de Servicios de Urgencias',url:'https://lookerstudio.google.com/embed/reporting/af77b4ff-46f6-494c-a133-a1dda960815b/page/p73az8wefxd'},
       {label:'Registro Prestadores',url:'https://lookerstudio.google.com/embed/reporting/11401c27-3483-41c4-98e2-dfd27e76b89f/page/piwcjsgh7qd'},
     ]
   },
@@ -2567,6 +2573,9 @@ function topicIconSvg(label){
     'linea 106': 'fas fa-phone-alt',
     'pai': 'fas fa-syringe',
     'pic': 'fas fa-users-rays',
+    'estilos de vida saludable': 'fas fa-heart',
+    'urgencias': 'fas fa-hospital',
+    'ocupacion de servicios de urgencias': 'fas fa-hospital',
     'aptr': 'fas fa-shield-alt',
     'entornos': 'fas fa-hand-holding-droplet',
     'irca': 'fas fa-water',
@@ -2920,7 +2929,8 @@ function setDashboardIntroContent(planet){
   const isFinanciero = !!(planet && planet.id === 'financiero');
   const isAmbiente = !!(planet && planet.id === 'ambiente');
   const isSaludPublica = !!(planet && planet.id === 'saludpub');
-  const hasIntro = isVigilancia || isFinanciero || isAmbiente || isSaludPublica;
+  const isPrestacion = !!(planet && planet.id === 'prestacion');
+  const hasIntro = isVigilancia || isFinanciero || isAmbiente || isSaludPublica || isPrestacion;
   console.log('isVigilancia:', isVigilancia, 'isFinanciero:', isFinanciero, 'isAmbiente:', isAmbiente, 'isSaludPublica:', isSaludPublica, 'hasIntro:', hasIntro);
   dashboardIntroAvailable = hasIntro;
   overlay.classList.toggle('with-intro', hasIntro && !dashboardIntroCollapsed);
@@ -3058,6 +3068,7 @@ function setDashboardIntroContent(planet){
     <p>Aquí, la información se transforma en conocimiento útil para la toma de decisiones, promoviendo acciones integrales que contribuyen al bienestar, la equidad y una mejor calidad de vida para toda la ciudadanía.</p>`;
     return;
   }
+
 }
 
 function clamp(v, min, max){
@@ -3334,6 +3345,22 @@ const POI_PREVIEW_INTROS = {
   'aps': [
     'Este tablero de <strong>Atencion Primaria en Salud (APS)</strong> permite visualizar las caracteristicas sociodemograficas, familiares y de vivienda de la poblacion intervenida a traves de las estrategias de atencion en salud en el territorio.',
     'La comunidad podra encontrar informacion relacionada con el numero de viviendas, hogares, familias y personas caracterizadas, asi como datos sobre poblacion vulnerable, composicion familiar, condiciones de vivienda y distribucion espacial de las encuestas realizadas.'
+  ],
+  'aseguramiento': [
+    'El tablero de <strong>Aseguramiento</strong> permite visualizar el comportamiento de la afiliacion al sistema de salud en el territorio.',
+    'La comunidad podra encontrar informacion relacionada con cobertura, acceso a servicios de salud, tipos de afiliacion y proteccion financiera en salud. Ademas, el tablero integra modulos de analisis poblacional, distribucion territorial y seguimiento de indicadores asociados al acceso y aseguramiento en salud.'
+  ],
+  'ocupacion de servicios de urgencias': [
+    'El tablero de <strong>Ocupacion de Servicios de Urgencias</strong> permite visualizar el comportamiento de la demanda y capacidad de atencion de los servicios de urgencias en el territorio.',
+    'La comunidad podra encontrar informacion relacionada con ocupacion hospitalaria, tiempos de atencion, capacidad instalada y respuesta de las instituciones de salud ante situaciones de urgencia. Ademas, el tablero integra modulos de monitoreo y analisis territorial que apoyan el seguimiento oportuno de la prestacion de servicios de salud.'
+  ],
+  'estilos de vida saludable': [
+    'El tablero de <strong>Estilos de Vida Saludable</strong> permite visualizar las acciones orientadas a la promocion de habitos saludables y la prevencion de enfermedades cronicas no transmisibles en el territorio.',
+    'La comunidad podra encontrar informacion relacionada con actividad fisica, alimentacion saludable, control del consumo de tabaco y alcohol, asi como seguimiento a factores de riesgo asociados a enfermedades cardiovasculares, diabetes, hipertension y obesidad. Ademas, el tablero integra modulos de analisis poblacional, promocion de la salud y monitoreo de estrategias orientadas al mejoramiento de la calidad de vida y el bienestar colectivo.'
+  ],
+  'eventos epidemiologicos': [
+    'El tablero consolidado de <strong>eventos epidemiologicos</strong> reune la informacion de los eventos de vigilancia en salud publica que actualmente cuentan con tableros activos, permitiendo visualizar de manera integrada el comportamiento epidemiologico en el territorio.',
+    'La comunidad podra encontrar informacion sobre la distribucion porcentual de los diferentes eventos, numero total de casos y comportamiento espacial de los eventos. Ademas, incluye herramientas para analizar los casos segun sexo, ubicacion de las ESE, curso de vida, barrios y comunas, asi como mapas de distribucion epidemiologica y variables territoriales como el indice de pobreza multidimensional.'
   ]
 };
 
@@ -3343,6 +3370,7 @@ function getPoiPreviewIntro(topic){
   if(key.includes('mortalidad perinatal')) return POI_PREVIEW_INTROS['mortalidad perinatal'];
   if(key.includes('salud mental')) return POI_PREVIEW_INTROS['salud mental'];
   if(key.includes('cancer de mama y cervix')) return POI_PREVIEW_INTROS['cancer de mama y cervix'];
+  if(key.includes('eventos epidemiologicos')) return POI_PREVIEW_INTROS['eventos epidemiologicos'];
   if(key.includes('sistema de alerta temprana')) return POI_PREVIEW_INTROS['sistema de alerta temprana'];
   if(key.includes('baja notificacion')) return POI_PREVIEW_INTROS['baja notificacion'];
   if(key.includes('enfermedades huerfanas')) return POI_PREVIEW_INTROS['enfermedades huerfanas'];
@@ -3356,10 +3384,13 @@ function getPoiPreviewIntro(topic){
   if(key === 'etas' || key.includes('transmitidas por alimentos')) return POI_PREVIEW_INTROS['etas'];
   if(key.includes('suicidio')) return POI_PREVIEW_INTROS['suicidio'];
   if(key.includes('spa')) return POI_PREVIEW_INTROS['spa'];
+  if(key.includes('aseguramiento')) return POI_PREVIEW_INTROS['aseguramiento'];
   if(key.includes('aps') || key.includes('atencion primaria en salud')) return POI_PREVIEW_INTROS['aps'];
+  if(key.includes('urgencias') || key.includes('ocupacion de servicios de urgencias')) return POI_PREVIEW_INTROS['ocupacion de servicios de urgencias'];
   if(key.includes('irag')) return POI_PREVIEW_INTROS['irag'];
   if(key === 'pai' || key.includes('programa ampliado de inmunizaciones')) return POI_PREVIEW_INTROS['pai'];
   if(key === 'pic' || key.includes('plan de intervenciones colectivas')) return POI_PREVIEW_INTROS['pic'];
+  if(key.includes('estilos de vida saludable')) return POI_PREVIEW_INTROS['estilos de vida saludable'];
   if(key.includes('vacunacion antirrabica')) return POI_PREVIEW_INTROS['vacunacion antirrabica'];
   if(key.includes('bancos de sangre') || key.includes('banco de sangre')) return POI_PREVIEW_INTROS['bancos de sangre'];
   if(key === 'irca' || key.includes('indice de riesgo de la calidad del agua')) return POI_PREVIEW_INTROS['irca'];
@@ -3381,6 +3412,21 @@ const POI_PAGE_SIZE = 5;
 const POI_SWAP_MS = 240;
 const PLANET_AUTO_SPIN_DPS = 12;
 const PIN_GLOBAL_SCALE = 0.85;
+const DEMOGRAFIA_GENERAL_KEYS = new Set([
+  'poblacion',
+  'estadisticas vitales',
+  'aseguramiento'
+]);
+const DEMOGRAFIA_CATEGORY_GROUPS = [
+  {
+    label: 'Poblacion general',
+    topics: ['poblacion', 'estadisticas vitales', 'aseguramiento']
+  },
+  {
+    label: 'Poblacion vulnerable',
+    topics: []
+  }
+];
 const VIGILANCIA_CATEGORY_GROUPS = [
   {
     label: 'Grupo 1. Enfermedades transmisibles y de vectores',
@@ -3403,8 +3449,8 @@ const VIGILANCIA_CATEGORY_GROUPS = [
     topics: ['mortalidad materna', 'morbilidad materna extrema', 'mortalidad perinatal']
   },
   {
-    label: 'Grupo 6. Vigilancia y seguimiento',
-    topics: ['vigilancia comunitaria', 'baja notificacion', 'sistema de alerta temprana']
+    label: 'Grupo 6. Vigilancia Epidemiológica Comunitaria y Brotes',
+    topics: ['eventos epidemiologicos', 'vigilancia comunitaria', 'baja notificacion', 'sistema de alerta temprana']
   },
   {
     label: 'Grupo 7. Enfermedades inmunoprevenibles',
@@ -3430,6 +3476,26 @@ function buildVigilanciaCategoryPages(topics){
     .map((group) => ({
       label: group.label,
       topics: group.topics.map((key) => byLabel.get(key)).filter(Boolean)
+    }))
+    .filter((group) => group.topics.length);
+}
+
+function buildDemografiaCategoryPages(topics){
+  const byLabel = new Map();
+  const vulnerableTopics = [];
+
+  topics.forEach((topic) => {
+    const key = normalizeText(topic.label);
+    byLabel.set(key, topic);
+    if(!DEMOGRAFIA_GENERAL_KEYS.has(key)) vulnerableTopics.push(topic);
+  });
+
+  return DEMOGRAFIA_CATEGORY_GROUPS
+    .map((group) => ({
+      label: group.label,
+      topics: group.topics.length
+        ? group.topics.map((key) => byLabel.get(key)).filter(Boolean)
+        : vulnerableTopics
     }))
     .filter((group) => group.topics.length);
 }
@@ -3531,7 +3597,8 @@ function setPlanetIntroContent(planet){
   const isFinanciero = !!(planet && planet.id === 'financiero');
   const isAmbiente = !!(planet && planet.id === 'ambiente');
   const isSaludPublica = !!(planet && planet.id === 'saludpub');
-  const hasIntro = isVigilancia || isFinanciero || isAmbiente || isSaludPublica;
+  const isPrestacion = !!(planet && planet.id === 'prestacion');
+  const hasIntro = isVigilancia || isFinanciero || isAmbiente || isSaludPublica || isPrestacion;
   planetIntroAvailable = hasIntro;
   zoomOverlay.classList.toggle('with-intro', hasIntro && !planetIntroCollapsed);
 
@@ -3666,6 +3733,34 @@ function setPlanetIntroContent(planet){
     </ul>
 
     <p>Aquí, la información se transforma en conocimiento útil para la toma de decisiones, promoviendo acciones integrales que contribuyen al bienestar, la equidad y una mejor calidad de vida para toda la ciudadanía.</p>`;
+    return;
+  }
+
+  if(isPrestacion){
+    zoomIntroContent.innerHTML = `
+    <h3>Bienvenido a Prestaci&oacute;n de Servicios en Salud</h3>
+    <p>Un espacio dise&ntilde;ado para facilitar el acceso a la informaci&oacute;n sobre la red de servicios de salud de la ciudad, permitiendo comprender c&oacute;mo se organiza, funciona y fortalece la atenci&oacute;n en salud para toda la poblaci&oacute;n. Aqu&iacute; podr&aacute; explorar de manera interactiva informaci&oacute;n estrat&eacute;gica relacionada con la oferta de servicios, la atenci&oacute;n m&eacute;dica y el seguimiento a los diferentes componentes del sistema de salud.</p>
+
+    <h4>&iquest;Qu&eacute; encontrar&aacute; en nuestros tableros?</h4>
+    <ul>
+      <li><strong>Aseguramiento en Salud:</strong> Informaci&oacute;n sobre cobertura, afiliaci&oacute;n y acceso de la poblaci&oacute;n a los servicios del sistema de salud.</li>
+      <li><strong>Atenci&oacute;n Primaria en Salud:</strong> Estrategias orientadas a la promoci&oacute;n de la salud, prevenci&oacute;n de enfermedades y atenci&oacute;n integral desde el primer nivel de atenci&oacute;n.</li>
+      <li><strong>Servicios de Urgencias:</strong> Seguimiento a la capacidad de respuesta, disponibilidad y comportamiento de la atenci&oacute;n en urgencias en las instituciones de salud.</li>
+      <li><strong>Bancos de Sangre y Hemocomponentes:</strong> Monitoreo de la disponibilidad de sangre y componentes sangu&iacute;neos para garantizar una atenci&oacute;n oportuna y segura.</li>
+      <li><strong>Registro de Prestadores de Servicios de Salud:</strong> Informaci&oacute;n sobre hospitales, cl&iacute;nicas, IPS, profesionales independientes y dem&aacute;s instituciones habilitadas para prestar servicios de salud en la ciudad.</li>
+    </ul>
+
+    <h4>Componentes Estrat&eacute;gicos</h4>
+    <p>Monitoreamos y fortalecemos diferentes dimensiones clave para garantizar una atenci&oacute;n integral y de calidad:</p>
+    <ul>
+      <li><strong>Acceso y Oportunidad en la Atenci&oacute;n:</strong> Seguimiento a la disponibilidad y cobertura de los servicios de salud.</li>
+      <li><strong>Calidad y Seguridad del Paciente:</strong> Vigilancia de procesos y condiciones que contribuyen a una atenci&oacute;n segura y eficiente.</li>
+      <li><strong>Gesti&oacute;n de la Red Hospitalaria:</strong> An&aacute;lisis de la capacidad instalada y funcionamiento de las instituciones prestadoras de servicios.</li>
+      <li><strong>Fortalecimiento Institucional:</strong> Acciones orientadas a mejorar la organizaci&oacute;n, articulaci&oacute;n y respuesta del sistema de salud.</li>
+      <li><strong>Informaci&oacute;n para la Ciudadan&iacute;a:</strong> Herramientas que permiten a la comunidad conocer y acceder de manera m&aacute;s clara a los servicios disponibles.</li>
+    </ul>
+
+    <p>Aqu&iacute;, la informaci&oacute;n se convierte en una herramienta para fortalecer la toma de decisiones, mejorar la articulaci&oacute;n institucional y garantizar servicios de salud m&aacute;s accesibles, oportunos y centrados en las necesidades de la poblaci&oacute;n.</p>`;
     return;
   }
 }
@@ -4171,6 +4266,7 @@ function topicLogoMarkup(topic, planet, i){
 
 function topicFullPinImageByPlanet(planetId, normLabel){
   const vigilanciaIcons = {
+    'eventos epidemiologicos': './font/iconos/Vigilancia Epidemiológica/eventosepidemiologicos.png',
     'polvora': './font/iconos/Vigilancia Epidemiológica/polvora.png',
     'cancer de mama y cervix': './font/iconos/Vigilancia Epidemiológica/cancerdemamaycervix.png'
   };
@@ -4187,7 +4283,8 @@ function topicFullPinImageByPlanet(planetId, normLabel){
   const saludPublicaIcons = {
     'linea 106': './font/iconos/salud publica/linea 106.png',
     'pai': './font/iconos/salud publica/pai.png',
-    'pic': './font/iconos/salud publica/pic.png'
+    'pic': './font/iconos/salud publica/pic.png',
+    'estilos de vida saludable': './font/iconos/salud publica/estilossaludables.png'
   };
   const financieroIcons = {
     'ejecucion presupuestal': './font/iconos/financiero/ejecucionpresupuestal.png'
@@ -4199,7 +4296,8 @@ function topicFullPinImageByPlanet(planetId, normLabel){
     'aseguramiento': './font/iconos/prestacion de servicios/aseguramiento.png',
     'aps': './font/iconos/prestacion de servicios/APS.png',
     'bancos de sangre': './font/iconos/prestacion de servicios/banco de sangre.png',
-    'urgencias': './font/iconos/prestacion de servicios/urgencias.png',
+    'urgencias': './font/iconos/prestacion de servicios/ocupación de servicios de urgencias.png',
+    'ocupacion de servicios de urgencias': './font/iconos/prestacion de servicios/ocupación de servicios de urgencias.png',
     'registro prestadores': './font/iconos/prestacion de servicios/registrop.png'
   };
   const ambienteIcons = {
@@ -4318,8 +4416,13 @@ function updatePoiPageIndicator(){
   const currentChunk = poiPageChunks[poiPageIndex];
   const categoryLabel = currentChunk && currentChunk.label;
   if(zoomPageIndicator){
-    zoomPageIndicator.textContent = categoryLabel || ('Puntos ' + current + '/' + total);
-    zoomPageIndicator.hidden = total <= 1;
+    if(total <= 1){
+      zoomPageIndicator.textContent = '';
+      zoomPageIndicator.hidden = true;
+    } else {
+      zoomPageIndicator.textContent = categoryLabel || ('Puntos ' + current + '/' + total);
+      zoomPageIndicator.hidden = false;
+    }
   }
   if(zoomPoiNav) zoomPoiNav.hidden = total <= 1;
   if(zoomPrevBtn) zoomPrevBtn.disabled = total <= 1;
@@ -4624,6 +4727,7 @@ function renderPoiBatch(planet, topics){
       const isAptr = topic.label === 'APTR';
       const isIrca = topic.label === 'IRCA';
       const isAps = topic.label === 'APS';
+      const isUrgencias = topic.label === 'Urgencias';
       const isEda = topic.label === 'EDA';
       const isEtas = topic.label === 'ETAs';
       const isIrag = topic.label === 'IRAG';
@@ -4640,6 +4744,7 @@ function renderPoiBatch(planet, topics){
           if(isAptr){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '280px';chip.style.padding = '11px 16px';}
           if(isIrca){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '220px';chip.style.padding = '11px 16px';}
           if(isAps){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '250px';chip.style.padding = '11px 16px';}
+          if(isUrgencias){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '280px';chip.style.padding = '11px 16px';}
           if(isEda){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '240px';chip.style.padding = '11px 16px';}
           if(isEtas){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '300px';chip.style.padding = '11px 16px';}
           if(isIrag){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '230px';chip.style.padding = '11px 16px';}
@@ -4649,7 +4754,7 @@ function renderPoiBatch(planet, topics){
           chip.textContent = chip.dataset.original; 
           chip.style.background = ''; chip.style.color = ''; chip.style.borderColor = ''; 
           chip.style.boxShadow = ''; chip.style.fontWeight = ''; chip.style.textShadow = '';
-          if(isAptr || isIrca || isAps || isEda || isEtas || isIrag || isVih){chip.style.whiteSpace = '';chip.style.textAlign = '';chip.style.minWidth = '';chip.style.padding = '';}
+          if(isAptr || isIrca || isAps || isUrgencias || isEda || isEtas || isIrag || isVih){chip.style.whiteSpace = '';chip.style.textAlign = '';chip.style.minWidth = '';chip.style.padding = '';}
         });
       }
       if(label){
@@ -4664,6 +4769,7 @@ function renderPoiBatch(planet, topics){
           if(isAptr){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '260px';label.style.padding = '9px 14px';}
           if(isIrca){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '200px';label.style.padding = '9px 14px';}
           if(isAps){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '230px';label.style.padding = '9px 14px';}
+          if(isUrgencias){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '250px';label.style.padding = '9px 14px';}
           if(isEda){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '220px';label.style.padding = '9px 14px';}
           if(isEtas){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '290px';label.style.padding = '9px 14px';}
           if(isIrag){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '210px';label.style.padding = '9px 14px';}
@@ -4673,7 +4779,7 @@ function renderPoiBatch(planet, topics){
           label.textContent = label.dataset.original; 
           label.style.background = ''; label.style.color = ''; label.style.borderColor = ''; 
           label.style.boxShadow = ''; label.style.fontWeight = ''; label.style.textShadow = '';
-          if(isAptr || isIrca || isAps || isEda || isEtas || isIrag || isVih){label.style.whiteSpace = '';label.style.textAlign = '';label.style.minWidth = '';label.style.padding = '';}
+          if(isAptr || isIrca || isAps || isUrgencias || isEda || isEtas || isIrag || isVih){label.style.whiteSpace = '';label.style.textAlign = '';label.style.minWidth = '';label.style.padding = '';}
         });
       }
     }
@@ -4713,7 +4819,7 @@ function showNextPoiBatchAnimated(direction){
 
 function buildPoiTopics(planet){
   const topics = (planet.subs && planet.subs.length)
-    ? planet.subs.filter((t) => !(planet.id === 'vigilancia' && normalizeText(t.label).includes('eventos epidemiologicos')))
+    ? planet.subs.slice()
     : [{ label: 'Tablero principal', url: planet.url }];
 
   topics.slice(0, PRELOAD_WARM_PER_PLANET).forEach((t, idx) => {
@@ -4726,6 +4832,8 @@ function buildPoiTopics(planet){
 
   if(planet.id === 'vigilancia'){
     poiPageChunks = buildVigilanciaCategoryPages(poiCarouselTopics);
+  } else if(planet.id === 'demografia'){
+    poiPageChunks = buildDemografiaCategoryPages(poiCarouselTopics);
   } else {
     poiPageChunks = [];
     for(let i=0; i<poiCarouselTopics.length; i+=POI_PAGE_SIZE){
@@ -5135,25 +5243,28 @@ initSidebarNavFx();
 <script>
 (() => {
   const chatFrame = document.querySelector('.obser-chat-frame');
-  if(!chatFrame) return;
 
-  const setChatActive = (active) => {
-    if(active){
-      document.body.classList.add('chat-active');
-      return;
-    }
-
+  const collapseChat = () => {
     document.body.classList.remove('chat-active');
   };
 
-  chatFrame.addEventListener('click', () => setChatActive(true));
-  chatFrame.addEventListener('focus', () => setChatActive(true));
+  if (chatFrame) {
+    chatFrame.addEventListener('mouseleave', collapseChat);
+    chatFrame.addEventListener('blur', collapseChat);
+  }
+
   window.addEventListener('message', (event) => {
-    if(event.source !== chatFrame.contentWindow) return;
-    const data = event.data || {};
-    const type = typeof data === 'string' ? data : data.type || data.event || data.action;
-    if(String(type).toLowerCase().includes('close')) setChatActive(false);
-    if(String(type).toLowerCase().includes('open')) setChatActive(true);
+    const data = event.data;
+
+    if (!data || typeof data !== 'object') return;
+
+    if (data.type === 'obser-chat-open') {
+      document.body.classList.add('chat-active');
+    }
+
+    if (data.type === 'obser-chat-close') {
+      collapseChat();
+    }
   });
 })();
 </script>
