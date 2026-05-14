@@ -3442,7 +3442,7 @@ const PLANETS = [
   },
   // RING 5 — outer
   {
-    id:'polvora', label:'Vigilancia de pólvora - temporada decembrina',
+    id:'polvora', label:'Vigilancia de Pólvora - temporada decembrina',
     icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="26" height="26"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
     size:86, ring:true,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #5eead4 0%, #14b8a6 25%, #0f766e 50%, #134e4a 75%, #042f2e 100%), radial-gradient(ellipse at 70% 75%, rgba(20,184,166,0.4) 0%, transparent 50%)',
@@ -4440,7 +4440,7 @@ const DEMOGRAFIA_CATEGORY_GROUPS = [
 const VIGILANCIA_CATEGORY_GROUPS = [
   {
     label: 'Grupo 1. Enfermedades transmisibles y de vectores',
-    topics: ['dengue', 'irag', 'tuberculosis', 'vih']
+    topics: ['dengue', 'irag', 'tuberculosis', 'vih', 'fiebre amarilla']
   },
   {
     label: 'Grupo 2. Enfermedades transmitidas por agua y alimentos',
@@ -4462,16 +4462,16 @@ const VIGILANCIA_CATEGORY_GROUPS = [
     label: 'Grupo 6. Vigilancia Epidemiológica Comunitaria y Brotes',
     topics: ['eventos epidemiologicos', 'vigilancia comunitaria', 'baja notificacion', 'sistema de alerta temprana']
   },
+  //{
+  //  label: 'Grupo 7. Enfermedades inmunoprevenibles',
+  //  topics: ['fiebre amarilla']
+  //},
   {
-    label: 'Grupo 7. Enfermedades inmunoprevenibles',
-    topics: ['fiebre amarilla']
-  },
-  {
-    label: 'Grupo 8. Eventos violentos o lesiones',
+    label: 'Grupo 7. Eventos violentos o lesiones',
     topics: ['intento de suicidio', 'suicidio', 'violencias', 'polvora']
   },
   {
-    label: 'Grupo 9. Enfermedades no transmisibles',
+    label: 'Grupo 8. Enfermedades no transmisibles',
     topics: ['enfermedades huerfanas', 'cancer de mama y cervix']
   }
 ];
@@ -4809,7 +4809,7 @@ function scheduleSideCometReposition(){
 function setSideCometForPlanet(planet){
   if(!zoomOverlay || !zoomSideComet) return;
   sideCometPlanet = null;
-  const polvoraLabel = 'Vigilancia de lesiones por polvora - Temporada decembrina';
+  const polvoraLabel = 'Vigilancia de lesiones por Pólvora - Temporada decembrina';
   const labelEl = zoomSideComet.querySelector('.pz-side-comet-label');
   zoomSideComet.setAttribute('aria-label', 'Abrir ' + polvoraLabel);
   zoomSideComet.setAttribute('title', polvoraLabel);
