@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>OSAC – Observatorio de Salud Santiago de Cali</title>
+<title>OSAC - Observatorio de Salud Santiago de Cali</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./font/css/all.min.css">
 <style>
@@ -25,6 +25,7 @@ button{cursor:pointer;font:inherit;border:none;background:none;color:inherit}
 }
 
 /* Al pasar el mouse o abrir el chat, toma tamaño grande */
+.obser-chat-frame:hover,
 body.chat-active .obser-chat-frame{
   width:min(640px,100vw);
   height:min(820px,100vh);
@@ -2498,7 +2499,23 @@ body { margin:0; overflow-x:hidden; }
     display:block;
     background:#020614 url('./estrellas movil.png') center top / cover repeat-y;
   }
-  .obser-chat-frame{display:none !important}
+  .obser-chat-frame{
+    display:none !important;
+    right:12px;
+    bottom:12px;
+    width:min(360px, calc(100vw - 24px));
+    height:min(260px, 44svh);
+  }
+  body.mobile-principal-chat .obser-chat-frame{
+    display:block !important;
+  }
+  body.mobile-principal-chat .obser-chat-frame:hover,
+  body.mobile-principal-chat.chat-active .obser-chat-frame{
+    right:0;
+    bottom:0;
+    width:min(640px,100vw);
+    height:min(820px,100svh);
+  }
   .sidebar{
     display:flex !important;
     position:fixed !important;
@@ -3021,13 +3038,13 @@ body { margin:0; overflow-x:hidden; }
 
   <div class="hdr-search">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" id="srch" placeholder="Buscar tablero…" oninput="doSearch(this.value)" autocomplete="off"/>
+    <input type="text" id="srch" placeholder="Buscar tablero..." oninput="doSearch(this.value)" autocomplete="off"/>
     <div class="search-panel" id="search-panel"></div>
   </div>
   <div class="hdr-right">
     <div class="hdr-acc">
       
-      <button class="acc-b" onclick="changeFontSize(-1)">A−</button>
+      <button class="acc-b" onclick="changeFontSize(-1)">A-</button>
       <button class="acc-b" onclick="changeFontSize(1)">A+</button>
       <button class="acc-b" onclick="window.print()">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -3134,7 +3151,7 @@ body { margin:0; overflow-x:hidden; }
 
   <div class="sb-stats">
     <div class="sb-stat-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Visitas totales</div>
-    <div class="sb-stat-value" id="sb-vcount">5.844</div>
+    <div class="sb-stat-value" id="sb-vcount">-</div>
     <div class="sb-stat-delta">↑ 12% vs ayer</div>
   </div>
 
@@ -3154,7 +3171,7 @@ body { margin:0; overflow-x:hidden; }
     <div class="hero-stat-row">
       <div class="hs">
         <img class="hero-stat-icon" src="./font/iconos/movil/vistas.png" alt="" aria-hidden="true">
-        <div class="hero-stat-copy"><div class="v" id="vcount">–</div><div class="l">Visitas totales</div></div>
+        <div class="hero-stat-copy"><div class="v" id="vcount">-</div><div class="l">Visitas totales</div></div>
       </div>
       <div class="hs hs--boards">
         <img class="hero-stat-icon" src="./font/iconos/movil/tableros.png" alt="" aria-hidden="true">
@@ -3175,23 +3192,6 @@ body { margin:0; overflow-x:hidden; }
   <!-- Planet field: planets positioned absolutely over galaxy rings -->
   <div id="mobile-planets-anchor" class="mobile-planets-anchor" aria-hidden="true"></div>
   <div class="planet-field" id="planet-field"></div>
-
-  <button class="mobile-obser-card" type="button" aria-label="Abrir asistente Obser AI">
-    <img class="mobile-obser-avatar" src="./font/iconos/movil/obser_ai.png" alt="" aria-hidden="true">
-    <span class="mobile-obser-copy">
-      <strong>Obser · AI</strong>
-      <span>¿En qué puedo ayudarte hoy?</span>
-    </span>
-    <span class="mobile-obser-action"><i class="far fa-comment-dots" aria-hidden="true"></i></span>
-  </button>
-  <button class="mobile-obser-card mobile-obser-card--planets" type="button" aria-label="Abrir asistente Obser AI">
-    <img class="mobile-obser-avatar" src="./font/iconos/movil/obser_ai.png" alt="" aria-hidden="true">
-    <span class="mobile-obser-copy">
-      <strong>Obser · AI</strong>
-      <span>¿En qué puedo ayudarte hoy?</span>
-    </span>
-    <span class="mobile-obser-action"><i class="far fa-comment-dots" aria-hidden="true"></i></span>
-  </button>
 
 </main>
 
@@ -4160,6 +4160,10 @@ let poiCarouselTopics = [];
 let poiCarouselPlanet = null;
 let poiPageChunks = [];
 let poiPageIndex = 0;
+let poiSwipeActive = false;
+let poiSwipeStartX = 0;
+let poiSwipeStartY = 0;
+const POI_SWIPE_MIN_X = 42;
 let planetDragActive = false;
 let planetDragMoved = false;
 let planetDragLastX = 0;
@@ -5476,6 +5480,42 @@ function changePoiPage(step){
   renderCurrentPoiPage(step);
 }
 
+function startPoiSwipe(ev){
+  if(!ev.touches || ev.touches.length !== 1) return;
+  if(!poiPageChunks.length || poiPageChunks.length <= 1) return;
+  const t = ev.touches[0];
+  poiSwipeActive = true;
+  poiSwipeStartX = t.clientX;
+  poiSwipeStartY = t.clientY;
+}
+
+function movePoiSwipe(ev){
+  if(!poiSwipeActive || !ev.touches || ev.touches.length !== 1) return;
+  const t = ev.touches[0];
+  const dx = t.clientX - poiSwipeStartX;
+  const dy = t.clientY - poiSwipeStartY;
+  if(Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)){
+    ev.preventDefault();
+  }
+}
+
+function endPoiSwipe(ev){
+  if(!poiSwipeActive) return;
+  poiSwipeActive = false;
+  const t = ev.changedTouches && ev.changedTouches[0];
+  if(!t) return;
+  const dx = t.clientX - poiSwipeStartX;
+  const dy = t.clientY - poiSwipeStartY;
+  const isHorizontalSwipe = Math.abs(dx) >= POI_SWIPE_MIN_X && Math.abs(dx) > (Math.abs(dy) * 1.15);
+  if(!isHorizontalSwipe) return;
+  ev.preventDefault();
+  changePoiPage(dx < 0 ? 1 : -1);
+}
+
+function cancelPoiSwipe(){
+  poiSwipeActive = false;
+}
+
 function renderPoiBatch(planet, topics){
   zoomPoiLayer.innerHTML = '';
   zoomPoiLayer.classList.toggle('vigilancia-layout', planet.id === 'vigilancia');
@@ -5873,6 +5913,13 @@ if(zoomNextBtn){
   });
 }
 
+if(zoomPoiLayer){
+  zoomPoiLayer.addEventListener('touchstart', startPoiSwipe, { passive: true });
+  zoomPoiLayer.addEventListener('touchmove', movePoiSwipe, { passive: false });
+  zoomPoiLayer.addEventListener('touchend', endPoiSwipe, { passive: false });
+  zoomPoiLayer.addEventListener('touchcancel', cancelPoiSwipe, { passive: true });
+}
+
 zoomPlanet.addEventListener('pointerdown', (ev) => {
   if(!canDragPlanet()) return;
 });
@@ -6214,8 +6261,10 @@ document.addEventListener('click', e=>{
 fetch('https://bai-revisor-backend-1081794814967.us-central1.run.app/api/visitas',{method:'POST'})
   .then(r=>r.json()).then(d=>{
     const n = d.count?d.count.toLocaleString('es-CO'):'–';
-    document.getElementById('vcount').textContent = n;
-    document.getElementById('vfix-n').textContent = n;
+    ['vcount','sb-vcount','vfix-n'].forEach((id)=>{
+      const el = document.getElementById(id);
+      if(el) el.textContent = n;
+    });
   }).catch(()=>{});
 
 /* ACCESSIBILITY */
@@ -6278,15 +6327,37 @@ initSidebarNavFx();
 <script>
 (() => {
   const chatFrame = document.querySelector('.obser-chat-frame');
+  const planetField = document.getElementById('planet-field');
 
   const collapseChat = () => {
     document.body.classList.remove('chat-active');
+  };
+
+  const updateMobilePrincipalChat = () => {
+    const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+    if (!isMobile) {
+      document.body.classList.remove('mobile-principal-chat');
+      return;
+    }
+    if (!planetField || document.body.classList.contains('planet-open') || document.body.classList.contains('dashboard-open')) {
+      document.body.classList.remove('mobile-principal-chat');
+      return;
+    }
+    const rect = planetField.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const onPlanetSection = rect.top <= vh * 0.55 && rect.bottom >= vh * 0.2;
+    document.body.classList.toggle('mobile-principal-chat', !onPlanetSection);
   };
 
   if (chatFrame) {
     chatFrame.addEventListener('mouseleave', collapseChat);
     chatFrame.addEventListener('blur', collapseChat);
   }
+
+  window.addEventListener('scroll', updateMobilePrincipalChat, { passive: true });
+  window.addEventListener('resize', updateMobilePrincipalChat);
+  window.addEventListener('orientationchange', updateMobilePrincipalChat);
+  updateMobilePrincipalChat();
 
   window.addEventListener('message', (event) => {
     const data = event.data;
@@ -6300,8 +6371,11 @@ initSidebarNavFx();
     if (data.type === 'obser-chat-close') {
       collapseChat();
     }
+
+    updateMobilePrincipalChat();
   });
 })();
 </script>
 </body>
 </html>
+
