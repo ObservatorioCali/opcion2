@@ -3933,10 +3933,12 @@ function setDashboardIntroContent(planet){
 
   const isVigilancia = !!(planet && planet.id === 'vigilancia');
   const isFinanciero = !!(planet && planet.id === 'financiero');
+  const isPlaneacion = !!(planet && planet.id === 'planeacion');
+  const isDemografia = !!(planet && planet.id === 'demografia');
   const isAmbiente = !!(planet && planet.id === 'ambiente');
   const isSaludPublica = !!(planet && planet.id === 'saludpub');
   const isPrestacion = !!(planet && planet.id === 'prestacion');
-  const hasIntro = isVigilancia || isFinanciero || isAmbiente || isSaludPublica || isPrestacion;
+  const hasIntro = isVigilancia || isFinanciero || isPlaneacion || isDemografia || isAmbiente || isSaludPublica || isPrestacion;
   console.log('isVigilancia:', isVigilancia, 'isFinanciero:', isFinanciero, 'isAmbiente:', isAmbiente, 'isSaludPublica:', isSaludPublica, 'hasIntro:', hasIntro);
   dashboardIntroAvailable = hasIntro;
   overlay.classList.toggle('with-intro', hasIntro && !dashboardIntroCollapsed);
@@ -3982,6 +3984,57 @@ function setDashboardIntroContent(planet){
   }
 
   if(isFinanciero){
+    content.innerHTML = `
+    <h3>Bienvenido a Financiero</h3>
+    <p>Un espacio diseñado para facilitar el acceso a la información financiera del sistema de salud de la ciudad, permitiendo comprender cómo se administran, ejecutan y monitorean los recursos destinados a garantizar la atención en salud para toda la población. Aquí podrá explorar de manera interactiva información estratégica relacionada con la inversión, sostenibilidad y eficiencia en el uso de los recursos del sector salud.</p>
+
+    <h4>¿Qué encontrará en nuestros tableros?</h4>
+    <ul>
+      <li><strong>Ejecución Presupuestal:</strong> Información sobre la asignación, uso y seguimiento de los recursos financieros destinados al sector salud.</li>
+      <li><strong>Flujo de Recursos:</strong> Análisis de la circulación de los recursos entre los diferentes actores del sistema, incluyendo aseguradores, prestadores y entidades territoriales.</li>
+      <li><strong>Cartera y Cuentas por Pagar:</strong> Seguimiento al estado de las obligaciones financieras, pagos pendientes y recuperación de cartera en el sistema de salud.</li>
+      <li><strong>Fuentes de Financiamiento:</strong> Información sobre los distintos orígenes de los recursos, incluyendo financiación pública, aseguramiento y otros mecanismos de inversión.</li>
+      <li><strong>Costos en la Atención en Salud:</strong> Análisis de los costos asociados a la prestación de servicios, permitiendo evaluar la eficiencia y sostenibilidad del sistema.</li>
+    </ul>
+
+    <h4>Componentes Estratégicos</h4>
+    <p>Monitoreamos y fortalecemos diferentes dimensiones clave para garantizar una gestión financiera eficiente, transparente y sostenible:</p>
+    <ul>
+      <li>Eficiencia en el Uso de Recursos: Seguimiento a la adecuada ejecución y optimización del gasto en salud.</li>
+      <li>Sostenibilidad Financiera: Análisis de la capacidad del sistema para mantener la prestación de servicios en el tiempo.</li>
+      <li>Transparencia y Control: Vigilancia de la gestión financiera para promover prácticas responsables y confiables.</li>
+      <li>Gestión del Riesgo Financiero: Identificación y monitoreo de factores que puedan afectar la estabilidad económica del sistema.</li>
+      <li>Información para la Toma de Decisiones: Herramientas que facilitan el análisis financiero para fortalecer la planeación y gestión institucional.</li>
+    </ul>
+
+    <p>Aquí, la información financiera se convierte en una herramienta clave para fortalecer la toma de decisiones, optimizar el uso de los recursos y garantizar un sistema de salud más eficiente, transparente y sostenible, centrado en las necesidades de la población.</p>`;
+    return;
+  }
+
+  if(isDemografia){
+    content.innerHTML = `
+    <h3>Bienvenido a Demografía y Análisis Poblacional</h3>
+    <p>Un espacio diseñado para comprender la dinámica poblacional de Cali a través del análisis de información demográfica, social y territorial. Aquí podrá explorar de manera interactiva datos estratégicos que permiten caracterizar a la población, identificar necesidades diferenciales y fortalecer la toma de decisiones orientadas a la equidad, la inclusión y el bienestar de todos los habitantes del Distrito.</p>
+
+    <h4>¿Qué encontrará en nuestros tableros?</h4>
+    <ul>
+      <li><strong>Población de Cali:</strong> Información demográfica general sobre la población caleña.</li>
+      <li><strong>Estadísticas Vitales:</strong> Seguimiento y análisis de nacimientos y defunciones.</li>
+      <li><strong>Aseguramiento en Salud:</strong> Visualización de indicadores relacionados con la afiliación al sistema de salud.</li>
+      <li><strong>Poblaciones Vulnerables:</strong> Análisis de información diferencial de grupos poblacionales que requieren atención prioritaria.
+        <ul>
+          <li>Personas con discapacidad</li>
+          <li>Población indígena</li>
+          <li>Población privada de la libertad</li>
+          <li>Víctimas del conflicto armado</li>
+          <li>Población migrante</li>
+        </ul>
+      </li>
+    </ul>`;
+    return;
+  }
+
+  if(isPlaneacion){
     content.innerHTML = `
     <h3>Ejecución Financiera</h3>
     <p>En esta temática se presentan los tableros de ejecución presupuestal y física de los proyectos de inversión de la Secretaría de Salud del Distrito de Santiago de Cali, como también el tablero de seguimiento a los procesos del Plan Anual de Adquisiciones – PAA, referente a los procesos de contratación y el tablero de seguimiento al plan de infraestructura y dotación en salud de Cali.</p>
@@ -4371,7 +4424,38 @@ const POI_PREVIEW_INTROS = {
   'eventos epidemiologicos': [
     'El tablero consolidado de <strong>eventos epidemiologicos</strong> reune la informacion de los eventos de vigilancia en salud publica que actualmente cuentan con tableros activos, permitiendo visualizar de manera integrada el comportamiento epidemiologico en el territorio.',
     'La comunidad podra encontrar informacion sobre la distribucion porcentual de los diferentes eventos, numero total de casos y comportamiento espacial de los eventos. Ademas, incluye herramientas para analizar los casos segun sexo, ubicacion de las ESE, curso de vida, barrios y comunas, asi como mapas de distribucion epidemiologica y variables territoriales como el indice de pobreza multidimensional.'
-  ]
+  ],
+  'ejecucion presupuestal': [
+    'El tablero de <strong>Ejecución Presupuestal</strong> permite visualizar el avance en la ejecución de los recursos asignados, facilitando el seguimiento al comportamiento del gasto y su nivel de compromiso.',
+    'A través de esta información, se fortalece el control financiero, la transparencia y la toma de decisiones para una gestión eficiente y oportuna de los recursos en salud.'
+  ],
+  'ejecucion proyectos': [
+    'El tablero de <strong>Ejecución de Proyectos</strong> permite visualizar el avance físico de las actividades asociadas a los proyectos del sector salud, facilitando el seguimiento a su cumplimiento en el tiempo.',
+    'A través de estos indicadores, se promueve el monitoreo oportuno, la gestión eficiente y la toma de decisiones orientada al logro de las metas institucionales.'
+  ],
+  'poblacion': [
+    'El tablero de <strong>Población</strong> contiene información demográfica general sobre la población caleña, incluyendo distribución por edad, sexo y territorio.',
+    'Permite analizar dinámicas poblacionales que ayudan a comprender la estructura y evolución de la ciudad.'
+  ],
+  'estadisticas vitales': [
+    'El tablero de <strong>Estadísticas Vitales</strong> presenta el seguimiento y análisis de nacimientos, defunciones y otros indicadores de eventos vitales fundamentales para el monitoreo de la situación demográfica y de salud del Distrito.',
+    'Esta información apoya el análisis de tendencias, la planificación de servicios y la identificación de cambios poblacionales relevantes.'
+  ],
+  'poblacion con discapacidad': [
+    'El tablero de <strong>Población con Discapacidad</strong> presenta el análisis demográfico y territorial de esta población en Cali, identificando características poblacionales y su distribución geográfica.',
+    'Incluye el análisis de eventos de interés en salud pública para fortalecer el seguimiento, la identificación de riesgos y la toma de decisiones orientadas a la inclusión y la atención integral.'
+  ],
+  'poblacion victima conflicto armado': [
+    'Este tablero te permite visualizar la caracterización demográfica y territorial de la población víctima del conflicto armado atendida y registrada en el Programa de Atención Psicosocial, permitiendo visualizar condiciones poblacionales, distribución geográfica y comportamiento de eventos de interés en salud pública que aportan a la identificación de vulnerabilidades y necesidades prioritarias.'
+  ],
+  'poblacion indigena': [
+    'El tablero de <strong>Población Indígena</strong> muestra información demográfica y territorial de la población indígena atendida, integrando el análisis de eventos de interés en salud pública.',
+    'Permite identificar necesidades diferenciales, condiciones de salud y dinámicas poblacionales desde un enfoque diferencial.'
+  ],
+  'poblacion privada de la libertad': [
+    'El tablero de <strong>Población privada de la libertad</strong> presenta el seguimiento de características demográficas y condiciones poblacionales de las personas privadas de la libertad.',
+    'Integra el análisis de eventos en salud pública para facilitar la vigilancia epidemiológica, la identificación de riesgos y el fortalecimiento de acciones en salud dentro de esta población.'
+  ],
 };
 
 function getPoiPreviewIntro(topic){
@@ -4605,10 +4689,12 @@ function setPlanetIntroContent(planet){
   if(!zoomOverlay || !zoomIntroContent) return;
   const isVigilancia = !!(planet && planet.id === 'vigilancia');
   const isFinanciero = !!(planet && planet.id === 'financiero');
+  const isPlaneacion = !!(planet && planet.id === 'planeacion');
+  const isDemografia = !!(planet && planet.id === 'demografia');
   const isAmbiente = !!(planet && planet.id === 'ambiente');
   const isSaludPublica = !!(planet && planet.id === 'saludpub');
   const isPrestacion = !!(planet && planet.id === 'prestacion');
-  const hasIntro = isVigilancia || isFinanciero || isAmbiente || isSaludPublica || isPrestacion;
+  const hasIntro = isVigilancia || isFinanciero || isPlaneacion || isDemografia || isAmbiente || isSaludPublica || isPrestacion;
   planetIntroAvailable = hasIntro;
   zoomOverlay.classList.toggle('with-intro', hasIntro && !planetIntroCollapsed);
 
@@ -4658,6 +4744,57 @@ function setPlanetIntroContent(planet){
   }
 
   if(isFinanciero){
+    zoomIntroContent.innerHTML = `
+    <h3>Bienvenido a Financiero</h3>
+    <p>Un espacio diseñado para facilitar el acceso a la información financiera del sistema de salud de la ciudad, permitiendo comprender cómo se administran, ejecutan y monitorean los recursos destinados a garantizar la atención en salud para toda la población. Aquí podrá explorar de manera interactiva información estratégica relacionada con la inversión, sostenibilidad y eficiencia en el uso de los recursos del sector salud.</p>
+
+    <h4>¿Qué encontrará en nuestros tableros?</h4>
+    <ul>
+      <li><strong>Ejecución Presupuestal:</strong> Información sobre la asignación, uso y seguimiento de los recursos financieros destinados al sector salud.</li>
+      <li><strong>Flujo de Recursos:</strong> Análisis de la circulación de los recursos entre los diferentes actores del sistema, incluyendo aseguradores, prestadores y entidades territoriales.</li>
+      <li><strong>Cartera y Cuentas por Pagar:</strong> Seguimiento al estado de las obligaciones financieras, pagos pendientes y recuperación de cartera en el sistema de salud.</li>
+      <li><strong>Fuentes de Financiamiento:</strong> Información sobre los distintos orígenes de los recursos, incluyendo financiación pública, aseguramiento y otros mecanismos de inversión.</li>
+      <li><strong>Costos en la Atención en Salud:</strong> Análisis de los costos asociados a la prestación de servicios, permitiendo evaluar la eficiencia y sostenibilidad del sistema.</li>
+    </ul>
+
+    <h4>Componentes Estratégicos</h4>
+    <p>Monitoreamos y fortalecemos diferentes dimensiones clave para garantizar una gestión financiera eficiente, transparente y sostenible:</p>
+    <ul>
+      <li>Eficiencia en el Uso de Recursos: Seguimiento a la adecuada ejecución y optimización del gasto en salud.</li>
+      <li>Sostenibilidad Financiera: Análisis de la capacidad del sistema para mantener la prestación de servicios en el tiempo.</li>
+      <li>Transparencia y Control: Vigilancia de la gestión financiera para promover prácticas responsables y confiables.</li>
+      <li>Gestión del Riesgo Financiero: Identificación y monitoreo de factores que puedan afectar la estabilidad económica del sistema.</li>
+      <li>Información para la Toma de Decisiones: Herramientas que facilitan el análisis financiero para fortalecer la planeación y gestión institucional.</li>
+    </ul>
+
+    <p>Aquí, la información financiera se convierte en una herramienta clave para fortalecer la toma de decisiones, optimizar el uso de los recursos y garantizar un sistema de salud más eficiente, transparente y sostenible, centrado en las necesidades de la población.</p>`;
+    return;
+  }
+
+  if(isDemografia){
+    zoomIntroContent.innerHTML = `
+    <h3>Bienvenido a Demografía y Análisis Poblacional</h3>
+    <p>Un espacio diseñado para comprender la dinámica poblacional de Cali a través del análisis de información demográfica, social y territorial. Aquí podrá explorar de manera interactiva datos estratégicos que permiten caracterizar a la población, identificar necesidades diferenciales y fortalecer la toma de decisiones orientadas a la equidad, la inclusión y el bienestar de todos los habitantes del Distrito.</p>
+
+    <h4>¿Qué encontrará en nuestros tableros?</h4>
+    <ul>
+      <li><strong>Población de Cali:</strong> Información demográfica general sobre la población caleña.</li>
+      <li><strong>Estadísticas Vitales:</strong> Seguimiento y análisis de nacimientos y defunciones.</li>
+      <li><strong>Aseguramiento en Salud:</strong> Visualización de indicadores relacionados con la afiliación al sistema de salud.</li>
+      <li><strong>Poblaciones Vulnerables:</strong> Análisis de información diferencial de grupos poblacionales que requieren atención prioritaria.
+        <ul>
+          <li>Personas con discapacidad</li>
+          <li>Población indígena</li>
+          <li>Población privada de la libertad</li>
+          <li>Víctimas del conflicto armado</li>
+          <li>Población migrante</li>
+        </ul>
+      </li>
+    </ul>`;
+    return;
+  }
+
+  if(isPlaneacion){
     zoomIntroContent.innerHTML = `
     <h3>Bienvenido a Financiero</h3>
     <p>En esta temática se presentan los tableros de ejecución presupuestal y física de los proyectos de inversión de la Secretaría de Salud del Distrito de Santiago de Cali, como también el tablero de seguimiento a los procesos del Plan Anual de Adquisiciones – PAA, referente a los procesos de contratación y el tablero de seguimiento al plan de infraestructura y dotación en salud de Cali.</p>
