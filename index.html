@@ -1938,8 +1938,8 @@ body { margin:0; overflow-x:hidden; }
   font-weight: 700;
 }
 .pz-close:hover { background: rgba(2,6,20,.96); }
-.pz-intro-reopen{position:absolute;top:18px;right:18px;z-index:6;display:inline-flex;align-items:center;gap:6px;
-  padding:8px 12px;border-radius:10px;font-size:11px;font-weight:800;color:#dff3ff;
+.pz-intro-reopen{position:absolute;top:18px;right:18px;z-index:6;display:inline-flex;align-items:center;justify-content:center;
+  width:42px;height:42px;padding:0;border-radius:999px;font-size:23px;font-weight:900;font-style:italic;color:#dff3ff;
   border:1px solid rgba(125,211,252,.4);background:linear-gradient(180deg, rgba(10,24,56,.9), rgba(4,10,30,.88));
   box-shadow:0 8px 14px rgba(2,6,20,.42), 0 0 12px rgba(56,189,248,.2);transition:.2s;}
 .pz-intro-reopen:hover{transform:translateY(-1px);background:linear-gradient(180deg, rgba(22,56,110,.9), rgba(8,24,64,.92));}
@@ -2208,9 +2208,7 @@ body { margin:0; overflow-x:hidden; }
     width:25px;
     height:25px;
   }
-  .pz-intro-reopen{
-    display:none !important;
-  }
+  /* .pz-intro-reopen was hidden on mobile; keep desktop reopen button available. */
   .pz-title{
     top:132px;
     width:calc(100vw - 44px);
@@ -3246,7 +3244,7 @@ body { margin:0; overflow-x:hidden; }
     </div>
     <button class="pz-mobile-info" id="pz-mobile-info" type="button" aria-label="Mostrar información">i</button>
   </div>
-  <button class="pz-intro-reopen" id="pz-intro-reopen" type="button" hidden>Mostrar info</button>
+  <button class="pz-intro-reopen" id="pz-intro-reopen" type="button" hidden aria-label="Mostrar información" title="Mostrar información">i</button>
   <div class="pz-title">
     <h3 id="pz-title">Planeta</h3>
     <p hidden></p>
@@ -3892,7 +3890,8 @@ function setPlanetIntroExpanded(expanded){
     pzIntroToggleBtn.hidden = !expanded;
     pzIntroToggleBtn.textContent = expanded ? 'Ocultar info' : 'Mostrar info';
   }
-  if(pzIntroReopenBtn) pzIntroReopenBtn.hidden = true;
+  // Mostrar el botón de reabrir sólo cuando la intro está colapsada por el usuario
+  if(pzIntroReopenBtn) pzIntroReopenBtn.hidden = !(planetIntroCollapsed && planetIntroHiddenByUser);
   if(pzMobileInfoBtn) pzMobileInfoBtn.setAttribute('aria-pressed', expanded ? 'true' : 'false');
 }
 if(pzIntroToggleBtn){
