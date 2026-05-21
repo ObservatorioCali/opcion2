@@ -454,6 +454,7 @@ body.cinematic-leave .cinematic-transition::after{
 .db-submenu{flex-shrink:0;display:none;flex-wrap:wrap;gap:8px;padding:10px 24px;
   background:rgba(3,6,24,.85);border-bottom:1px solid rgba(56,189,248,.07);overflow-x:auto;}
 .db-submenu.open{display:flex}
+.db-overlay.chrome-collapsed .db-submenu.open{display:none !important}
 .db-sub{padding:9px 18px;border-radius:99px;font-size:13px;font-weight:800;
   border:1px solid rgba(56,189,248,.14);color:#6b7fa8;white-space:nowrap;transition:.2s;position:relative;z-index:1}
 .db-sub:hover,.db-sub.active{background:rgba(56,189,248,.12);color:#38bdf8;border-color:rgba(56,189,248,.4)}
@@ -3206,6 +3207,9 @@ body { margin:0; overflow-x:hidden; }
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Volver
       </button>
+      <button class="db-back" id="db-chrome-toggle" type="button" onclick="toggleDashboardChrome()">
+        Ocultar menú
+      </button>
       <div class="db-zoom" aria-label="Ajuste de escala del tablero">
         <span class="db-zoom-lbl">Escala</span>
         <button class="db-zbtn" type="button" onclick="adjustDashboardScale(0.12)" title="Aumentar">+</button>
@@ -3715,12 +3719,94 @@ function setDashboardTitle(title, fallbackPlanet){
   if(titleEl) titleEl.textContent = dashboardTitleText(title, fallbackPlanet);
 }
 
-function openDashboard(url, returnPlanet, dashboardTitle){
+function showDashboardChrome(){
+  const overlay = document.getElementById('db-overlay');
+  if(!overlay) return;
+  overlay.classList.remove('chrome-collapsed');
+  const toggleBtn = document.getElementById('db-chrome-toggle');
+  if(toggleBtn) toggleBtn.textContent = 'Ocultar menú';
+}
+
+function hideDashboardChrome(){
+  const overlay = document.getElementById('db-overlay');
+  if(!overlay) return;
+  overlay.classList.add('chrome-collapsed');
+}
+
+function toggleDashboardChrome(){
+  const overlay = document.getElementById('db-overlay');
+  const toggleBtn = document.getElementById('db-chrome-toggle');
+  if(!overlay) return;
+  const collapsed = overlay.classList.toggle('chrome-collapsed');
+  if(toggleBtn) toggleBtn.textContent = collapsed ? 'Mostrar menú' : 'Ocultar menú';
+}
+
+function renderDashboardSubmenu(planet, activeUrl, activeLabel){
+  const submenu = document.getElementById('db-submenu');
+  if(!submenu) return false;
+
+  submenu.innerHTML = '';
+  submenu.className = 'db-submenu';
+
+  const visibleSubs = (planet && planet.subs && planet.subs.length)
+    ? planet.subs.slice()
+    : [];
+
+  if(!visibleSubs.length) return false;
+
+  const normalizedActiveUrl = normalizeLookerEmbedUrl(activeUrl || visibleSubs[0].url);
+  const normalizedActiveLabel = typeof activeLabel === 'string' ? activeLabel.trim().toLowerCase() : '';
+  submenu.classList.add('open');
+
+  visibleSubs.forEach((s, i) => {
+    const btn = document.createElement('button');
+    const subLabel = (s.fullLabel || s.label || '').trim().toLowerCase();
+    const isActive =
+      normalizeLookerEmbedUrl(s.url) === normalizedActiveUrl ||
+      (normalizedActiveLabel && subLabel === normalizedActiveLabel) ||
+      (!activeUrl && !normalizedActiveLabel && i === 0);
+    btn.className = 'db-sub' + (isActive ? ' active' : '');
+    btn.innerHTML = topicIconMarkup(s.label) + s.label;
+    if(s.fullLabel){btn.setAttribute('data-full-label', s.fullLabel);}
+    btn.onclick = () => {
+      document.querySelectorAll('.db-sub').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      setDashboardTitle(s.fullLabel || s.label, planet);
+      document.getElementById('db-frame').src = normalizeLookerEmbedUrl(s.url);
+      requestAnimationFrame(updateDashboardFrameScale);
+    };
+    submenu.appendChild(btn);
+  });
+
+  const activeSub =
+    visibleSubs.find((s) => normalizeLookerEmbedUrl(s.url) === normalizedActiveUrl) ||
+    visibleSubs.find((s) => (s.fullLabel || s.label || '').trim().toLowerCase() === normalizedActiveLabel) ||
+    visibleSubs[0];
+  setDashboardTitle(activeSub.fullLabel || activeSub.label, planet);
+  return true;
+}
+
+function getDashboardLaunchConfig(topic){
+  const label = ((topic && (topic.fullLabel || topic.label)) || '').trim();
+  if(label.toLowerCase() === 'estilos de vida saludable'){
+    return {
+      url: './dashboard-estilos-vida.html',
+      submenuLabel: 'Estilos de vida saludable'
+    };
+  }
+  return {
+    url: topic ? topic.url : '',
+    submenuLabel: ''
+  };
+}
+
+function openDashboard(url, returnPlanet, dashboardTitle, options){
+  const settings = options || {};
   const dashboardUrl = normalizeLookerEmbedUrl(url);
   document.body.classList.remove('planet-open');
   document.body.classList.add('dashboard-open');
+  showDashboardChrome();
   dashboardMenuReturnUrl = null;
-  setDashboardTitle(dashboardTitle, returnPlanet);
   dashboardIntroCollapsed = true;
   planetIntroCollapsed = true;
   dashboardIntroHiddenByUser = false;
@@ -3729,6 +3815,8 @@ function openDashboard(url, returnPlanet, dashboardTitle){
   const dot = document.getElementById('db-dot');
   if(dot) dot.style.background = 'rgba(99,102,241,0.8)';
   dashboardManualScale = 1;
+  const hasSubmenu = returnPlanet ? renderDashboardSubmenu(returnPlanet, dashboardUrl, settings.submenuLabel) : false;
+  if(!hasSubmenu) setDashboardTitle(dashboardTitle, returnPlanet);
   document.getElementById('db-frame').src = dashboardUrl;
   dashboardReturnPlanet = returnPlanet || null;
   document.getElementById('db-overlay').classList.add('open');
@@ -3738,6 +3826,7 @@ function openDashboard(url, returnPlanet, dashboardTitle){
 function openDB(planet){
   document.body.classList.remove('planet-open');
   document.body.classList.add('dashboard-open');
+  showDashboardChrome();
   dashboardReturnPlanet = null;
   dashboardManualScale = 1;
   dashboardIntroCollapsed = false;
@@ -3749,32 +3838,10 @@ function openDB(planet){
   dot.style.background = planet.grad;
   dot.style.boxShadow = planet.shadow;
 
-  const submenu = document.getElementById('db-submenu');
-  submenu.innerHTML = '';
-  submenu.className = 'db-submenu';
+  const hasSubmenu = renderDashboardSubmenu(planet);
 
-  const visibleSubs = (planet.subs && planet.subs.length)
-    ? planet.subs.slice()
-    : [];
-
-  if(visibleSubs.length){
-    submenu.classList.add('open');
-    visibleSubs.forEach((s,i) => {
-      const btn = document.createElement('button');
-      btn.className = 'db-sub' + (i===0?' active':'');
-      btn.innerHTML = topicIconMarkup(s.label) + s.label;
-      if(s.fullLabel){btn.setAttribute('data-full-label',s.fullLabel);}
-      btn.onclick = () => {
-        document.querySelectorAll('.db-sub').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        setDashboardTitle(s.fullLabel || s.label, planet);
-        document.getElementById('db-frame').src = normalizeLookerEmbedUrl(s.url);
-        requestAnimationFrame(updateDashboardFrameScale);
-      };
-      submenu.appendChild(btn);
-    });
-    setDashboardTitle(visibleSubs[0].fullLabel || visibleSubs[0].label, planet);
-    document.getElementById('db-frame').src = normalizeLookerEmbedUrl(visibleSubs[0].url);
+  if(hasSubmenu){
+    document.getElementById('db-frame').src = normalizeLookerEmbedUrl(planet.subs[0].url);
   } else {
     setDashboardTitle(planet.label.replace('\n',' '), planet);
     document.getElementById('db-frame').src = normalizeLookerEmbedUrl(planet.url);
@@ -3805,6 +3872,7 @@ function closeDB(){
   planetIntroHiddenByUser = false;
   setDashboardIntroContent(null);
   document.getElementById('db-overlay').classList.remove('open');
+  document.getElementById('db-overlay').classList.remove('chrome-collapsed');
   document.body.classList.remove('dashboard-open');
   document.getElementById('db-frame').src = 'about:blank';
   if(returnPlanet){
@@ -3816,18 +3884,19 @@ function isDashboardMenuUrl(url){
   if(typeof url !== 'string' || !url.trim()) return false;
   try {
     const parsed = new URL(url, window.location.href);
-    return /\/dashboard\.html$/i.test(parsed.pathname);
+    return /\/dashboard(?:-[^.\/]+)?\.html$/i.test(parsed.pathname);
   } catch(_) {
-    return /dashboard\.html(?:$|[?#])/i.test(url);
+    return /dashboard(?:-[^.\/]+)?\.html(?:$|[?#])/i.test(url);
   }
 }
 
-function openDashboardInsideCurrentModal(url){
+function openDashboardInsideCurrentModal(url, returnUrl){
   if(typeof url !== 'string' || !url.trim()) return;
   document.body.classList.remove('planet-open');
   document.body.classList.add('dashboard-open');
+  showDashboardChrome();
   const normalizedUrl = normalizeLookerEmbedUrl(url);
-  if(!dashboardMenuReturnUrl) dashboardMenuReturnUrl = './dashboard.html';
+  dashboardMenuReturnUrl = (typeof returnUrl === 'string' && returnUrl.trim()) ? returnUrl.trim() : './dashboard.html';
   dashboardManualScale = 1;
   document.getElementById('db-frame').src = normalizedUrl;
   document.getElementById('db-overlay').classList.add('open');
@@ -3841,7 +3910,7 @@ window.addEventListener('message', (event) => {
   const frame = document.getElementById('db-frame');
   if(frame && frame.contentWindow && event.source !== frame.contentWindow) return;
 
-  openDashboardInsideCurrentModal(data.url);
+  openDashboardInsideCurrentModal(data.url, data.returnUrl);
 });
 
 const dbIntroToggleBtn = document.getElementById('db-intro-toggle');
@@ -5996,7 +6065,8 @@ function renderPoiBatch(planet, topics){
     poi.addEventListener('click', (ev) => {
       ev.stopPropagation();
       closePlanetExperience(true);
-      openDashboard(topic.url, planet, topic.fullLabel || topic.label);
+      const launchConfig = getDashboardLaunchConfig(topic);
+      openDashboard(launchConfig.url, planet, topic.fullLabel || topic.label, { submenuLabel: launchConfig.submenuLabel });
     });
 
     zoomPoiLayer.appendChild(poi);
@@ -6100,7 +6170,13 @@ function finishPlanetDrag(ev){
     const hit = pickGlobePoint();
     if(hit && hit.userData && hit.userData.topic && hit.userData.planet){
       closePlanetExperience(true);
-      openDashboard(hit.userData.topic.url, hit.userData.planet, hit.userData.topic.fullLabel || hit.userData.topic.label);
+      const launchConfig = getDashboardLaunchConfig(hit.userData.topic);
+      openDashboard(
+        launchConfig.url,
+        hit.userData.planet,
+        hit.userData.topic.fullLabel || hit.userData.topic.label,
+        { submenuLabel: launchConfig.submenuLabel }
+      );
       return;
     }
     startPlanetAutoSpin();
@@ -6245,14 +6321,6 @@ function buildSearchIndex(){
   PLANETS.forEach(p => {
     if(!p || !p.label) return;
     const planetLabel = p.label.replace('\n', ' ');
-    items.push({
-      label: planetLabel,
-      category: 'Planeta',
-      planet: p,
-      sub: null,
-      url: null,
-      color: p.ringColor || '#38bdf8'
-    });
 
     if(p.subs){
       p.subs.forEach(s => {
@@ -6352,6 +6420,16 @@ function pickSearch(idx){
   panel.innerHTML = '';
   input.value = '';
 
+  if(item.planet && item.sub){
+    openDB(item.planet);
+    setTimeout(() => {
+      document.querySelectorAll('.db-sub').forEach(b => {
+        if(b.textContent.trim() === item.sub.label) b.click();
+      });
+    }, 90);
+    return;
+  }
+
   if(item.url){
     openDashboard(item.url, null, item.fullLabel || item.label);
     return;
@@ -6359,14 +6437,29 @@ function pickSearch(idx){
 
   if(item.planet){
     openDB(item.planet);
-    if(item.sub){
-      setTimeout(() => {
-        document.querySelectorAll('.db-sub').forEach(b => {
-          if(b.textContent.trim() === item.sub.label) b.click();
-        });
-      }, 90);
-    }
   }
+}
+
+const dbFrameEl = document.getElementById('db-frame');
+const searchPanelEl = document.getElementById('search-panel');
+const dbOverlayEl = document.getElementById('db-overlay');
+if(dbFrameEl && searchPanelEl){
+  dbFrameEl.addEventListener('mouseenter', () => {
+    searchPanelEl.classList.remove('open');
+    if(dbOverlayEl && dbOverlayEl.classList.contains('with-intro')){
+      dashboardIntroCollapsed = true;
+      dashboardIntroHiddenByUser = true;
+      dbOverlayEl.classList.remove('with-intro');
+      if(dbIntroToggleBtn){
+        dbIntroToggleBtn.textContent = 'Mostrar info';
+        dbIntroToggleBtn.hidden = true;
+      }
+      if(dbIntroReopenBtn){
+        dbIntroReopenBtn.hidden = false;
+      }
+      requestAnimationFrame(updateDashboardFrameScale);
+    }
+  });
 }
 
 document.getElementById('srch').addEventListener('keydown', e => {
