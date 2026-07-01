@@ -1650,6 +1650,18 @@ body { margin:0; overflow-x:hidden; }
   z-index: 3;
   overflow: hidden;
 }
+.pz-poi.is-cirugia-plastica-fullpin .pz-fullpin-chip {
+  min-width: 250px;
+  padding: 11px 18px 12px;
+  border-radius: 26px;
+  line-height: 1.08;
+}
+.pz-poi.is-cirugia-plastica-fullpin .pz-fullpin-chip::before {
+  border-radius: 22px;
+}
+.pz-poi.is-cirugia-plastica-fullpin .pz-fullpin-chip::after {
+  border-radius: 22px;
+}
 .pz-fullpin-chip::before {
   content: "";
   position: absolute;
@@ -2361,6 +2373,11 @@ body { margin:0; overflow-x:hidden; }
     line-height:1.1;
     text-shadow:0 2px 10px rgba(0,0,0,.9),0 0 12px var(--poi-glow, rgba(125,211,252,.7));
     overflow:visible;
+  }
+  .pz-poi.is-cirugia-plastica-fullpin .pz-fullpin-chip{
+    min-width:220px;
+    padding:10px 14px 12px;
+    border-radius:22px;
   }
   .pz-fullpin-chip::before{
     content:"";
@@ -3434,23 +3451,23 @@ const PLANETS = [
       {label:'Dengue',url:'https://lookerstudio.google.com/embed/reporting/d65d2972-010d-44f4-aba4-7b1d9528213d/page/p7led3ssotd'},
       {label:'Desnutrición',url:'https://lookerstudio.google.com/embed/reporting/2069e9d8-6fe6-42dd-857a-d9574f046bc8/page/esEzE'},
       {label:'EDA',fullLabel:'Enfermedad Diarreica Aguda',url:'https://lookerstudio.google.com/embed/reporting/16e94557-889a-4774-bb20-f6e99f649094/page/esEzE'},
-      {label:'ETAs',fullLabel:'Enfermedades Transmitidas por Alimentos',url:'https://lookerstudio.google.com/embed/reporting/0e6bd7ae-52c0-46b2-8268-41afd8088cdd/page/p2u66wwr6pd'},
+      {label:'ETAs',fullLabel:'Enfermedades Transmitidas por Alimentos',url:'./dashboard-eta.html'},
       {label:'Fiebre Amarilla',url:'https://lookerstudio.google.com/embed/reporting/fef8137e-5cb2-480b-9165-12bbb3d05640/page/esEzE'},
-      {label:'Hepatitis A',url:'https://lookerstudio.google.com/embed/reporting/83fbe55f-4fa8-4c4a-b382-1cf34a25d8df/page/esEzE'},
+      {label:'Hepatitis A',url:'./dashboard-hepatitis-a.html'},
       {label:'IRAG',fullLabel:'Infección Respiratoria Aguda',url:'https://lookerstudio.google.com/embed/reporting/9c7f244d-5fb9-4b40-a490-1386dba6545a/page/esEzE'},
       {label:'Intoxicaciones',url:'https://lookerstudio.google.com/embed/reporting/2b834b80-ba04-4cc7-a4f3-f26369764b2f/page/esEzE'},
-      {label:'Intento de Suicidio',url:'https://lookerstudio.google.com/embed/reporting/2fdee237-0658-4fcf-b71d-489129bc245f/page/esEzE'},
+      {label:'Intento de Suicidio',url:'./dashboard-intento-suicidio.html'},
       {label:'Leptospirosis',url:'https://lookerstudio.google.com/embed/reporting/de65034a-6f62-4b27-8d2b-2d01328cd0f4/page/F5HYF'},
       {label:'Mortalidad Materna',url:'https://lookerstudio.google.com/embed/reporting/f9326436-5a93-48c8-b381-f296d63669a9/page/esEzE'},
       {label:'Morbilidad Materna Extrema',url:'https://lookerstudio.google.com/embed/reporting/9979b294-66c3-45d4-a745-2d8a2442ce80/page/esEzE'},
       {label:'Mortalidad Perinatal',url:'https://lookerstudio.google.com/embed/reporting/4308501f-affc-4d2a-aab0-9a6071ddc51d/page/esEzE'},
       {label:'Pólvora',url:'https://lookerstudio.google.com/embed/reporting/6523aa5a-0284-480a-972d-4a33f99a65ce/page/esEzE'},
-      {label:'Suicidio',url:'https://lookerstudio.google.com/embed/reporting/03e5694b-5b02-4b62-b9bf-3053fff97b04/page/esEzE'},
+      {label:'Suicidio',url:'./dashboard-suicidio.html'},
       {label:'SPA',fullLabel:'Sustancias Psicoactivas',url:'https://datastudio.google.com/embed/reporting/40ced8bc-80bd-4d66-bb3b-dbe7914a5dbf/page/F5HYF'},
       {label:'Cáncer de mama y cérvix',url:'https://datastudio.google.com/embed/reporting/addd3941-b6bd-4e5e-bdc3-fd8f179661fc/page/esEzE'},
       {label:'Tuberculosis',url:'https://lookerstudio.google.com/embed/reporting/3a6097ec-c835-4ea3-8675-2a610e74d318/page/esEzE'},
       {label:'Violencias',url:'https://lookerstudio.google.com/embed/reporting/98276313-0a20-42ab-b1f4-2f43d54c92de/page/esEzE'},
-      {label:'VIH',fullLabel:'Virus de Inmunodeficiencia Humana',url:'https://lookerstudio.google.com/embed/reporting/884c4242-f03b-403c-8e89-595a055b222e/page/esEzE'},
+      {label:'VIH',fullLabel:'Virus de Inmunodeficiencia Humana',url:'./dashboard-vih.html'},
       {label:'Vigilancia Comunitaria',url:'https://lookerstudio.google.com/embed/reporting/5c3db296-b2ea-47d4-8ca3-aa068cf83c75/page/esEzE'},
       {label:'Baja Notificación',url:'https://lookerstudio.google.com/embed/reporting/c6a116ba-a469-44c8-b2ff-8ce4bfed9390/page/esEzE'},
       {label:'sistema de Alerta Temprana',url:'https://lookerstudio.google.com/embed/reporting/96fa06fa-3995-4be8-b676-1dab8fc17372/page/pzc6ydjp6rd'},
@@ -3495,6 +3512,7 @@ const PLANETS = [
       {label:'Bancos de Sangre',url:'https://lookerstudio.google.com/embed/reporting/b15e676d-20f4-46a0-aba7-00e8390c77ee/page/pjxxw285ord'},
       {label:'Urgencias',fullLabel:'Ocupación de Servicios de Urgencias',url:'https://lookerstudio.google.com/embed/reporting/af77b4ff-46f6-494c-a133-a1dda960815b/page/p73az8wefxd'},
       {label:'Registro Prestadores',url:'https://lookerstudio.google.com/embed/reporting/11401c27-3483-41c4-98e2-dfd27e76b89f/page/piwcjsgh7qd'},
+      {label:'Servicios de Cirugía Plástica y Estética',fullLabel:'CONSULTA DE IPS HABILITADAS DEL DISTRITO DE SANTIAGO DE CALI SERVICIOS DE CIRUGÍA PLÁSTICA Y ESTÉTICA',url:'https://datastudio.google.com/embed/reporting/a6d8dfc5-607c-4441-98a8-f0e0ea16b47b/page/J9lzF'},
     ]
   },
   // RING 5 — outer
@@ -5579,7 +5597,8 @@ function topicFullPinImageByPlanet(planetId, normLabel){
     'bancos de sangre': './font/iconos/prestacion de servicios/banco de sangre.png',
     'urgencias': './font/iconos/prestacion de servicios/ocupación de servicios de urgencias.png',
     'ocupacion de servicios de urgencias': './font/iconos/prestacion de servicios/ocupación de servicios de urgencias.png',
-    'registro prestadores': './font/iconos/prestacion de servicios/registrop.png'
+    'registro prestadores': './font/iconos/prestacion de servicios/registrop.png',
+    'servicios de cirugia plastica y estetica': './font/iconos/prestacion de servicios/servicios de cirugia Plastica y Estetica.png'
   };
   const ambienteIcons = {
     'aptr': './font/iconos/ambiente y salud/aptr.png',
@@ -5881,6 +5900,7 @@ function renderPoiBatch(planet, topics){
       isVigilanciaComunitariaFullPin ||
       isBajaNotificacionFullPin
     );
+    const isCirugiaPlasticaFullPin = normLabel.includes('cirugia plastica y estetica') || normLabel.includes('servicios de cirugia plastica y estetica');
     const isSpecialFullPin = isAssetFullPin || isDengueFullPin || isEtasFullPin || isDesnutricionFullPin || isEdasFullPin || isEventosFullPin || isAlertaFullPin || isHuerfanasFullPin || isVigilanciaPage2FullPin || isVigilanciaPage3FullPin || isVigilanciaPage4FullPin;
     if(isDengueFullPin) poi.classList.add('is-dengue');
     const hue = (planet.id.length * 33 + i * 41) % 360;
@@ -6013,6 +6033,7 @@ function renderPoiBatch(planet, topics){
       if(isVigilanciaPage2FullPin) poi.classList.add('is-vigilancia-p2-fullpin');
       if(isVigilanciaPage3FullPin) poi.classList.add('is-vigilancia-p3-fullpin');
       if(isVigilanciaPage4FullPin) poi.classList.add('is-vigilancia-p4-fullpin');
+      if(isCirugiaPlasticaFullPin) poi.classList.add('is-cirugia-plastica-fullpin');
       const fullLabelAttr = topic.fullLabel ? ' data-full-label="' + topic.fullLabel + '"' : '';
       const fullPinChip = '<span class="pz-fullpin-trail"></span><span class="pz-fullpin-chip"' + fullLabelAttr + '>' + topic.label.toUpperCase() + '</span>';
       if(topic.fullLabel){
@@ -6046,6 +6067,7 @@ function renderPoiBatch(planet, topics){
       const isAps = topic.label === 'APS';
       const isUrgencias = topic.label === 'Urgencias';
       const isSpa = topic.label === 'SPA';
+      const isCirugiaPlastica = /cirugia plastica y estetica/.test(normLabel) || /servicios de cirugia plastica y estetica/.test(normLabel);
       const isEda = topic.label === 'EDA';
       const isEtas = topic.label === 'ETAs';
       const isIrag = topic.label === 'IRAG';
@@ -6064,6 +6086,7 @@ function renderPoiBatch(planet, topics){
           if(isAps){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '250px';chip.style.padding = '11px 16px';}
           if(isUrgencias){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '280px';chip.style.padding = '11px 16px';}
           if(isSpa){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '240px';chip.style.padding = '11px 16px';}
+          if(isCirugiaPlastica){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '310px';chip.style.padding = '11px 18px';}
           if(isEda){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '240px';chip.style.padding = '11px 16px';}
           if(isEtas){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '300px';chip.style.padding = '11px 16px';}
           if(isIrag){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '230px';chip.style.padding = '11px 16px';}
@@ -6073,7 +6096,7 @@ function renderPoiBatch(planet, topics){
           chip.textContent = chip.dataset.original; 
           chip.style.background = ''; chip.style.color = ''; chip.style.borderColor = ''; 
           chip.style.boxShadow = ''; chip.style.fontWeight = ''; chip.style.textShadow = '';
-          if(isAptr || isIrca || isAps || isUrgencias || isSpa || isEda || isEtas || isIrag || isVih){chip.style.whiteSpace = '';chip.style.textAlign = '';chip.style.minWidth = '';chip.style.padding = '';}
+          if(isAptr || isIrca || isAps || isUrgencias || isSpa || isCirugiaPlastica || isEda || isEtas || isIrag || isVih){chip.style.whiteSpace = '';chip.style.textAlign = '';chip.style.minWidth = '';chip.style.padding = '';}
         });
       }
       if(label){
@@ -6090,6 +6113,7 @@ function renderPoiBatch(planet, topics){
           if(isAps){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '230px';label.style.padding = '9px 14px';}
           if(isUrgencias){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '250px';label.style.padding = '9px 14px';}
           if(isSpa){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '240px';label.style.padding = '9px 14px';}
+          if(isCirugiaPlastica){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '300px';label.style.padding = '9px 14px';}
           if(isEda){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '220px';label.style.padding = '9px 14px';}
           if(isEtas){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '290px';label.style.padding = '9px 14px';}
           if(isIrag){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '210px';label.style.padding = '9px 14px';}
@@ -6099,7 +6123,7 @@ function renderPoiBatch(planet, topics){
           label.textContent = label.dataset.original; 
           label.style.background = ''; label.style.color = ''; label.style.borderColor = ''; 
           label.style.boxShadow = ''; label.style.fontWeight = ''; label.style.textShadow = '';
-          if(isAptr || isIrca || isAps || isUrgencias || isSpa || isEda || isEtas || isIrag || isVih){label.style.whiteSpace = '';label.style.textAlign = '';label.style.minWidth = '';label.style.padding = '';}
+          if(isAptr || isIrca || isAps || isUrgencias || isSpa || isCirugiaPlastica || isEda || isEtas || isIrag || isVih){label.style.whiteSpace = '';label.style.textAlign = '';label.style.minWidth = '';label.style.padding = '';}
         });
       }
     }
