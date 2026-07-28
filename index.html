@@ -46,11 +46,11 @@ body.dashboard-open .obser-chat-frame{
 .hdr-name{font-size:11px;color:#6b7fa8;line-height:1.3}
 .hdr-name b{display:block;color:#e8eeff;font-size:12px;font-weight:700}
 .hdr-logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
-.hdr-search{flex:1;max-width:500px;margin:0 auto;display:flex;align-items:center;gap:10px;
+.hdr-search{flex:1;max-width:640px;margin:0 auto;display:flex;align-items:center;gap:13px;
   background:linear-gradient(180deg, rgba(18,25,64,.78), rgba(9,13,37,.78));
   border:1px solid rgba(125,211,252,.28);
   border-radius:99px;
-  padding:10px 20px;
+  padding:13px 26px;
   position:relative;
   box-shadow:0 0 0 1px rgba(255,255,255,.05) inset, 0 8px 30px rgba(4,10,30,.42), 0 0 26px rgba(56,189,248,.12);
   backdrop-filter:blur(14px);
@@ -72,8 +72,8 @@ body.dashboard-open .obser-chat-frame{
   box-shadow:0 0 0 1px rgba(255,255,255,.06) inset, 0 10px 34px rgba(4,10,30,.48), 0 0 34px rgba(56,189,248,.26), 0 0 42px rgba(168,85,247,.12);
   transform:translateY(-1px);
 }
-.hdr-search input{flex:1;background:none;border:none;outline:none;color:#e8eeff;font-size:14px}
-.hdr-search input::placeholder{color:rgba(255,255,255,.92);font-size:14px;opacity:.9;}
+.hdr-search input{flex:1;background:none;border:none;outline:none;color:#e8eeff;font-size:16px}
+.hdr-search input::placeholder{color:rgba(255,255,255,.92);font-size:16px;opacity:.9;}
 .hdr-right{margin-left:auto;display:flex;align-items:center;gap:8px}
 .hdr-chip{display:flex;align-items:center;gap:7px;padding:4px 10px 4px 6px;border-radius:8px;
   background:rgba(13,20,53,.8);border:1px solid rgba(56,189,248,.12);}
@@ -441,6 +441,14 @@ body.cinematic-leave .cinematic-transition::after{
 .db-overlay.open{display:flex}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .db-modal{display:flex;flex-direction:column;flex:1;min-height:0}
+.db-overlay.open .db-modal{
+  animation: dashboardSpringIn .56s cubic-bezier(.18, 1.2, .22, 1) both;
+}
+@keyframes dashboardSpringIn{
+  0%{opacity:0;transform:translateY(18px) scale(.985);filter:blur(4px)}
+  66%{opacity:1;transform:translateY(-3px) scale(1.003);filter:blur(0)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
 .db-topbar{flex-shrink:0;height:64px;display:flex;align-items:center;gap:14px;padding:0 24px;
   background:rgba(4,8,32,.96);border-bottom:1px solid rgba(56,189,248,.1);}
 .db-dot{width:30px;height:30px;border-radius:50%;flex-shrink:0}
@@ -448,7 +456,7 @@ body.cinematic-leave .cinematic-transition::after{
 .db-back{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:99px;
   font-size:14px;font-weight:800;color:#38bdf8;border:1px solid rgba(56,189,248,.25);transition:.2s;}
 .db-back svg{width:16px;height:16px}
-.db-back:hover{background:rgba(56,189,248,.1)}
+.db-back:hover{background:rgba(56,189,248,.1);transform:translateX(-2px) scale(1.03)}
 .db-intro-toggle,.pz-intro-toggle{position:absolute;top:10px;right:10px;z-index:7;display:inline-flex;
   align-items:center;gap:6px;padding:7px 12px;border-radius:12px;font-size:11px;font-weight:800;
   color:#eaf6ff;border:1px solid rgba(125,211,252,.45);background:linear-gradient(180deg, rgba(10,24,56,.9), rgba(4,10,30,.88));
@@ -471,7 +479,7 @@ body.cinematic-leave .cinematic-transition::after{
 .db-zbtn{width:32px;height:32px;border-radius:8px;border:1px solid rgba(56,189,248,.22);
   display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#d7ebff;
   background:rgba(8,16,48,.65);transition:.2s}
-.db-zbtn:hover{background:rgba(56,189,248,.14)}
+.db-zbtn:hover{background:rgba(56,189,248,.14);transform:translateY(-1px) scale(1.08)}
 .db-zval{min-width:56px;text-align:center;font-size:13px;font-weight:800;color:#d7ebff;
   padding:7px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.2);background:rgba(8,16,48,.45)}
 .db-submenu{flex-shrink:0;display:none;flex-wrap:wrap;gap:8px;padding:10px 24px;
@@ -3099,6 +3107,919 @@ body { margin:0; overflow-x:hidden; }
     top:calc(100svh + 525px);
   }
 }
+
+/* ============================================================
+   PLANET APP LAUNCHER MODE
+   ============================================================ */
+.planet-zoom-overlay.app-launcher-mode .pz-backdrop {
+  background:
+    linear-gradient(180deg, rgba(2,6,23,.14), rgba(2,6,23,.28)),
+    url("./font/iconos/fondo_launcher.png") center center / cover no-repeat,
+    #020617;
+  backdrop-filter: none;
+  animation: launcherBgPan 26s ease-in-out infinite alternate;
+  will-change: background-position, background-size;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 42%, rgba(2,6,23,.18) 72%, rgba(2,6,23,.72) 100%),
+    linear-gradient(90deg, rgba(2,6,23,.34), transparent 22%, transparent 78%, rgba(2,6,23,.44));
+  opacity: .9;
+  filter: none;
+  mask-image: none;
+  -webkit-mask-image: none;
+  animation: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-backdrop::after {
+  display: block;
+  content: "";
+  position: absolute;
+  inset: -6%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,.9) 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 18%, rgba(125,211,252,.85) 0 1px, transparent 2px),
+    radial-gradient(circle at 84% 62%, rgba(244,114,182,.8) 0 1px, transparent 2px),
+    radial-gradient(circle at 36% 74%, rgba(250,204,21,.8) 0 1px, transparent 2px),
+    radial-gradient(circle at 56% 42%, rgba(255,255,255,.72) 0 1px, transparent 2px);
+  background-size: 380px 320px, 460px 360px, 420px 420px, 520px 380px, 340px 460px;
+  opacity: .62;
+  filter: blur(.15px);
+  animation: launcherStarsDrift 13s linear infinite, launcherStarsTwinkle 3.2s ease-in-out infinite;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-intro-reopen,
+.planet-zoom-overlay.app-launcher-mode .pz-mobile-info,
+.planet-zoom-overlay.app-launcher-mode .pz-side-comet,
+.planet-zoom-overlay.app-launcher-mode .pz-nav,
+.planet-zoom-overlay.app-launcher-mode .pz-page-indicator {
+  display: none !important;
+}
+.pz-launcher-brand,
+.pz-launcher-search,
+.pz-launcher-actions,
+.pz-launcher-sidebar,
+.pz-launcher-card,
+.pz-launcher-hint {
+  display: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-launcher-brand {
+  position: absolute;
+  left: 22px;
+  top: 24px;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #fff;
+}
+.pz-launcher-brand img {
+  width: 128px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 14px rgba(99,102,241,.42));
+}
+.pz-launcher-brand::after {
+  content: "";
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(180deg, transparent, rgba(226,232,255,.42), transparent);
+}
+.pz-launcher-brand-text {
+  font-size: 15px;
+  line-height: 1.35;
+  color: rgba(245,248,255,.96);
+  text-shadow: 0 4px 18px rgba(0,0,0,.45);
+}
+.planet-zoom-overlay.app-launcher-mode .pz-launcher-search {
+  position: absolute;
+  top: 28px;
+  left: calc(50% + 96px);
+  transform: translateX(-50%);
+  z-index: 8;
+  width: min(620px, calc(100vw - 690px));
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 22px 0 20px;
+  border-radius: 22px;
+  border: 1px solid rgba(124,58,237,.5);
+  background: linear-gradient(180deg, rgba(8,13,38,.72), rgba(5,8,28,.82));
+  box-shadow: 0 0 30px rgba(124,58,237,.24), inset 0 1px 0 rgba(255,255,255,.08);
+  color: rgba(231,238,255,.72);
+  backdrop-filter: blur(12px);
+}
+.pz-launcher-search svg {
+  width: 22px;
+  height: 22px;
+  color: rgba(223,234,255,.82);
+}
+.pz-launcher-search span {
+  flex: 1;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pz-launcher-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 16px;
+}
+.pz-launcher-search input::placeholder {
+  color: rgba(231,238,255,.74);
+}
+.pz-launcher-results {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  display: none;
+  max-height: min(360px, calc(100vh - 130px));
+  overflow: auto;
+  padding: 8px;
+  border-radius: 18px;
+  border: 1px solid rgba(124,58,237,.38);
+  background: linear-gradient(180deg, rgba(6,12,38,.96), rgba(4,8,28,.98));
+  box-shadow: 0 18px 42px rgba(0,0,0,.44), 0 0 28px rgba(124,58,237,.22);
+  backdrop-filter: blur(16px);
+}
+.pz-launcher-search.has-results .pz-launcher-results {
+  display: block;
+}
+.pz-launcher-result {
+  width: 100%;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 11px;
+  border-radius: 13px;
+  color: #eef6ff;
+  text-align: left;
+  transition: background .18s ease, transform .18s ease;
+}
+.pz-launcher-result:hover,
+.pz-launcher-result:focus-visible {
+  background: rgba(124,58,237,.22);
+  transform: translateX(2px);
+}
+.pz-launcher-result img,
+.pz-launcher-result .pz-launcher-result-fallback {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+.pz-launcher-result strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.18;
+}
+.pz-launcher-result small {
+  display: block;
+  margin-top: 3px;
+  color: rgba(203,213,225,.72);
+  font-size: 11px;
+}
+.pz-launcher-result-empty {
+  padding: 14px;
+  color: rgba(226,232,240,.72);
+  font-size: 13px;
+  text-align: center;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-launcher-actions {
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.pz-launcher-action {
+  width: 54px;
+  height: 54px;
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  color: #eff6ff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.pz-launcher-action svg {
+  width: 22px;
+  height: 22px;
+}
+.pz-launcher-action img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(124,58,237,.45));
+}
+.pz-launcher-action:hover,
+.pz-launcher-action.active {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+.pz-launcher-action:hover img,
+.pz-launcher-action.active img {
+  filter: drop-shadow(0 0 18px rgba(167,139,250,.82)) brightness(1.12);
+}
+.planet-zoom-overlay.app-launcher-mode .pz-launcher-sidebar {
+  position: absolute;
+  left: 10px;
+  top: 118px;
+  bottom: 170px;
+  width: 220px;
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(148,163,184,.16);
+  background: linear-gradient(180deg, rgba(4,8,26,.64), rgba(2,6,20,.84));
+  box-shadow: 0 18px 38px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.05);
+  backdrop-filter: blur(12px);
+}
+.pz-launcher-nav {
+  height: 58px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  color: rgba(241,245,255,.88);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  transition: transform .28s cubic-bezier(.18,1.28,.22,1), background .22s ease, border-color .22s ease;
+}
+.pz-launcher-nav svg {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+}
+.pz-launcher-nav:hover {
+  transform: translateX(4px);
+  background: rgba(79,70,229,.18);
+  border-color: rgba(129,140,248,.22);
+}
+.pz-launcher-nav.active {
+  background: linear-gradient(135deg, rgba(67,56,202,.95), rgba(49,46,129,.9));
+  border-color: rgba(129,140,248,.28);
+  color: #fff;
+  box-shadow: 0 0 24px rgba(79,70,229,.28), inset 0 1px 0 rgba(255,255,255,.12);
+}
+.pz-launcher-new {
+  margin-left: auto;
+  padding: 2px 7px;
+  border-radius: 999px;
+  color: #86efac;
+  background: rgba(22,163,74,.22);
+  border: 1px solid rgba(74,222,128,.35);
+  font-size: 9px;
+  font-weight: 900;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-launcher-card {
+  position: absolute;
+  left: 10px;
+  bottom: 24px;
+  width: 306px;
+  min-height: 124px;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(148,163,184,.16);
+  background: linear-gradient(135deg, rgba(6,14,42,.72), rgba(4,9,26,.9));
+  box-shadow: 0 18px 38px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  text-decoration: none;
+}
+.pz-launcher-card-copy {
+  flex: 1;
+  min-width: 0;
+}
+.pz-launcher-card img {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 28px rgba(132,204,22,.46);
+}
+.pz-launcher-card strong {
+  display: block;
+  font-size: 19px;
+  line-height: 1.18;
+  margin-bottom: 8px;
+}
+.pz-launcher-card span {
+  display: block;
+  color: rgba(226,232,240,.72);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.pz-launcher-card-btn {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  box-shadow: 0 0 18px rgba(124,58,237,.36), inset 0 1px 0 rgba(255,255,255,.18);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.pz-launcher-card-btn:hover {
+  transform: translateX(2px) scale(1.05);
+  box-shadow: 0 0 24px rgba(124,58,237,.55), inset 0 1px 0 rgba(255,255,255,.22);
+}
+.pz-launcher-card-btn svg {
+  width: 18px;
+  height: 18px;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-launcher-hint {
+  position: absolute;
+  left: calc(50% + 110px);
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 7;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(129,140,248,.32);
+  background: rgba(5,10,30,.66);
+  color: rgba(226,232,240,.78);
+  font-size: 15px;
+  backdrop-filter: blur(10px);
+}
+.pz-launcher-hint b {
+  color: #c084fc;
+}
+.pz-launcher-hint img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(167,139,250,.46));
+}
+.planet-zoom-overlay.app-launcher-mode .pz-close {
+  left: 262px;
+  top: 122px;
+  z-index: 8;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: rgba(5,10,30,.58);
+  border-color: rgba(148,163,184,.24);
+  color: rgba(241,245,255,.92);
+  font-size: 14px;
+  backdrop-filter: blur(10px);
+}
+.planet-zoom-overlay.app-launcher-mode .pz-title {
+  top: 124px;
+  left: calc(50% + 110px);
+  width: min(820px, calc(100vw - 48px));
+}
+.planet-zoom-overlay.app-launcher-mode .pz-title h3 {
+  font-size: clamp(26px, 3.3vw, 42px);
+  letter-spacing: 0;
+  animation: springTitleIn .78s cubic-bezier(.18, 1.28, .22, 1) both;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-title p {
+  display: block !important;
+  margin-top: 10px;
+  color: rgba(229,238,255,.84);
+  font-size: 16px;
+  font-weight: 500;
+  text-shadow: 0 5px 18px rgba(0,0,0,.58);
+  animation: springFadeUp .7s cubic-bezier(.18, 1.18, .22, 1) .08s both;
+}
+.planet-zoom-overlay.app-launcher-mode.zoomed .pz-shell,
+.planet-zoom-overlay.app-launcher-mode .pz-shell {
+  left: calc(50% + 112px);
+  top: 57%;
+  width: calc(100vw - 320px);
+  height: calc(100vh - 190px);
+  transform: translate(-50%, -50%) scale(1);
+  perspective: none;
+  filter: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-planet {
+  width: 100%;
+  height: 100%;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible;
+  transform: none !important;
+  filter: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-planet::before,
+.planet-zoom-overlay.app-launcher-mode .pz-planet::after,
+.planet-zoom-overlay.app-launcher-mode .pz-atmo,
+.planet-zoom-overlay.app-launcher-mode .pz-poi-layer.vigilancia-layout::before {
+  display: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(146px, 1fr));
+  gap: clamp(8px, 1.45vh, 22px) clamp(18px, 2vw, 38px);
+  align-content: space-around;
+  justify-items: center;
+  padding: 24px clamp(34px, 4.2vw, 92px) 38px;
+  overflow: visible;
+  transform: none !important;
+  perspective: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-layer,
+.planet-zoom-overlay.app-launcher-mode .pz-poi-layer * {
+  outline: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  width: 156px !important;
+  min-height: 138px !important;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  transform:
+    translate3d(var(--spring-x, 0px), var(--spring-y, 0px), 0)
+    rotateX(var(--spring-rx, 0deg))
+    rotateY(var(--spring-ry, 0deg))
+    scale(var(--spring-scale, 1)) !important;
+  transform-style: preserve-3d;
+  filter: none;
+  z-index: auto !important;
+  opacity: 0;
+  transition:
+    transform .52s cubic-bezier(.18, 1.38, .28, 1),
+    filter .38s ease;
+  animation: launcherIconSpringIn .78s cubic-bezier(.18, 1.48, .22, 1) both;
+  animation-delay: calc(var(--poi-order, 0) * 34ms);
+  will-change: transform, opacity, filter;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-anime-driven {
+  animation: none !important;
+  opacity: 1;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible {
+  --spring-x: 0px;
+  --spring-y: 0px;
+  --spring-rx: 0deg;
+  --spring-ry: 0deg;
+  --spring-scale: 1;
+  filter: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-pressing {
+  --spring-y: 2px;
+  --spring-scale: .94;
+  transition-duration: .12s;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 64px;
+  width: 136px;
+  height: 136px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--poi-glow, rgba(56,189,248,.52)) 72%, transparent 28%) 0 22%, rgba(255,255,255,.08) 23% 38%, transparent 68%);
+  opacity: .34;
+  filter: blur(12px) saturate(1.18);
+  pointer-events: none;
+  z-index: -1;
+  animation: launcherIconHalo 3.8s ease-in-out infinite;
+  transition: opacity .24s ease, filter .24s ease;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover::before,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible::before {
+  opacity: .78;
+  filter: blur(14px) saturate(1.35);
+}
+.planet-zoom-overlay.app-launcher-mode .pz-marker-head,
+.planet-zoom-overlay.app-launcher-mode .pz-fullpin-wrap {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: 128px !important;
+  height: 128px !important;
+  transform: none !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible;
+  transition:
+    transform .5s cubic-bezier(.18, 1.38, .28, 1),
+    box-shadow .35s ease,
+    filter .35s ease;
+  will-change: transform;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-fullpin-wrap::after {
+  display: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-marker-head,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-marker-head,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-fullpin-wrap,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-fullpin-wrap {
+  transform: none !important;
+  box-shadow: none !important;
+  filter: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-launcher-icon-img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-launcher-icon-img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-poi-logo img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-poi-logo img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-poi-logo svg,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-poi-logo svg {
+  filter: drop-shadow(0 12px 16px rgba(0,0,0,.46)) drop-shadow(0 0 18px var(--poi-glow, rgba(56,189,248,.55))) brightness(1.08) saturate(1.08) !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-marker-head .pz-poi-logo {
+  width: 128px;
+  height: 128px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-logo img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi-logo svg {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 16px rgba(0,0,0,.46));
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-logo i {
+  font-size: 54px;
+  filter: drop-shadow(0 12px 16px rgba(0,0,0,.46));
+}
+.planet-zoom-overlay.app-launcher-mode .pz-fullpin-wrap img {
+  width: 128px !important;
+  height: 128px !important;
+  object-fit: contain;
+  object-position: center center;
+  transform: none !important;
+  filter: drop-shadow(0 12px 16px rgba(0,0,0,.46));
+}
+.planet-zoom-overlay.app-launcher-mode .pz-launcher-icon-img {
+  position: relative;
+  display: block;
+  width: 128px !important;
+  height: 128px !important;
+  object-fit: contain;
+  object-position: center center;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  transform: none !important;
+  filter: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-dengue-fullpin .pz-launcher-icon-img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-etas-fullpin .pz-launcher-icon-img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-fiebre-amarilla-fullpin .pz-launcher-icon-img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-irag-fullpin .pz-launcher-icon-img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-tuberculosis-fullpin .pz-launcher-icon-img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-vih-fullpin .pz-launcher-icon-img {
+  width: 128px !important;
+  height: 128px !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  clip-path: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-dengue-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-etas-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-desnutricion-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-edas-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-eventos-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-alerta-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-huerfanas-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-vigilancia-p2-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-vigilancia-p3-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-vigilancia-p4-fullpin .pz-fullpin-wrap img {
+  width: 128px !important;
+  height: 128px !important;
+  object-position: center center;
+  transform: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-eventos-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-desnutricion-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-edas-fullpin .pz-fullpin-wrap img {
+  transform: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-intento-suicidio-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-leptospirosis-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-mortalidad-materna-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-morbilidad-materna-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-mortalidad-perinatal-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-suicidio-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-tuberculosis-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-violencias-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-vih-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-vigilancia-comunitaria-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-baja-notificacion-fullpin .pz-fullpin-wrap img {
+  width: 128px !important;
+  height: 128px !important;
+  transform: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-hepatitis-a-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-fiebre-amarilla-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-irag-fullpin .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-intoxicaciones-fullpin .pz-fullpin-wrap img {
+  width: 128px !important;
+  height: 128px !important;
+  transform: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-marker-point,
+.planet-zoom-overlay.app-launcher-mode .pz-marker-trail,
+.planet-zoom-overlay.app-launcher-mode .pz-marker-shadow,
+.planet-zoom-overlay.app-launcher-mode .pz-fullpin-trail,
+.planet-zoom-overlay.app-launcher-mode .pz-fullpin-chip::before,
+.planet-zoom-overlay.app-launcher-mode .pz-fullpin-chip::after {
+  display: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-label,
+.planet-zoom-overlay.app-launcher-mode .pz-fullpin-chip,
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-cirugia-plastica-fullpin .pz-fullpin-chip {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  width: 174px !important;
+  min-width: 0 !important;
+  max-width: 174px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #f7fbff !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 1.22 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  text-align: center !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,.88), 0 0 12px var(--poi-glow, rgba(125,211,252,.5)) !important;
+  transition: transform .46s cubic-bezier(.18, 1.28, .22, 1), color .24s ease;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-poi-label,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-fullpin-chip,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-poi-label,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-fullpin-chip {
+  transform: translateY(2px) !important;
+  color: #ffffff !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-label[data-full-label],
+.planet-zoom-overlay.app-launcher-mode .pz-fullpin-chip[data-full-label] {
+  cursor: pointer;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-label.is-label-swapping,
+.planet-zoom-overlay.app-launcher-mode .pz-fullpin-chip.is-label-swapping {
+  animation: launcherLabelSwap .26s cubic-bezier(.18, 1.18, .22, 1) both;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-label.is-full-label,
+.planet-zoom-overlay.app-launcher-mode .pz-fullpin-chip.is-full-label {
+  width: 238px !important;
+  max-width: 238px !important;
+  margin-left: -32px !important;
+  margin-right: -32px !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  line-height: 1.18 !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,.95), 0 0 18px var(--poi-glow, rgba(125,211,252,.62)) !important;
+}
+@keyframes launcherIconSpringIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 42px, 0) scale(.62);
+    filter: blur(5px) saturate(.82);
+  }
+  58% {
+    opacity: 1;
+    transform: translate3d(0, -9px, 0) scale(1.08);
+    filter: blur(0) saturate(1.08);
+  }
+  78% {
+    transform: translate3d(0, 4px, 0) scale(.985);
+  }
+  100% {
+    opacity: 1;
+    transform:
+      translate3d(var(--spring-x, 0px), var(--spring-y, 0px), 0)
+      rotateX(var(--spring-rx, 0deg))
+      rotateY(var(--spring-ry, 0deg))
+      scale(var(--spring-scale, 1));
+    filter: blur(0) saturate(1);
+  }
+}
+@keyframes launcherIconHalo {
+  0%, 100% { opacity: .26; }
+  50% { opacity: .48; }
+}
+@keyframes launcherStarsDrift {
+  from { transform: translate3d(-10px, -6px, 0) scale(1); }
+  to { transform: translate3d(-130px, 86px, 0) scale(1.06); }
+}
+@keyframes launcherStarsTwinkle {
+  0%, 100% { opacity: .36; }
+  45% { opacity: .8; }
+  70% { opacity: .48; }
+}
+@keyframes launcherBgPan {
+  0% {
+    background-position: center center, 50% 50%, center;
+    background-size: auto, 102% auto, auto;
+  }
+  50% {
+    background-position: center center, 54% 47%, center;
+    background-size: auto, 108% auto, auto;
+  }
+  100% {
+    background-position: center center, 47% 55%, center;
+    background-size: auto, 106% auto, auto;
+  }
+}
+@keyframes launcherLabelSwap {
+  0% { opacity: .12; transform: translateY(5px) scale(.96); filter: blur(2px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes springTitleIn {
+  0% { opacity: 0; transform: translateY(22px) scale(.94); }
+  64% { opacity: 1; transform: translateY(-4px) scale(1.025); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes springFadeUp {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes launcherBurstDrift {
+  from { opacity: .5; transform: scaleX(1.35) rotate(-1.5deg); }
+  to { opacity: .72; transform: scaleX(1.55) rotate(1.5deg); }
+}
+@keyframes launcherRaysBreathe {
+  from { opacity: .32; transform: scale(.96) rotate(-1deg); }
+  to { opacity: .54; transform: scale(1.04) rotate(1deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .planet-zoom-overlay.app-launcher-mode .pz-poi,
+  .planet-zoom-overlay.app-launcher-mode .pz-title h3,
+  .planet-zoom-overlay.app-launcher-mode .pz-title p,
+  .planet-zoom-overlay.app-launcher-mode .pz-backdrop::after,
+  .db-overlay.open .db-modal {
+    animation: none !important;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-poi {
+    opacity: 1;
+    transition: none;
+  }
+}
+@media(max-width: 1020px) {
+  .planet-zoom-overlay.app-launcher-mode .pz-launcher-brand,
+  .planet-zoom-overlay.app-launcher-mode .pz-launcher-sidebar,
+  .planet-zoom-overlay.app-launcher-mode .pz-launcher-card,
+  .planet-zoom-overlay.app-launcher-mode .pz-launcher-actions,
+  .planet-zoom-overlay.app-launcher-mode .pz-launcher-hint {
+    display: none;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-launcher-search {
+    left: 58%;
+    width: min(520px, calc(100vw - 150px));
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-close {
+    left: 22px;
+    top: 28px;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-title {
+    left: 50%;
+    top: 98px;
+  }
+  .planet-zoom-overlay.app-launcher-mode.zoomed .pz-shell,
+  .planet-zoom-overlay.app-launcher-mode .pz-shell {
+    left: 50%;
+    width: calc(100vw - 46px);
+    height: calc(100dvh - 176px);
+    top: 58.5%;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-poi-layer {
+    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+    gap: 18px 16px;
+    overflow-y: auto;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-poi {
+    width: 128px !important;
+    min-height: 130px !important;
+    gap: 8px;
+  }
+}
+@media(max-width: 768px) {
+  .planet-zoom-overlay.app-launcher-mode .pz-launcher-search {
+    display: none;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-title {
+    top: 106px;
+    left: 50%;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-title h3 {
+    max-width: none;
+    font-size: clamp(22px, 6.5vw, 31px);
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-title p {
+    font-size: 14px;
+  }
+  .planet-zoom-overlay.app-launcher-mode.zoomed .pz-shell,
+  .planet-zoom-overlay.app-launcher-mode .pz-shell {
+    top: 59%;
+    width: calc(100vw - 28px);
+    height: calc(100dvh - 188px);
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-poi-layer {
+    grid-template-columns: repeat(3, minmax(96px, 1fr));
+    gap: 16px 10px;
+    padding: 10px 4px 24px;
+    align-content: start;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-poi {
+    width: 104px !important;
+    min-height: 116px !important;
+    gap: 7px;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-marker-head,
+  .planet-zoom-overlay.app-launcher-mode .pz-fullpin-wrap {
+    width: 88px !important;
+    height: 88px !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-marker-head .pz-poi-logo {
+    width: 88px;
+    height: 88px;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-poi-logo img,
+  .planet-zoom-overlay.app-launcher-mode .pz-poi-logo svg {
+    width: 88px;
+    height: 88px;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-fullpin-wrap img {
+    width: 88px !important;
+    height: 88px !important;
+    object-fit: contain;
+    transform: none !important;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-launcher-icon-img {
+    width: 88px !important;
+    height: 88px !important;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-poi-label,
+  .planet-zoom-overlay.app-launcher-mode .pz-fullpin-chip,
+  .planet-zoom-overlay.app-launcher-mode .pz-poi.is-cirugia-plastica-fullpin .pz-fullpin-chip {
+    width: 104px !important;
+    max-width: 104px !important;
+    font-size: 12px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -3304,6 +4225,64 @@ body { margin:0; overflow-x:hidden; }
 <!-- PLANET ZOOM EXPERIENCE -->
 <div class="planet-zoom-overlay" id="planet-zoom-overlay" aria-hidden="true">
   <div class="pz-backdrop"></div>
+  <div class="pz-launcher-brand" aria-hidden="true">
+    <img src="ODSC.png" alt="">
+    <div class="pz-launcher-brand-text">Observatorio de Salud<br>Santiago de Cali</div>
+  </div>
+  <div class="pz-launcher-search" id="pz-launcher-search-box">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input id="pz-launcher-search-input" type="search" placeholder="Buscar tablero, indicador o tema..." autocomplete="off" aria-label="Buscar tableros del planeta actual">
+    <div class="pz-launcher-results" id="pz-launcher-results"></div>
+  </div>
+  <div class="pz-launcher-actions">
+    <button class="pz-launcher-action" id="pz-launcher-info" type="button" aria-label="Mostrar información del planeta" aria-pressed="false" title="Información del planeta">
+      <img src="./font/iconos/icono_info.png" alt="" aria-hidden="true">
+    </button>
+  </div>
+  <nav class="pz-launcher-sidebar" aria-label="Secciones del universo">
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
+      Inicio
+    </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="saludpub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+      Salud Pública
+    </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="demografia">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M2 21v-2a4 4 0 0 1 3-3.87"/></svg>
+      Demografía
+    </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="vigilancia">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+      Vigilancia Epidemiológica
+    </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="prestacion">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9h.01M9 13h.01M9 17h.01"/></svg>
+      Prestación de Servicios
+    </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="planeacion">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-6"/></svg>
+      Planeación y Salud
+    </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="financiero">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18"/><path d="M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><path d="M6 7v12h12V7"/></svg>
+      Financiero
+    </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="ambiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 4 13c0-6 8-10 8-10s8 4 8 10a7 7 0 0 1-7 7Z"/><path d="M12 20v-8"/></svg>
+      Ambiente y Salud
+    </button>
+  </nav>
+  <div class="pz-launcher-card">
+    <img src="universosalud.png" alt="">
+    <span class="pz-launcher-card-copy"><strong>En-torno a tu Salud</strong><span>Conoce indicadores y estadísticas clave</span></span>
+    <a class="pz-launcher-card-btn" href="./principal-entornos.html" data-cinematic-nav="entornos" aria-label="Ir al universo En-torno a tu Salud">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+    </a>
+  </div>
+  <div class="pz-launcher-hint">
+    <img src="./font/iconos/clic.png" alt="" aria-hidden="true"> Haz clic en un icono para <b>abrir un tablero</b>
+  </div>
   <button class="pz-close" id="pz-close-btn" type="button">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Volver al sistema
@@ -3321,7 +4300,7 @@ body { margin:0; overflow-x:hidden; }
   <button class="pz-intro-reopen" id="pz-intro-reopen" type="button" hidden aria-label="Mostrar información" title="Mostrar información">i</button>
   <div class="pz-title">
     <h3 id="pz-title">Planeta</h3>
-    <p hidden></p>
+    <p>Explora todos los tableros disponibles</p>
     <div class="pz-page-indicator" id="pz-page-indicator" hidden>Puntos 1/1</div>
   </div>
   <div class="pz-shell" id="pz-shell">
@@ -3355,6 +4334,7 @@ body { margin:0; overflow-x:hidden; }
 <div class="preload-pool" id="preload-pool" aria-hidden="true"></div>
 <div class="cinematic-transition" id="cinematic-transition" aria-hidden="true"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" defer></script>
 <script>
 'use strict';
 
@@ -3451,27 +4431,27 @@ const PLANETS = [
       {label:'Dengue',url:'https://lookerstudio.google.com/embed/reporting/d65d2972-010d-44f4-aba4-7b1d9528213d/page/p7led3ssotd'},
       {label:'Desnutrición',url:'https://lookerstudio.google.com/embed/reporting/2069e9d8-6fe6-42dd-857a-d9574f046bc8/page/esEzE'},
       {label:'EDA',fullLabel:'Enfermedad Diarreica Aguda',url:'https://lookerstudio.google.com/embed/reporting/16e94557-889a-4774-bb20-f6e99f649094/page/esEzE'},
-      {label:'ETAs',fullLabel:'Enfermedades Transmitidas por Alimentos',url:'./dashboard-eta.html'},
+      {label:'ETAs',fullLabel:'Enfermedades Transmitidas por Alimentos',url:'https://lookerstudio.google.com/embed/reporting/0e6bd7ae-52c0-46b2-8268-41afd8088cdd/page/p2u66wwr6pd'},
       {label:'Fiebre Amarilla',url:'https://lookerstudio.google.com/embed/reporting/fef8137e-5cb2-480b-9165-12bbb3d05640/page/esEzE'},
-      {label:'Hepatitis A',url:'./dashboard-hepatitis-a.html'},
+      {label:'Hepatitis A',url:'https://lookerstudio.google.com/embed/reporting/83fbe55f-4fa8-4c4a-b382-1cf34a25d8df/page/esEzE'},
       {label:'IRAG',fullLabel:'Infección Respiratoria Aguda',url:'https://lookerstudio.google.com/embed/reporting/9c7f244d-5fb9-4b40-a490-1386dba6545a/page/esEzE'},
       {label:'Intoxicaciones',url:'https://lookerstudio.google.com/embed/reporting/2b834b80-ba04-4cc7-a4f3-f26369764b2f/page/esEzE'},
-      {label:'Intento de Suicidio',url:'./dashboard-intento-suicidio.html'},
+      {label:'Intento de Suicidio',url:'https://lookerstudio.google.com/embed/reporting/2fdee237-0658-4fcf-b71d-489129bc245f/page/esEzE'},
       {label:'Leptospirosis',url:'https://lookerstudio.google.com/embed/reporting/de65034a-6f62-4b27-8d2b-2d01328cd0f4/page/F5HYF'},
       {label:'Mortalidad Materna',url:'https://lookerstudio.google.com/embed/reporting/f9326436-5a93-48c8-b381-f296d63669a9/page/esEzE'},
       {label:'Morbilidad Materna Extrema',url:'https://lookerstudio.google.com/embed/reporting/9979b294-66c3-45d4-a745-2d8a2442ce80/page/esEzE'},
       {label:'Mortalidad Perinatal',url:'https://lookerstudio.google.com/embed/reporting/4308501f-affc-4d2a-aab0-9a6071ddc51d/page/esEzE'},
       {label:'Pólvora',url:'https://lookerstudio.google.com/embed/reporting/6523aa5a-0284-480a-972d-4a33f99a65ce/page/esEzE'},
-      {label:'Suicidio',url:'./dashboard-suicidio.html'},
+      {label:'Suicidio',url:'https://lookerstudio.google.com/embed/reporting/03e5694b-5b02-4b62-b9bf-3053fff97b04/page/esEzE'},
       {label:'SPA',fullLabel:'Sustancias Psicoactivas',url:'https://datastudio.google.com/embed/reporting/40ced8bc-80bd-4d66-bb3b-dbe7914a5dbf/page/F5HYF'},
       {label:'Cáncer de mama y cérvix',url:'https://datastudio.google.com/embed/reporting/addd3941-b6bd-4e5e-bdc3-fd8f179661fc/page/esEzE'},
       {label:'Tuberculosis',url:'https://lookerstudio.google.com/embed/reporting/3a6097ec-c835-4ea3-8675-2a610e74d318/page/esEzE'},
       {label:'Violencias',url:'https://lookerstudio.google.com/embed/reporting/98276313-0a20-42ab-b1f4-2f43d54c92de/page/esEzE'},
-      {label:'VIH',fullLabel:'Virus de Inmunodeficiencia Humana',url:'./dashboard-vih.html'},
+      {label:'VIH',fullLabel:'Virus de Inmunodeficiencia Humana',url:'https://lookerstudio.google.com/embed/reporting/884c4242-f03b-403c-8e89-595a055b222e/page/esEzE'},
       {label:'Vigilancia Comunitaria',url:'https://lookerstudio.google.com/embed/reporting/5c3db296-b2ea-47d4-8ca3-aa068cf83c75/page/esEzE'},
       {label:'Baja Notificación',url:'https://lookerstudio.google.com/embed/reporting/c6a116ba-a469-44c8-b2ff-8ce4bfed9390/page/esEzE'},
       {label:'sistema de Alerta Temprana',url:'https://lookerstudio.google.com/embed/reporting/96fa06fa-3995-4be8-b676-1dab8fc17372/page/pzc6ydjp6rd'},
-      {label:'Enfermedades Huérfanas',url:'./dashboard.html'},
+      {label:'Enfermedades Huérfanas',url:'https://datastudio.google.com/embed/reporting/31c41886-75ab-4ada-8397-2ee1da2839c7/page/F5HYF'},
     ]
   },
   // RING 4
@@ -3713,7 +4693,8 @@ PLANETS.forEach(p => {
 
   const sphere = document.createElement('div');
   sphere.className = 'p-sphere';
-  sphere.style.cssText = `width:${p.size}px;height:${p.size}px;--pg:${p.grad};--ps:${p.shadow};`;
+  const renderedPlanetSize = p.id === 'salud' ? p.size : Math.round(p.size * 1.25);
+  sphere.style.cssText = `width:${renderedPlanetSize}px;height:${renderedPlanetSize}px;--pg:${p.grad};--ps:${p.shadow};`;
   sphere.innerHTML = planetIconSvgById(p.id) || p.icon;
 
   const isImagePlanet = typeof p.icon === 'string' && p.icon.includes('<img');
@@ -3861,13 +4842,6 @@ function renderDashboardSubmenu(planet, activeUrl, activeLabel){
 }
 
 function getDashboardLaunchConfig(topic){
-  const label = ((topic && (topic.fullLabel || topic.label)) || '').trim();
-  if(label.toLowerCase() === 'estilos de vida saludable'){
-    return {
-      url: './dashboard-estilos-vida.html',
-      submenuLabel: 'Estilos de vida saludable'
-    };
-  }
   return {
     url: topic ? topic.url : '',
     submenuLabel: ''
@@ -3970,7 +4944,7 @@ function openDashboardInsideCurrentModal(url, returnUrl){
   document.body.classList.add('dashboard-open');
   showDashboardChrome();
   const normalizedUrl = normalizeLookerEmbedUrl(url);
-  dashboardMenuReturnUrl = (typeof returnUrl === 'string' && returnUrl.trim()) ? returnUrl.trim() : './dashboard.html';
+  dashboardMenuReturnUrl = (typeof returnUrl === 'string' && returnUrl.trim()) ? returnUrl.trim() : '';
   dashboardManualScale = 1;
   document.getElementById('db-frame').src = normalizedUrl;
   document.getElementById('db-overlay').classList.add('open');
@@ -4021,6 +4995,10 @@ if(dbIntroReopenBtn){
 const pzIntroToggleBtn = document.getElementById('pz-intro-toggle');
 const pzIntroReopenBtn = document.getElementById('pz-intro-reopen');
 const pzMobileInfoBtn = document.getElementById('pz-mobile-info');
+const pzLauncherInfoBtn = document.getElementById('pz-launcher-info');
+const launcherSearchBox = document.getElementById('pz-launcher-search-box');
+const launcherSearchInput = document.getElementById('pz-launcher-search-input');
+const launcherSearchResults = document.getElementById('pz-launcher-results');
 function isPlanetMobileView(){
   return window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
 }
@@ -4036,6 +5014,11 @@ function setPlanetIntroExpanded(expanded){
   // Mostrar el botón de reabrir sólo cuando la intro está colapsada por el usuario
   if(pzIntroReopenBtn) pzIntroReopenBtn.hidden = !(planetIntroCollapsed && planetIntroHiddenByUser);
   if(pzMobileInfoBtn) pzMobileInfoBtn.setAttribute('aria-pressed', expanded ? 'true' : 'false');
+  if(pzLauncherInfoBtn){
+    pzLauncherInfoBtn.classList.toggle('active', expanded);
+    pzLauncherInfoBtn.setAttribute('aria-pressed', expanded ? 'true' : 'false');
+    pzLauncherInfoBtn.title = expanded ? 'Ocultar información del planeta' : 'Información del planeta';
+  }
 }
 if(pzIntroToggleBtn){
   pzIntroToggleBtn.addEventListener('click', () => {
@@ -4052,6 +5035,32 @@ if(pzMobileInfoBtn){
     setPlanetIntroExpanded(planetIntroCollapsed);
   });
 }
+if(pzLauncherInfoBtn){
+  pzLauncherInfoBtn.addEventListener('click', () => {
+    if(!planetIntroAvailable) return;
+    setPlanetIntroExpanded(planetIntroCollapsed);
+  });
+}
+if(launcherSearchInput){
+  launcherSearchInput.addEventListener('input', () => {
+    renderLauncherSearchResults(launcherSearchInput.value);
+  });
+  launcherSearchInput.addEventListener('keydown', (ev) => {
+    if(ev.key === 'Escape'){
+      launcherSearchInput.value = '';
+      closeLauncherSearchResults();
+      launcherSearchInput.blur();
+    }
+    if(ev.key === 'Enter'){
+      const first = launcherSearchResults && launcherSearchResults.querySelector('.pz-launcher-result');
+      if(first) first.click();
+    }
+  });
+}
+document.addEventListener('click', (ev) => {
+  if(!launcherSearchBox || !isLauncherMode()) return;
+  if(!launcherSearchBox.contains(ev.target)) closeLauncherSearchResults();
+});
 
 function fsFrame(){
   const f = document.getElementById('db-frame');
@@ -4821,6 +5830,7 @@ let preloadInFlight = 0;
 let sideCometPlanet = null;
 let sideCometRepositionTimers = [];
 let dashboardMenuReturnUrl = null;
+let activeLauncherPlanet = null;
 
 function clearSideCometRepositionTimers(){
   sideCometRepositionTimers.forEach((id) => clearTimeout(id));
@@ -4850,6 +5860,12 @@ function setPlanetIntroContent(planet){
   if(pzMobileInfoBtn){
     pzMobileInfoBtn.hidden = !hasIntro;
     pzMobileInfoBtn.setAttribute('aria-pressed', hasIntro && !planetIntroCollapsed ? 'true' : 'false');
+  }
+  if(pzLauncherInfoBtn){
+    pzLauncherInfoBtn.hidden = !hasIntro;
+    pzLauncherInfoBtn.classList.toggle('active', hasIntro && !planetIntroCollapsed);
+    pzLauncherInfoBtn.setAttribute('aria-pressed', hasIntro && !planetIntroCollapsed ? 'true' : 'false');
+    pzLauncherInfoBtn.title = hasIntro && !planetIntroCollapsed ? 'Ocultar información del planeta' : 'Información del planeta';
   }
 
   if(!hasIntro){
@@ -5798,9 +6814,242 @@ function cancelPoiSwipe(){
   poiSwipeActive = false;
 }
 
+function setLauncherActivePlanet(planetId){
+  activeLauncherPlanet = planetId || null;
+  document.querySelectorAll('[data-launcher-planet]').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.launcherPlanet === activeLauncherPlanet);
+  });
+  closeLauncherSearchResults();
+  if(launcherSearchInput) launcherSearchInput.value = '';
+}
+
+function isLauncherMode(){
+  return !!(zoomOverlay && zoomOverlay.classList.contains('app-launcher-mode'));
+}
+
+function updateLauncherPoiSpring(poi, ev){
+  if(!isLauncherMode() || !poi || !ev) return;
+  const r = poi.getBoundingClientRect();
+  const nx = Math.max(-1, Math.min(1, (ev.clientX - (r.left + r.width / 2)) / (r.width / 2 || 1)));
+  const ny = Math.max(-1, Math.min(1, (ev.clientY - (r.top + r.height / 2)) / (r.height / 2 || 1)));
+  poi.style.setProperty('--spring-rx', (-ny * 7).toFixed(2) + 'deg');
+  poi.style.setProperty('--spring-ry', (nx * 8).toFixed(2) + 'deg');
+  poi.style.setProperty('--spring-x', (nx * 3).toFixed(2) + 'px');
+}
+
+function resetLauncherPoiSpring(poi){
+  if(!poi) return;
+  poi.style.setProperty('--spring-rx', '0deg');
+  poi.style.setProperty('--spring-ry', '0deg');
+  poi.style.setProperty('--spring-x', '0px');
+}
+
+function hasAnime(){
+  return typeof window !== 'undefined' && typeof window.anime === 'function';
+}
+
+function clearLauncherPoiInlineMotion(poi){
+  if(!poi) return;
+  poi.style.opacity = '';
+  poi.style.setProperty('--spring-x', '0px');
+  poi.style.setProperty('--spring-y', '0px');
+  poi.style.setProperty('--spring-rx', '0deg');
+  poi.style.setProperty('--spring-ry', '0deg');
+  poi.style.setProperty('--spring-scale', '1');
+}
+
+function animateLauncherEntrance(){
+  if(!isLauncherMode() || !hasAnime() || !zoomPoiLayer) return;
+  const items = Array.from(zoomPoiLayer.querySelectorAll('.pz-poi'));
+  if(!items.length) return;
+
+  const layerRect = zoomPoiLayer.getBoundingClientRect();
+  const centerX = layerRect.left + layerRect.width / 2;
+  const centerY = layerRect.top + layerRect.height / 2;
+  const states = [];
+
+  items.forEach((item, index) => {
+    const rect = item.getBoundingClientRect();
+    const itemX = rect.left + rect.width / 2;
+    const itemY = rect.top + rect.height / 2;
+    const dx = centerX - itemX;
+    const dy = centerY - itemY;
+    const spin = index % 2 === 0 ? -14 : 14;
+    const state = {
+      el: item,
+      x: dx,
+      y: dy,
+      scale: 0.46,
+      rx: dy > 0 ? -10 : 10,
+      ry: spin,
+      opacity: 0
+    };
+    states.push(state);
+    item.classList.add('is-anime-driven');
+    item.style.opacity = '0';
+    item.style.setProperty('--spring-x', dx.toFixed(1) + 'px');
+    item.style.setProperty('--spring-y', dy.toFixed(1) + 'px');
+    item.style.setProperty('--spring-scale', '.46');
+    item.style.setProperty('--spring-rx', state.rx + 'deg');
+    item.style.setProperty('--spring-ry', state.ry + 'deg');
+  });
+
+  window.anime({
+    targets: states,
+    x: 0,
+    y: 0,
+    scale: 1,
+    rx: 0,
+    ry: 0,
+    opacity: 1,
+    duration: 980,
+    delay: window.anime.stagger(42, { from: 'center' }),
+    easing: 'easeOutElastic(1, .78)',
+    update: (anim) => {
+      anim.animatables.forEach((animatable) => {
+        const state = animatable.target;
+        const item = state.el;
+        item.style.opacity = String(state.opacity);
+        item.style.setProperty('--spring-x', state.x.toFixed(2) + 'px');
+        item.style.setProperty('--spring-y', state.y.toFixed(2) + 'px');
+        item.style.setProperty('--spring-scale', state.scale.toFixed(3));
+        item.style.setProperty('--spring-rx', state.rx.toFixed(2) + 'deg');
+        item.style.setProperty('--spring-ry', state.ry.toFixed(2) + 'deg');
+      });
+    },
+    complete: () => {
+      items.forEach((item) => {
+        clearLauncherPoiInlineMotion(item);
+      });
+    }
+  });
+
+  const chromeTargets = [
+    ...document.querySelectorAll('.pz-launcher-sidebar .pz-launcher-nav'),
+    ...document.querySelectorAll('.pz-launcher-card, .pz-launcher-hint')
+  ];
+  if(chromeTargets.length){
+    window.anime({
+      targets: chromeTargets,
+      translateX: [-18, 0],
+      opacity: [0, 1],
+      delay: window.anime.stagger(34),
+      duration: 620,
+      easing: 'easeOutExpo'
+    });
+  }
+}
+
+function animateLauncherPress(poi, done){
+  if(!isLauncherMode() || !hasAnime() || !poi){
+    done();
+    return;
+  }
+  poi.classList.add('is-anime-driven', 'is-pressing');
+  window.anime({
+    targets: poi,
+    opacity: [1, .72, 1],
+    duration: 280,
+    easing: 'easeOutQuad',
+    complete: () => {
+      poi.classList.remove('is-pressing');
+      clearLauncherPoiInlineMotion(poi);
+      done();
+    }
+  });
+}
+
+function launchPoiDashboard(topic, planet){
+  closePlanetExperience(true);
+  const launchConfig = getDashboardLaunchConfig(topic);
+  openDashboard(launchConfig.url, planet, topic.fullLabel || topic.label, { submenuLabel: launchConfig.submenuLabel });
+}
+
+function swapLauncherLabelText(el, text, isFull){
+  if(!el || !isLauncherMode()) return;
+  const nextText = String(text || '').trim();
+  if(!nextText || el.textContent === nextText) return;
+  el.classList.remove('is-label-swapping');
+  el.textContent = nextText;
+  el.classList.toggle('is-full-label', !!isFull);
+  void el.offsetWidth;
+  el.classList.add('is-label-swapping');
+}
+
+function getLauncherTopicImage(topic, planet){
+  const normLabel = normalizeText((topic && topic.label) || '');
+  const planetId = (planet && planet.id) || activeLauncherPlanet || '';
+  const assetFullPinImg = topicFullPinImageByPlanet(planetId, normLabel);
+  if(assetFullPinImg) return assetFullPinImg;
+  if(normLabel.includes('etas')) return './font/iconos/ETAS.png';
+  if(normLabel.includes('desnutric')) return './font/iconos/desnutricion.png';
+  if(normLabel === 'eda' || normLabel.includes('edas')) return './font/iconos/EDAS.png';
+  if(normLabel.includes('eventos epidemiolog')) return './font/iconos/eventos.png';
+  if(normLabel.includes('sistema de alerta temprana')) return './font/iconos/alertatemprana.png';
+  if(normLabel.includes('huerfan')) return './font/iconos/huerfanas.png';
+  if(normLabel.includes('fiebre amarilla')) return './font/iconos/Vigilancia Epidemiológica/pagina 2/fiebreamarilla.png';
+  if(normLabel.includes('hepatitis a')) return './font/iconos/Vigilancia Epidemiológica/pagina 2/hepatitis.png';
+  if(normLabel === 'irag' || normLabel.includes('irag')) return './font/iconos/Vigilancia Epidemiológica/pagina 2/irag.png';
+  if(normLabel.includes('intoxicaciones')) return './font/iconos/Vigilancia Epidemiológica/pagina 2/intoxicaciones.png';
+  if(normLabel.includes('intento de suicidio')) return './font/iconos/Vigilancia Epidemiológica/pagina 2/intentosuicidio.png';
+  if(normLabel.includes('leptospirosis')) return './font/iconos/Vigilancia Epidemiológica/pagina 3/leptospirosis.png';
+  if(normLabel.includes('morbilidad materna extrema')) return './font/iconos/Vigilancia Epidemiológica/pagina 3/morbilidad.png';
+  if(normLabel.includes('mortalidad materna')) return './font/iconos/Vigilancia Epidemiológica/pagina 3/mortalidadMa.png';
+  if(normLabel.includes('mortalidad perinatal')) return './font/iconos/Vigilancia Epidemiológica/pagina 3/perinatal.png';
+  if(normLabel === 'suicidio') return './font/iconos/Vigilancia Epidemiológica/pagina 3/sucidio.png';
+  if(normLabel.includes('tuberculosis')) return './font/iconos/Vigilancia Epidemiológica/pagina 4/tuberculosis.png';
+  if(normLabel.includes('violencias')) return './font/iconos/Vigilancia Epidemiológica/pagina 4/violencia.png';
+  if(normLabel === 'vih' || normLabel.includes('vih')) return './font/iconos/Vigilancia Epidemiológica/pagina 4/vih.png';
+  if(normLabel.includes('vigilancia comunitaria')) return './font/iconos/Vigilancia Epidemiológica/pagina 4/vigilanciaC.png';
+  if(normLabel.includes('baja notificacion')) return './font/iconos/Vigilancia Epidemiológica/pagina 4/bajanotificacion.png';
+  if(normLabel.includes('dengue')) return './font/iconos/dengue.png';
+  return null;
+}
+
+function closeLauncherSearchResults(){
+  if(launcherSearchBox) launcherSearchBox.classList.remove('has-results');
+  if(launcherSearchResults) launcherSearchResults.innerHTML = '';
+}
+
+function renderLauncherSearchResults(query){
+  if(!launcherSearchBox || !launcherSearchResults) return;
+  const q = normalizeText(query || '');
+  launcherSearchResults.innerHTML = '';
+  if(!q){
+    closeLauncherSearchResults();
+    return;
+  }
+  const currentPlanet = PLANETS.find((p) => p.id === activeLauncherPlanet) || poiCarouselPlanet;
+  const matches = (poiCarouselTopics || []).filter((topic) => {
+    const haystack = normalizeText([topic.label, topic.fullLabel].filter(Boolean).join(' '));
+    return haystack.includes(q);
+  }).slice(0, 8);
+  launcherSearchBox.classList.add('has-results');
+  if(!matches.length){
+    launcherSearchResults.innerHTML = '<div class="pz-launcher-result-empty">No hay tableros con ese nombre en este planeta.</div>';
+    return;
+  }
+  matches.forEach((topic) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'pz-launcher-result';
+    const img = getLauncherTopicImage(topic, currentPlanet);
+    const safeLabel = topic.label || 'Tablero';
+    const safeFull = topic.fullLabel || topic.label || 'Tablero';
+    btn.innerHTML = (img ? '<img src="' + img + '" alt="">' : '<span class="pz-launcher-result-fallback"></span>') +
+      '<span><strong>' + safeLabel + '</strong><small>' + safeFull + '</small></span>';
+    btn.addEventListener('click', () => {
+      closeLauncherSearchResults();
+      if(launcherSearchInput) launcherSearchInput.value = '';
+      launchPoiDashboard(topic, currentPlanet);
+    });
+    launcherSearchResults.appendChild(btn);
+  });
+}
+
 function renderPoiBatch(planet, topics){
   zoomPoiLayer.innerHTML = '';
-  zoomPoiLayer.classList.toggle('vigilancia-layout', planet.id === 'vigilancia');
+  zoomPoiLayer.classList.toggle('vigilancia-layout', planet.id === 'vigilancia' && !zoomOverlay.classList.contains('app-launcher-mode'));
   const total = Math.max(1, topics.length);
   const minTopPct = -8;
   const isVigilanciaLayout = planet.id === 'vigilancia';
@@ -6033,17 +7282,37 @@ function renderPoiBatch(planet, topics){
       if(isVigilanciaPage2FullPin) poi.classList.add('is-vigilancia-p2-fullpin');
       if(isVigilanciaPage3FullPin) poi.classList.add('is-vigilancia-p3-fullpin');
       if(isVigilanciaPage4FullPin) poi.classList.add('is-vigilancia-p4-fullpin');
+      if(isFiebreAmarillaFullPin) poi.classList.add('is-fiebre-amarilla-fullpin');
+      if(isHepatitisAFullPin) poi.classList.add('is-hepatitis-a-fullpin');
+      if(isIragFullPin) poi.classList.add('is-irag-fullpin');
+      if(isIntoxicacionesFullPin) poi.classList.add('is-intoxicaciones-fullpin');
+      if(isIntentoSuicidioFullPin) poi.classList.add('is-intento-suicidio-fullpin');
+      if(isLeptospirosisFullPin) poi.classList.add('is-leptospirosis-fullpin');
+      if(isMortalidadMaternaFullPin) poi.classList.add('is-mortalidad-materna-fullpin');
+      if(isMorbilidadMaternaExtremaFullPin) poi.classList.add('is-morbilidad-materna-fullpin');
+      if(isMortalidadPerinatalFullPin) poi.classList.add('is-mortalidad-perinatal-fullpin');
+      if(isSuicidioFullPin) poi.classList.add('is-suicidio-fullpin');
+      if(isTuberculosisFullPin) poi.classList.add('is-tuberculosis-fullpin');
+      if(isViolenciasFullPin) poi.classList.add('is-violencias-fullpin');
+      if(isVihFullPin) poi.classList.add('is-vih-fullpin');
+      if(isVigilanciaComunitariaFullPin) poi.classList.add('is-vigilancia-comunitaria-fullpin');
+      if(isBajaNotificacionFullPin) poi.classList.add('is-baja-notificacion-fullpin');
       if(isCirugiaPlasticaFullPin) poi.classList.add('is-cirugia-plastica-fullpin');
       const fullLabelAttr = topic.fullLabel ? ' data-full-label="' + topic.fullLabel + '"' : '';
       const fullPinChip = '<span class="pz-fullpin-trail"></span><span class="pz-fullpin-chip"' + fullLabelAttr + '>' + topic.label.toUpperCase() + '</span>';
+      const launcherIconImg = '<img class="pz-launcher-icon-img" src="' + fullPinImg + '" alt="' + topic.label + '">';
       if(topic.fullLabel){
         const chipEl = document.createElement('div');
         chipEl.innerHTML = fullPinChip;
         const labelEl = chipEl.querySelector('.pz-fullpin-chip');
         labelEl.dataset.original = topic.label.toUpperCase();
-        poi.innerHTML = '<span class="pz-fullpin-wrap"><img src="' + fullPinImg + '" alt="' + topic.label + '"></span>' + chipEl.innerHTML;
+        poi.innerHTML = isLauncherMode()
+          ? launcherIconImg + chipEl.innerHTML
+          : '<span class="pz-fullpin-wrap"><img src="' + fullPinImg + '" alt="' + topic.label + '"></span>' + chipEl.innerHTML;
       } else {
-        poi.innerHTML = '<span class="pz-fullpin-wrap"><img src="' + fullPinImg + '" alt="' + topic.label + '"></span>' + fullPinChip;
+        poi.innerHTML = isLauncherMode()
+          ? launcherIconImg + fullPinChip
+          : '<span class="pz-fullpin-wrap"><img src="' + fullPinImg + '" alt="' + topic.label + '"></span>' + fullPinChip;
       }
     } else {
       const fullLabelAttr = topic.fullLabel ? ' data-full-label="' + topic.fullLabel + '"' : '';
@@ -6074,6 +7343,10 @@ function renderPoiBatch(planet, topics){
       const isVih = topic.label === 'VIH';
       if(chip){
         chip.addEventListener('mouseenter', () => { 
+          if(zoomOverlay && zoomOverlay.classList.contains('app-launcher-mode')){
+            swapLauncherLabelText(chip, topic.fullLabel.toUpperCase(), true);
+            return;
+          }
           chip.textContent = topic.fullLabel.toUpperCase(); 
           chip.style.background = 'linear-gradient(180deg, #0b2d63, #1a4a8a)'; 
           chip.style.color = '#fff'; 
@@ -6093,6 +7366,10 @@ function renderPoiBatch(planet, topics){
           if(isVih){chip.style.whiteSpace = 'normal';chip.style.textAlign = 'center';chip.style.minWidth = '280px';chip.style.padding = '11px 16px';}
         });
         chip.addEventListener('mouseleave', () => { 
+          if(zoomOverlay && zoomOverlay.classList.contains('app-launcher-mode')){
+            swapLauncherLabelText(chip, chip.dataset.original || topic.label.toUpperCase(), false);
+            return;
+          }
           chip.textContent = chip.dataset.original; 
           chip.style.background = ''; chip.style.color = ''; chip.style.borderColor = ''; 
           chip.style.boxShadow = ''; chip.style.fontWeight = ''; chip.style.textShadow = '';
@@ -6101,6 +7378,10 @@ function renderPoiBatch(planet, topics){
       }
       if(label){
         label.addEventListener('mouseenter', () => { 
+          if(zoomOverlay && zoomOverlay.classList.contains('app-launcher-mode')){
+            swapLauncherLabelText(label, topic.fullLabel, true);
+            return;
+          }
           label.textContent = topic.fullLabel; 
           label.style.background = 'linear-gradient(180deg, #0b2d63, #1a4a8a)'; 
           label.style.color = '#fff'; 
@@ -6120,6 +7401,10 @@ function renderPoiBatch(planet, topics){
           if(isVih){label.style.whiteSpace = 'normal';label.style.textAlign = 'center';label.style.minWidth = '260px';label.style.padding = '9px 14px';}
         });
         label.addEventListener('mouseleave', () => { 
+          if(zoomOverlay && zoomOverlay.classList.contains('app-launcher-mode')){
+            swapLauncherLabelText(label, label.dataset.original || topic.label, false);
+            return;
+          }
           label.textContent = label.dataset.original; 
           label.style.background = ''; label.style.color = ''; label.style.borderColor = ''; 
           label.style.boxShadow = ''; label.style.fontWeight = ''; label.style.textShadow = '';
@@ -6136,26 +7421,46 @@ function renderPoiBatch(planet, topics){
       poi.style.zIndex = String(18 + Math.round((y / 100) * 30));
     }
 
-    poi.addEventListener('mouseenter', () => showPoiPreview(topic, poi));
-    poi.addEventListener('focus', () => showPoiPreview(topic, poi));
+    poi.addEventListener('mouseenter', () => {
+      if(isLauncherMode()){
+        zoomPreview.classList.remove('open');
+        return;
+      }
+      showPoiPreview(topic, poi);
+    });
+    poi.addEventListener('focus', () => {
+      if(isLauncherMode()) return;
+      showPoiPreview(topic, poi);
+    });
     poi.addEventListener('mousemove', (ev) => {
+      if(isLauncherMode()){
+        return;
+      }
       if(!zoomPreview.classList.contains('open')) return;
       const r = poi.getBoundingClientRect();
       const nx = (ev.clientX - (r.left + r.width / 2)) / (r.width / 2 || 1);
       const ny = (ev.clientY - (r.top + r.height / 2)) / (r.height / 2 || 1);
       positionPreviewAtPoi(poi, Math.max(-12, Math.min(12, nx * 8)), Math.max(-8, Math.min(8, ny * 6)));
     });
-    poi.addEventListener('mouseleave', hidePoiPreviewSoon);
-    poi.addEventListener('blur', hidePoiPreviewSoon);
+    poi.addEventListener('mouseleave', () => {
+      resetLauncherPoiSpring(poi);
+      hidePoiPreviewSoon();
+    });
+    poi.addEventListener('blur', () => {
+      resetLauncherPoiSpring(poi);
+      hidePoiPreviewSoon();
+    });
     poi.addEventListener('click', (ev) => {
       ev.stopPropagation();
-      closePlanetExperience(true);
-      const launchConfig = getDashboardLaunchConfig(topic);
-      openDashboard(launchConfig.url, planet, topic.fullLabel || topic.label, { submenuLabel: launchConfig.submenuLabel });
+      animateLauncherPress(poi, () => launchPoiDashboard(topic, planet));
     });
 
     zoomPoiLayer.appendChild(poi);
   });
+
+  if(isLauncherMode()){
+    requestAnimationFrame(() => requestAnimationFrame(animateLauncherEntrance));
+  }
 }
 
 function showNextPoiBatchAnimated(direction){
@@ -6174,21 +7479,48 @@ function buildPoiTopics(planet){
   clearPoiCarousel();
   poiCarouselPlanet = planet;
   poiCarouselTopics = topics.slice();
-
-  if(planet.id === 'vigilancia'){
-    poiPageChunks = buildVigilanciaCategoryPages(poiCarouselTopics);
-  } else if(planet.id === 'demografia'){
-    poiPageChunks = buildDemografiaCategoryPages(poiCarouselTopics);
-  } else {
-    poiPageChunks = [];
-    for(let i=0; i<poiCarouselTopics.length; i+=POI_PAGE_SIZE){
-      poiPageChunks.push(poiCarouselTopics.slice(i, i + POI_PAGE_SIZE));
-    }
-  }
-  if(!poiPageChunks.length) poiPageChunks = [poiCarouselTopics];
+  poiPageChunks = [poiCarouselTopics];
   poiPageIndex = 0;
   renderCurrentPoiPage(0);
   zoomPlanet.classList.remove('drag-enabled');
+}
+
+function switchLauncherPlanet(planetId){
+  if(planetId === 'home'){
+    closePlanetExperience(true);
+    return;
+  }
+  const planet = PLANETS.find((p) => p.id === planetId);
+  if(!planet) return;
+  document.body.classList.remove('dashboard-open');
+  document.body.classList.add('planet-open');
+  zoomOverlay.classList.add('app-launcher-mode', 'open', 'zoomed');
+  zoomOverlay.setAttribute('aria-hidden', 'false');
+  zoomTitle.textContent = planet.label.replace('\n', ' ');
+  const titleWrap = zoomTitle.closest('.pz-title');
+  if(titleWrap){
+    const titleIcons = {
+      financiero: '\uf51e',
+      demografia: '\uf0c0',
+      saludpub: '\uf21e',
+      vigilancia: '\uf06e',
+      planeacion: '\uf46d',
+      prestacion: '\uf0f8',
+      ambiente: '\uf06c',
+      salud: '\uf21e'
+    };
+    titleWrap.dataset.icon = titleIcons[planet.id] || '\uf111';
+  }
+  setZoomPlanetStyle(planet);
+  planetIntroCollapsed = true;
+  planetIntroHiddenByUser = false;
+  setPlanetIntroContent(planet);
+  setSideCometForPlanet(null);
+  if(zoomGlobeCanvas) zoomGlobeCanvas.style.display = 'none';
+  setPlanetRotation(0, 0);
+  buildPoiTopics(planet);
+  zoomPreview.classList.remove('open');
+  setLauncherActivePlanet(planet.id);
 }
 
 if(zoomPrevBtn){
@@ -6286,6 +7618,7 @@ function openPlanetExperience(planet, anchor){
   if(!zoomOverlay) return;
   document.body.classList.remove('dashboard-open');
   document.body.classList.add('planet-open');
+  zoomOverlay.classList.add('app-launcher-mode');
 
   enqueueDashboardPreload(planet.url, true);
 
@@ -6316,7 +7649,10 @@ function openPlanetExperience(planet, anchor){
   if(titleWrap) titleWrap.dataset.icon = titleIcons[planet.id] || '\uf111';
   zoomTitle.textContent = planet.label.replace('\n', ' ');
   setZoomPlanetStyle(planet);
-  if(isPlanetMobileView()){
+  if(zoomOverlay.classList.contains('app-launcher-mode')){
+    planetIntroCollapsed = true;
+    planetIntroHiddenByUser = false;
+  } else if(isPlanetMobileView()){
     planetIntroCollapsed = true;
     planetIntroHiddenByUser = true;
   } else {
@@ -6329,6 +7665,7 @@ function openPlanetExperience(planet, anchor){
   setPlanetRotation(0, 0);
   buildPoiTopics(planet);
   zoomPreview.classList.remove('open');
+  setLauncherActivePlanet(planet.id);
 
   zoomOverlay.classList.add('open');
   zoomOverlay.setAttribute('aria-hidden', 'false');
@@ -6357,15 +7694,18 @@ function closePlanetExperience(instant){
   clearPoiCarousel();
   setPlanetIntroContent(null);
   setSideCometForPlanet(null);
+  setLauncherActivePlanet(null);
   clearSideCometRepositionTimers();
 
   if(instant){
     zoomOverlay.classList.remove('open');
+    zoomOverlay.classList.remove('app-launcher-mode');
     return;
   }
 
   zoomCloseTimer = setTimeout(() => {
     zoomOverlay.classList.remove('open');
+    zoomOverlay.classList.remove('app-launcher-mode');
     zoomCloseTimer = null;
   }, 240);
 }
@@ -6377,6 +7717,13 @@ zoomOverlay.addEventListener('click', e => {
 if(zoomSideComet){
   zoomSideComet.addEventListener('click', openPolvoraFromSideComet);
 }
+document.querySelectorAll('[data-launcher-planet]').forEach((btn) => {
+  btn.addEventListener('click', (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    switchLauncherPlanet(btn.dataset.launcherPlanet);
+  });
+});
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape' && zoomOverlay.classList.contains('open')) closePlanetExperience();
 });

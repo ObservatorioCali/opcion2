@@ -1372,6 +1372,135 @@ body { margin:0; overflow-x:hidden; }
   transform: translate(-50%, -50%) translateZ(34px) rotateX(-3deg) rotateZ(var(--pin-tilt, 0deg)) scale(calc(var(--poi-scale, 1) * 1.06));
   filter: drop-shadow(0 11px 16px rgba(0,0,0,.52)) drop-shadow(0 0 10px color-mix(in srgb, var(--poi-glow, rgba(125,211,252,.8)) 68%, transparent 32%)) brightness(1.05) saturate(1.1);
 }
+.planet-zoom-overlay.app-launcher-mode .pz-backdrop {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(124,58,237,.22) 0%, rgba(15,23,42,.2) 34%, rgba(2,6,23,.88) 82%),
+    linear-gradient(180deg, rgba(4,9,30,.18), rgba(2,6,23,.9)),
+    url('./font/iconos/fondo_launcher.png') center center / cover no-repeat,
+    #030817;
+  backdrop-filter: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-backdrop::after {
+  display: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-title {
+  top: 84px;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-title h3 {
+  font-size: clamp(34px, 4vw, 58px);
+}
+.planet-zoom-overlay.app-launcher-mode .pz-title p {
+  font-size: clamp(14px, 1.4vw, 18px);
+  opacity: .84;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-page-indicator,
+.planet-zoom-overlay.app-launcher-mode .pz-nav,
+.planet-zoom-overlay.app-launcher-mode .pz-side-comet,
+.planet-zoom-overlay.app-launcher-mode .pz-intro-panel,
+.planet-zoom-overlay.app-launcher-mode .pz-intro-reopen {
+  display: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode.zoomed .pz-shell,
+.planet-zoom-overlay.app-launcher-mode .pz-shell {
+  left: 50%;
+  top: 56%;
+  width: min(1120px, calc(100vw - 120px));
+  height: min(560px, calc(100vh - 250px));
+  transform: translate(-50%, -50%) scale(1);
+  filter: none;
+  perspective: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-planet {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-planet::before,
+.planet-zoom-overlay.app-launcher-mode .pz-planet::after,
+.planet-zoom-overlay.app-launcher-mode .pz-atmo,
+.planet-zoom-overlay.app-launcher-mode .pz-poi-layer.vigilancia-layout::before {
+  display: none !important;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-layer {
+  inset: 0;
+  transform: none;
+  perspective: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi {
+  width: 420px;
+  height: 270px;
+  filter: drop-shadow(0 18px 30px rgba(0,0,0,.48));
+  transform: translate(-50%, -50%) scale(var(--poi-scale, 1));
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover {
+  transform: translate(-50%, -50%) scale(calc(var(--poi-scale, 1) * 1.08));
+  filter: drop-shadow(0 22px 34px rgba(0,0,0,.52)) drop-shadow(0 0 22px color-mix(in srgb, var(--poi-glow, rgba(74,222,128,.8)) 74%, transparent 26%));
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: 158px;
+  height: 158px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--poi-glow, rgba(74,222,128,.85)) 42%, transparent 58%) 0%, transparent 70%);
+  filter: blur(8px);
+  opacity: .9;
+  pointer-events: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-marker-head {
+  top: 0;
+  width: 174px;
+  height: 174px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  transform: translateX(-50%);
+}
+.planet-zoom-overlay.app-launcher-mode .pz-marker-head .pz-poi-logo {
+  width: 100%;
+  height: 100%;
+  transform: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-logo img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi-logo svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--poi-glow, rgba(74,222,128,.82)) 72%, transparent 28%));
+}
+.planet-zoom-overlay.app-launcher-mode .pz-marker-point,
+.planet-zoom-overlay.app-launcher-mode .pz-marker-trail,
+.planet-zoom-overlay.app-launcher-mode .pz-marker-shadow {
+  display: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi-label {
+  top: 176px;
+  width: 420px;
+  max-width: 420px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  text-wrap: balance;
+  text-shadow: 0 2px 8px rgba(0,0,0,.8), 0 0 14px color-mix(in srgb, var(--poi-glow, rgba(74,222,128,.72)) 52%, transparent 48%);
+}
 .pz-marker-head {
   width: 116px;
   height: 116px;
@@ -2509,7 +2638,7 @@ body { margin:0; overflow-x:hidden; }
           <img src="./font/iconos/Maternidad.png" alt="" class="sb-link-ic">
           <span>En-torno a tus primeros pasos</span>
         </a>
-        <a href="#" class="sb-item sb-sub-item thematic-bienestar" onclick="openDashboard('https://lookerstudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/pogjvoicp1d');return false;">
+        <a href="#" class="sb-item sb-sub-item thematic-bienestar" onclick="openPlanetById('bienestar');return false;">
           <img src="./font/iconos/Bienestar.png" alt="" class="sb-link-ic">
           <span>En-torno a tu Bienestar</span>
         </a>
@@ -2737,8 +2866,14 @@ const PLANETS = [
     cx:76, cy:50,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:42, startAngle:320,
-    url:'https://lookerstudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/pogjvoicp1d',
-    subs:null
+    url:'https://datastudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/p_ogjvoicp1d',
+    subs:[
+      {
+        label:'Tablero Temático En-torno a tu bienestar - Cáncer',
+        url:'https://datastudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/p_ogjvoicp1d',
+        logo:'./font/iconos/entorno a tu bienestar/entorno_bienestar_cancer.png'
+      }
+    ]
   },
   {
     id:'saludmental', label:'Salud\nMental',
@@ -2952,6 +3087,10 @@ PLANETS.forEach(p => {
       navigateToIndexWithCinematicTransition(event);
       return;
     }
+    if(p.id === 'bienestar'){
+      openPlanetExperience(p, anchor);
+      return;
+    }
     openDB(p);
   });
   // hover shadow
@@ -2993,6 +3132,13 @@ positionPlanets();
 /* ============================================================
    OPEN / CLOSE DASHBOARD
    ============================================================ */
+function openPlanetById(id){
+  const planet = PLANETS.find((p) => p.id === id);
+  if(!planet) return;
+  const anchor = document.getElementById('anchor-' + planet.id);
+  openPlanetExperience(planet, anchor);
+}
+
 function openDashboard(url, returnPlanet){
   const dashboardUrl = normalizeLookerEmbedUrl(url);
   dashboardMenuReturnUrl = null;
@@ -3098,7 +3244,7 @@ function isDashboardMenuUrl(url){
 function openDashboardInsideCurrentModal(url){
   if(typeof url !== 'string' || !url.trim()) return;
   const normalizedUrl = normalizeLookerEmbedUrl(url);
-  if(!dashboardMenuReturnUrl) dashboardMenuReturnUrl = './dashboard.html';
+  if(!dashboardMenuReturnUrl) dashboardMenuReturnUrl = '';
   dashboardManualScale = 1;
   document.getElementById('db-frame').src = normalizedUrl;
   document.getElementById('db-overlay').classList.add('open');
@@ -3193,7 +3339,8 @@ function setDashboardIntroContent(planet){
   const isVigilancia = !!(planet && planet.id === 'vigilancia');
   const isFinanciero = !!(planet && planet.id === 'financiero');
   const isAmbiente = !!(planet && planet.id === 'ambiente');
-  const hasIntro = isVigilancia || isFinanciero || isAmbiente;
+  const isBienestar = !!(planet && planet.id === 'bienestar');
+  const hasIntro = isVigilancia || isFinanciero || isAmbiente || isBienestar;
   dashboardIntroAvailable = hasIntro;
   overlay.classList.toggle('with-intro', hasIntro && !dashboardIntroCollapsed);
 
@@ -3374,6 +3521,11 @@ const zoomNextBtn = document.getElementById('pz-next-btn');
 const zoomIntroContent = document.getElementById('pz-intro-content');
 const zoomIntroToggleBtn = document.getElementById('pz-intro-toggle');
 const zoomSideComet = document.getElementById('pz-side-comet');
+
+function isLauncherMode(){
+  return !!(zoomOverlay && zoomOverlay.classList.contains('app-launcher-mode'));
+}
+
 let zoomPreviewTimer = null;
 let zoomCloseTimer = null;
 let dashboardReturnPlanet = null;
@@ -3543,6 +3695,20 @@ function setPlanetIntroContent(planet){
     </ul>
 
     <p>Aquí, tu voz y tus reportes se transforman en acciones reales y oportunas, permitiéndonos cuidar la salud de todos desde la base social y fortalecer el bienestar colectivo a través de la participación ciudadana.</p>`;
+    return;
+  }
+
+  if(isBienestar){
+    zoomIntroContent.innerHTML = `
+    <h3>Bienvenido a En-torno a tu Bienestar</h3>
+    <p>Un espacio diseñado para consultar información temática sobre condiciones de salud que requieren seguimiento continuo, análisis territorial y acciones orientadas a la prevención, detección oportuna y atención integral.</p>
+
+    <h4>¿Qué encontrará en nuestros tableros?</h4>
+    <ul>
+      <li><strong>Cáncer:</strong> Información para visualizar y comprender el comportamiento del evento en Santiago de Cali, apoyando la toma de decisiones y el seguimiento en salud pública.</li>
+    </ul>
+
+    <p>La información presentada fortalece el análisis de los eventos priorizados y facilita una lectura clara para equipos técnicos, instituciones y ciudadanía.</p>`;
     return;
   }
 
@@ -4292,7 +4458,8 @@ function cancelPoiSwipe(){
 
 function renderPoiBatch(planet, topics){
   zoomPoiLayer.innerHTML = '';
-  zoomPoiLayer.classList.toggle('vigilancia-layout', planet.id === 'vigilancia');
+  const launcherMode = isLauncherMode();
+  zoomPoiLayer.classList.toggle('vigilancia-layout', planet.id === 'vigilancia' && !launcherMode);
   const total = Math.max(1, topics.length);
   const golden = Math.PI * (3 - Math.sqrt(5));
   const minR = 56;
@@ -4341,7 +4508,16 @@ function renderPoiBatch(planet, topics){
     const vigilanciaLayout = isVigilanciaLayout ? getVigilanciaTopicLayout(topicNormForPos) : null;
     const topicMinTopPct = vigilanciaLayout ? vigilanciaLayout.minTopPct : minTopPct;
 
-    if(isVigilanciaLayout){
+    if(launcherMode){
+      const columns = Math.min(total, 4);
+      const rows = Math.ceil(total / columns);
+      const col = i % columns;
+      const row = Math.floor(i / columns);
+      const gapX = total <= 1 ? 0 : 26;
+      const gapY = rows <= 1 ? 0 : 28;
+      x = 50 + (col - ((columns - 1) / 2)) * gapX;
+      y = 52 + (row - ((rows - 1) / 2)) * gapY;
+    } else if(isVigilanciaLayout){
       const angle = (-Math.PI / 2) + (i * (Math.PI * 2 / total));
       const radiusX = (i % 2 === 0) ? 60 : 64;
       const radiusY = (i % 2 === 0) ? 56 : 60;
@@ -4428,7 +4604,7 @@ function renderPoiBatch(planet, topics){
       isVigilanciaComunitariaFullPin ||
       isBajaNotificacionFullPin
     );
-    const isSpecialFullPin = isDengueFullPin || isEtasFullPin || isDesnutricionFullPin || isEdasFullPin || isEventosFullPin || isAlertaFullPin || isHuerfanasFullPin || isVigilanciaPage2FullPin || isVigilanciaPage3FullPin || isVigilanciaPage4FullPin;
+    const isSpecialFullPin = !topic.logo && (isDengueFullPin || isEtasFullPin || isDesnutricionFullPin || isEdasFullPin || isEventosFullPin || isAlertaFullPin || isHuerfanasFullPin || isVigilanciaPage2FullPin || isVigilanciaPage3FullPin || isVigilanciaPage4FullPin);
     if(isDengueFullPin) poi.classList.add('is-dengue');
     const hue = (planet.id.length * 33 + i * 41) % 360;
     let glowColor = 'hsla(' + hue + ', 95%, 62%, .84)';
@@ -4573,9 +4749,16 @@ function renderPoiBatch(planet, topics){
       poi.style.zIndex = String(18 + Math.round((y / 100) * 30));
     }
 
-    poi.addEventListener('mouseenter', () => showPoiPreview(topic, poi));
-    poi.addEventListener('focus', () => showPoiPreview(topic, poi));
+    poi.addEventListener('mouseenter', () => {
+      if(isLauncherMode()) return;
+      showPoiPreview(topic, poi);
+    });
+    poi.addEventListener('focus', () => {
+      if(isLauncherMode()) return;
+      showPoiPreview(topic, poi);
+    });
     poi.addEventListener('mousemove', (ev) => {
+      if(isLauncherMode()) return;
       if(!zoomPreview.classList.contains('open')) return;
       const r = poi.getBoundingClientRect();
       const nx = (ev.clientX - (r.left + r.width / 2)) / (r.width / 2 || 1);
@@ -4708,6 +4891,8 @@ zoomPlanet.addEventListener('pointerleave', () => {
 
 function openPlanetExperience(planet, anchor){
   if(!zoomOverlay) return;
+  const launcherMode = !!(planet && planet.id === 'bienestar');
+  zoomOverlay.classList.toggle('app-launcher-mode', launcherMode);
 
   enqueueDashboardPreload(planet.url, true);
 
@@ -4725,7 +4910,17 @@ function openPlanetExperience(planet, anchor){
   zoomShell.style.setProperty('--fs', finalSize + 'px');
 
   zoomTitle.textContent = planet.label.replace('\n', ' ');
+  const zoomSubtitle = zoomTitle.parentElement ? zoomTitle.parentElement.querySelector('p') : null;
+  if(zoomSubtitle){
+    zoomSubtitle.textContent = launcherMode
+      ? 'Haz clic en el tablero para abrirlo directamente.'
+      : 'Recorre los puntos de interés y abre el tablero al hacer clic.';
+  }
   setZoomPlanetStyle(planet);
+  if(launcherMode){
+    planetIntroCollapsed = true;
+    planetIntroHiddenByUser = false;
+  }
   setPlanetIntroContent(planet);
   setSideCometForPlanet(planet);
   if(zoomGlobeCanvas) zoomGlobeCanvas.style.display = 'none';
@@ -4763,12 +4958,14 @@ function closePlanetExperience(instant){
 
   if(instant){
     zoomOverlay.classList.remove('open');
+    zoomOverlay.classList.remove('app-launcher-mode');
     document.body.classList.remove('planet-open');
     return;
   }
 
   zoomCloseTimer = setTimeout(() => {
     zoomOverlay.classList.remove('open');
+    zoomOverlay.classList.remove('app-launcher-mode');
     document.body.classList.remove('planet-open');
     zoomCloseTimer = null;
   }, 240);
