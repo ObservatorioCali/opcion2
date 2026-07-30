@@ -4046,6 +4046,25 @@ body { margin:0; overflow-x:hidden; }
     padding-bottom: 112px;
   }
 }
+.planet-zoom-overlay.app-launcher-mode .pz-poi .pz-launcher-icon-img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi .pz-poi-logo img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi .pz-poi-logo svg {
+  transform: scale(1) !important;
+  transform-origin: center center !important;
+  transition: transform .28s cubic-bezier(.18, 1.24, .24, 1), filter .28s ease !important;
+  will-change: transform, filter;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-launcher-icon-img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-launcher-icon-img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-fullpin-wrap img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-poi-logo img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-poi-logo img,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:hover .pz-poi-logo svg,
+.planet-zoom-overlay.app-launcher-mode .pz-poi:focus-visible .pz-poi-logo svg {
+  transform: scale(1.12) !important;
+}
 @media(max-width: 768px) {
   .planet-zoom-overlay.app-launcher-mode .pz-launcher-search {
     display: none;
