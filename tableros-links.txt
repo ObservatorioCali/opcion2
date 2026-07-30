@@ -1,0 +1,192 @@
+Listado de tableros y enlaces por planeta
+=========================================
+
+FINANCIERO
+----------
+
+Ejecucion Presupuestal:
+https://lookerstudio.google.com/embed/reporting/7da9d650-bb40-474e-b67c-8a9d3c5fb384/page/pabp0thh9sd
+
+
+DEMOGRAFIA
+----------
+
+Poblacion:
+https://lookerstudio.google.com/embed/reporting/3a4c6bdb-684d-4904-9cf4-f5fe980b6e19/page/esEzE
+
+Poblacion con Discapacidad:
+https://lookerstudio.google.com/embed/reporting/f12825f8-32ae-4f4d-b230-0fb8c5ee967c/page/p2u66wwr6pd
+
+Poblacion Victima Conflicto Armado:
+https://lookerstudio.google.com/embed/reporting/319c01b1-f4cf-4954-b4d8-9dc218f52196/page/p15hanx0crd
+
+Poblacion Migrante:
+https://lookerstudio.google.com/embed/reporting/a3a38aee-3c8d-4b01-af5d-b3f33fadc972/page/p8yjo6uasrd
+
+Poblacion Indigena:
+https://lookerstudio.google.com/embed/reporting/a57d0799-b022-44fc-988e-dae8366cda93/page/p2u66wwr6pd
+
+Poblacion Privada de la Libertad:
+https://lookerstudio.google.com/embed/reporting/4ff54dc4-188e-4f5d-b501-847ff07196e4/page/p2u66wwr6pd
+
+Aseguramiento:
+https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE
+
+Estadisticas Vitales:
+https://lookerstudio.google.com/embed/reporting/778ce501-f478-46d8-a8a7-7de5163587db/page/piemfr1cyvd
+
+
+SALUD PUBLICA
+-------------
+
+Linea 106:
+https://lookerstudio.google.com/embed/reporting/9a0d1e0e-5df7-4e3d-8c0b-594769581a65/page/pmhi7hn8atd
+
+Programa Ampliado de Inmunizaciones:
+https://lookerstudio.google.com/embed/reporting/3ad6fe09-314e-45b5-8c6c-3fe4b792ac3e/page/pjxxw285ord
+
+Plan de Intervenciones Colectivas:
+https://lookerstudio.google.com/embed/reporting/69ca6df8-c1fe-4970-947b-294d2be342d4/page/pmx711ds8wd
+
+Estilos de vida saludable:
+https://datastudio.google.com/embed/reporting/c1a51f8d-bc72-4235-bf97-b5e8ed8c37f0/page/p_favx0x7s2d
+
+Sustancias Psicoactivas:
+https://datastudio.google.com/embed/reporting/40ced8bc-80bd-4d66-bb3b-dbe7914a5dbf/page/F5HYF
+
+
+VIGILANCIA EPIDEMIOLOGICA
+-------------------------
+
+Eventos Epidemiologicos:
+https://lookerstudio.google.com/embed/reporting/75d166ba-8c0c-4d8a-a6ed-d0e0f8ad14e1/page/esEzE
+
+Dengue:
+https://lookerstudio.google.com/embed/reporting/d65d2972-010d-44f4-aba4-7b1d9528213d/page/p7led3ssotd
+
+Desnutricion:
+https://lookerstudio.google.com/embed/reporting/2069e9d8-6fe6-42dd-857a-d9574f046bc8/page/esEzE
+
+Enfermedad Diarreica Aguda:
+https://lookerstudio.google.com/embed/reporting/16e94557-889a-4774-bb20-f6e99f649094/page/esEzE
+
+Enfermedades Transmitidas por Alimentos:
+https://lookerstudio.google.com/embed/reporting/0e6bd7ae-52c0-46b2-8268-41afd8088cdd/page/p2u66wwr6pd
+
+Fiebre Amarilla:
+https://lookerstudio.google.com/embed/reporting/fef8137e-5cb2-480b-9165-12bbb3d05640/page/esEzE
+
+Hepatitis A:
+https://lookerstudio.google.com/embed/reporting/83fbe55f-4fa8-4c4a-b382-1cf34a25d8df/page/esEzE
+
+Infeccion Respiratoria Aguda:
+https://lookerstudio.google.com/embed/reporting/9c7f244d-5fb9-4b40-a490-1386dba6545a/page/esEzE
+
+Intoxicaciones:
+https://lookerstudio.google.com/embed/reporting/2b834b80-ba04-4cc7-a4f3-f26369764b2f/page/esEzE
+
+Intento de Suicidio:
+https://lookerstudio.google.com/embed/reporting/2fdee237-0658-4fcf-b71d-489129bc245f/page/esEzE
+
+Leptospirosis:
+https://lookerstudio.google.com/embed/reporting/de65034a-6f62-4b27-8d2b-2d01328cd0f4/page/F5HYF
+
+Mortalidad Materna:
+https://lookerstudio.google.com/embed/reporting/f9326436-5a93-48c8-b381-f296d63669a9/page/esEzE
+
+Morbilidad Materna Extrema:
+https://lookerstudio.google.com/embed/reporting/9979b294-66c3-45d4-a745-2d8a2442ce80/page/esEzE
+
+Mortalidad Perinatal:
+https://lookerstudio.google.com/embed/reporting/4308501f-affc-4d2a-aab0-9a6071ddc51d/page/esEzE
+
+Polvora:
+https://lookerstudio.google.com/embed/reporting/6523aa5a-0284-480a-972d-4a33f99a65ce/page/esEzE
+
+Suicidio:
+https://lookerstudio.google.com/embed/reporting/03e5694b-5b02-4b62-b9bf-3053fff97b04/page/esEzE
+
+Cancer de mama y cervix:
+https://datastudio.google.com/embed/reporting/addd3941-b6bd-4e5e-bdc3-fd8f179661fc/page/esEzE
+
+Tuberculosis:
+https://lookerstudio.google.com/embed/reporting/3a6097ec-c835-4ea3-8675-2a610e74d318/page/esEzE
+
+Violencias:
+https://lookerstudio.google.com/embed/reporting/98276313-0a20-42ab-b1f4-2f43d54c92de/page/esEzE
+
+VIH:
+https://lookerstudio.google.com/embed/reporting/884c4242-f03b-403c-8e89-595a055b222e/page/esEzE
+
+Vigilancia Comunitaria:
+https://lookerstudio.google.com/embed/reporting/5c3db296-b2ea-47d4-8ca3-aa068cf83c75/page/esEzE
+
+Baja Notificacion:
+https://lookerstudio.google.com/embed/reporting/c6a116ba-a469-44c8-b2ff-8ce4bfed9390/page/esEzE
+
+Sistema de Alerta Temprana:
+https://lookerstudio.google.com/embed/reporting/96fa06fa-3995-4be8-b676-1dab8fc17372/page/pzc6ydjp6rd
+
+Enfermedades Huerfanas:
+https://datastudio.google.com/embed/reporting/31c41886-75ab-4ada-8397-2ee1da2839c7/page/F5HYF
+
+
+PLANEACION
+----------
+
+Ejecucion Proyectos:
+https://lookerstudio.google.com/embed/reporting/036d76cf-9038-4de9-b7bd-25c4a3267479/page/esEzE
+
+
+PRESTACION DE SERVICIOS
+-----------------------
+
+Aseguramiento:
+https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE
+
+Atencion Primaria en Salud:
+https://lookerstudio.google.com/embed/reporting/e7169e75-e5ee-4853-b827-1a705d3db563/page/F5HYF
+
+Bancos de Sangre:
+https://lookerstudio.google.com/embed/reporting/b15e676d-20f4-46a0-aba7-00e8390c77ee/page/pjxxw285ord
+
+Ocupacion de Servicios de Urgencias:
+https://lookerstudio.google.com/embed/reporting/af77b4ff-46f6-494c-a133-a1dda960815b/page/p73az8wefxd
+
+Registro Prestadores:
+https://lookerstudio.google.com/embed/reporting/11401c27-3483-41c4-98e2-dfd27e76b89f/page/piwcjsgh7qd
+
+Servicios de Cirugia Plastica y Estetica:
+https://datastudio.google.com/embed/reporting/a6d8dfc5-607c-4441-98a8-f0e0ea16b47b/page/J9lzF
+
+
+AMBIENTE Y SALUD
+----------------
+
+Agresiones por Animales Potencialmente Transmisores de Rabia:
+https://lookerstudio.google.com/embed/reporting/819c53da-6099-447c-a06a-009e9e2c29c2/page/plejjb0y2td
+
+Indice de Riesgo de la Calidad del Agua:
+https://lookerstudio.google.com/embed/reporting/76fc1dd8-f202-4167-9c88-88e7b1650165/page/pjxxw285ord
+
+Entornos:
+https://lookerstudio.google.com/embed/reporting/a9e5d13d-cdbc-4a95-80ad-1b4e3a906c86/page/plejjb0y2td
+
+Vacunacion Antirrabica:
+https://lookerstudio.google.com/embed/reporting/5a3c224a-96c6-4d6f-b5eb-60be9cb2e431/page/pmhi7hn8atd
+
+
+EN-TORNO A TU SALUD
+-------------------
+
+En-torno a tu Salud Mental:
+https://lookerstudio.google.com/embed/reporting/971daa1f-038e-4588-be09-4ddcd86ae81d/page/pogjvoicp1d
+
+En-torno a tus Primeros Pasos:
+https://lookerstudio.google.com/embed/reporting/3aff0c16-eeef-4fc3-bd94-382b32799b60/page/pogjvoicp1d
+
+Tablero Tematico En-torno a tu bienestar - Cancer:
+https://datastudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/p_ogjvoicp1d
+
+Vigilancia de Polvora - temporada decembrina:
+https://lookerstudio.google.com/embed/reporting/b3e1eae8-a790-45ae-a874-6472e1ef3ed9/page/esEzE

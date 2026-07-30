@@ -3125,7 +3125,7 @@ body { margin:0; overflow-x:hidden; }
 .planet-zoom-overlay.app-launcher-mode .pz-backdrop {
   background:
     linear-gradient(180deg, rgba(2,6,23,.14), rgba(2,6,23,.28)),
-    url("./font/iconos/fondo_launcher.png") center center / cover no-repeat,
+    url("./galaxia.jpg") center center / cover no-repeat,
     #020617;
   backdrop-filter: none;
   animation: launcherBgPan 26s ease-in-out infinite alternate;
@@ -3335,11 +3335,23 @@ body { margin:0; overflow-x:hidden; }
   width: 22px;
   height: 22px;
 }
-.pz-launcher-action img {
+.pz-launcher-action img,
+.pz-launcher-info-glyph {
   width: 46px;
   height: 46px;
-  object-fit: contain;
   filter: drop-shadow(0 0 10px rgba(124,58,237,.45));
+}
+.pz-launcher-info-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 900;
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1;
 }
 .pz-launcher-action:hover,
 .pz-launcher-action.active {
@@ -3348,7 +3360,9 @@ body { margin:0; overflow-x:hidden; }
   box-shadow: none;
 }
 .pz-launcher-action:hover img,
-.pz-launcher-action.active img {
+.pz-launcher-action.active img,
+.pz-launcher-action:hover .pz-launcher-info-glyph,
+.pz-launcher-action.active .pz-launcher-info-glyph {
   filter: drop-shadow(0 0 18px rgba(167,139,250,.82)) brightness(1.12);
 }
 .planet-zoom-overlay.app-launcher-mode .pz-launcher-sidebar {
@@ -3492,11 +3506,19 @@ body { margin:0; overflow-x:hidden; }
 .pz-launcher-hint b {
   color: #c084fc;
 }
-.pz-launcher-hint img {
+.pz-launcher-hint img,
+.pz-launcher-click-glyph {
   width: 22px;
   height: 22px;
-  object-fit: contain;
   filter: drop-shadow(0 0 8px rgba(167,139,250,.46));
+}
+.pz-launcher-click-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #facc15;
+  font-size: 19px;
+  line-height: 1;
 }
 .planet-zoom-overlay.app-launcher-mode .pz-close {
   left: 262px;
@@ -4247,7 +4269,7 @@ body { margin:0; overflow-x:hidden; }
   </div>
   <div class="pz-launcher-actions">
     <button class="pz-launcher-action" id="pz-launcher-info" type="button" aria-label="Mostrar información del planeta" aria-pressed="false" title="Información del planeta">
-      <img src="./font/iconos/icono_info.png" alt="" aria-hidden="true">
+      <span class="pz-launcher-info-glyph" aria-hidden="true">i</span>
     </button>
   </div>
   <nav class="pz-launcher-sidebar" aria-label="Secciones del universo">
@@ -4292,7 +4314,7 @@ body { margin:0; overflow-x:hidden; }
     </a>
   </div>
   <div class="pz-launcher-hint">
-    <img src="./font/iconos/clic.png" alt="" aria-hidden="true"> Haz clic en un icono para <b>abrir un tablero</b>
+    <span class="pz-launcher-click-glyph" aria-hidden="true">☝</span> Haz clic en un icono para <b>abrir un tablero</b>
   </div>
   <button class="pz-close" id="pz-close-btn" type="button">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -8108,4 +8130,3 @@ initSidebarNavFx();
 </script>
 </body>
 </html>
-
