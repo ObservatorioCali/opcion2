@@ -3341,6 +3341,10 @@ body { margin:0; overflow-x:hidden; }
   height: 46px;
   filter: drop-shadow(0 0 10px rgba(124,58,237,.45));
 }
+.pz-launcher-info-icon {
+  object-fit: contain;
+  display: block;
+}
 .pz-launcher-info-glyph {
   display: inline-flex;
   align-items: center;
@@ -4324,7 +4328,7 @@ body { margin:0; overflow-x:hidden; }
   </div>
   <div class="pz-launcher-actions">
     <button class="pz-launcher-action" id="pz-launcher-info" type="button" aria-label="Mostrar información del planeta" aria-pressed="false" title="Información del planeta">
-      <span class="pz-launcher-info-glyph" aria-hidden="true">i</span>
+      <img class="pz-launcher-info-icon" src="./font/iconos/icono_info.png" alt="" aria-hidden="true">
     </button>
   </div>
   <nav class="pz-launcher-sidebar" aria-label="Secciones del universo">
@@ -6668,7 +6672,7 @@ function topicLogoMarkup(topic, planet, i){
 
 function topicFullPinImageByPlanet(planetId, normLabel){
   const vigilanciaIcons = {
-    'eventos epidemiologicos': './font/iconos/Vigilancia Epidemiológica/eventos nuevos.png',
+    'eventos epidemiologicos': './font/iconos/eventos.png',
     'dengue': './font/iconos/Vigilancia Epidemiológica/dengue.png',
     'desnutricion': './font/iconos/desnutricion.png',
     'eda': './font/iconos/EDAS.png',
