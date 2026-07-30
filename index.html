@@ -3125,7 +3125,7 @@ body { margin:0; overflow-x:hidden; }
 .planet-zoom-overlay.app-launcher-mode .pz-backdrop {
   background:
     linear-gradient(180deg, rgba(2,6,23,.14), rgba(2,6,23,.28)),
-    url("./galaxia.jpg") center center / cover no-repeat,
+    url("./font/webfonts/fondonebulosa.png") center center / cover no-repeat,
     #020617;
   backdrop-filter: none;
   animation: launcherBgPan 26s ease-in-out infinite alternate;
@@ -6668,10 +6668,31 @@ function topicLogoMarkup(topic, planet, i){
 
 function topicFullPinImageByPlanet(planetId, normLabel){
   const vigilanciaIcons = {
-    'eventos epidemiologicos': './font/iconos/Vigilancia Epidemiológica/eventosepidemiologicos.png',
+    'eventos epidemiologicos': './font/iconos/Vigilancia Epidemiológica/eventos nuevos.png',
+    'dengue': './font/iconos/Vigilancia Epidemiológica/dengue.png',
+    'desnutricion': './font/iconos/desnutricion.png',
+    'eda': './font/iconos/EDAS.png',
+    'etas': './font/iconos/ETAS.png',
+    'fiebre amarilla': './font/iconos/Vigilancia Epidemiológica/pagina 2/fiebreamarilla.png',
+    'hepatitis a': './font/iconos/Vigilancia Epidemiológica/pagina 2/hepatitis.png',
+    'irag': './font/iconos/Vigilancia Epidemiológica/irag.png',
+    'intoxicaciones': './font/iconos/Vigilancia Epidemiológica/pagina 2/intoxicaciones.png',
+    'intento de suicidio': './font/iconos/Vigilancia Epidemiológica/pagina 2/intentosuicidio.png',
+    'leptospirosis': './font/iconos/Vigilancia Epidemiológica/pagina 3/leptospirosis.png',
+    'mortalidad materna': './font/iconos/Vigilancia Epidemiológica/pagina 3/mortalidadMa.png',
+    'morbilidad materna extrema': './font/iconos/Vigilancia Epidemiológica/pagina 3/morbilidad.png',
+    'mortalidad perinatal': './font/iconos/Vigilancia Epidemiológica/pagina 3/perinatal.png',
+    'suicidio': './font/iconos/Vigilancia Epidemiológica/pagina 3/sucidio.png',
     'spa': './font/iconos/Vigilancia Epidemiológica/spa.png',
     'polvora': './font/iconos/Vigilancia Epidemiológica/polvora.png',
-    'cancer de mama y cervix': './font/iconos/Vigilancia Epidemiológica/cancerdemamaycervix.png'
+    'cancer de mama y cervix': './font/iconos/Vigilancia Epidemiológica/cancerdemamaycervix.png',
+    'tuberculosis': './font/iconos/Vigilancia Epidemiológica/pagina 4/tuberculosis.png',
+    'violencias': './font/iconos/Vigilancia Epidemiológica/pagina 4/violencia.png',
+    'vih': './font/iconos/Vigilancia Epidemiológica/pagina 4/vih.png',
+    'vigilancia comunitaria': './font/iconos/Vigilancia Epidemiológica/pagina 4/vigilanciaC.png',
+    'baja notificacion': './font/iconos/Vigilancia Epidemiológica/pagina 4/bajanotificacion.png',
+    'sistema de alerta temprana': './font/iconos/alertatemprana.png',
+    'enfermedades huerfanas': './font/iconos/huerfanas.png'
   };
   const demografiaIcons = {
     'poblacion': './font/iconos/demografia/poblacion.png',
@@ -7340,27 +7361,29 @@ function renderPoiBatch(planet, topics){
     if(isSpecialFullPin){
       poi.classList.add('is-fullpin');
       let fullPinImg = assetFullPinImg || './font/iconos/dengue.png';
-      if(isEtasFullPin) fullPinImg = './font/iconos/ETAS.png';
-      if(isDesnutricionFullPin) fullPinImg = './font/iconos/desnutricion.png';
-      if(isEdasFullPin) fullPinImg = './font/iconos/EDAS.png';
-      if(isEventosFullPin) fullPinImg = './font/iconos/eventos.png';
-      if(isAlertaFullPin) fullPinImg = './font/iconos/alertatemprana.png';
-      if(isHuerfanasFullPin) fullPinImg = './font/iconos/huerfanas.png';
-      if(isFiebreAmarillaFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 2/fiebreamarilla.png';
-      if(isHepatitisAFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 2/hepatitis.png';
-      if(isIragFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 2/irag.png';
-      if(isIntoxicacionesFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 2/intoxicaciones.png';
-      if(isIntentoSuicidioFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 2/intentosuicidio.png';
-      if(isLeptospirosisFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 3/leptospirosis.png';
-      if(isMortalidadMaternaFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 3/mortalidadMa.png';
-      if(isMorbilidadMaternaExtremaFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 3/morbilidad.png';
-      if(isMortalidadPerinatalFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 3/perinatal.png';
-      if(isSuicidioFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 3/sucidio.png';
-      if(isTuberculosisFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 4/tuberculosis.png';
-      if(isViolenciasFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 4/violencia.png';
-      if(isVihFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 4/vih.png';
-      if(isVigilanciaComunitariaFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 4/vigilanciaC.png';
-      if(isBajaNotificacionFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 4/bajanotificacion.png';
+      if(!assetFullPinImg){
+        if(isEtasFullPin) fullPinImg = './font/iconos/ETAS.png';
+        if(isDesnutricionFullPin) fullPinImg = './font/iconos/desnutricion.png';
+        if(isEdasFullPin) fullPinImg = './font/iconos/EDAS.png';
+        if(isEventosFullPin) fullPinImg = './font/iconos/eventos.png';
+        if(isAlertaFullPin) fullPinImg = './font/iconos/alertatemprana.png';
+        if(isHuerfanasFullPin) fullPinImg = './font/iconos/huerfanas.png';
+        if(isFiebreAmarillaFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 2/fiebreamarilla.png';
+        if(isHepatitisAFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 2/hepatitis.png';
+        if(isIragFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 2/irag.png';
+        if(isIntoxicacionesFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 2/intoxicaciones.png';
+        if(isIntentoSuicidioFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 2/intentosuicidio.png';
+        if(isLeptospirosisFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 3/leptospirosis.png';
+        if(isMortalidadMaternaFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 3/mortalidadMa.png';
+        if(isMorbilidadMaternaExtremaFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 3/morbilidad.png';
+        if(isMortalidadPerinatalFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 3/perinatal.png';
+        if(isSuicidioFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 3/sucidio.png';
+        if(isTuberculosisFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 4/tuberculosis.png';
+        if(isViolenciasFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 4/violencia.png';
+        if(isVihFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 4/vih.png';
+        if(isVigilanciaComunitariaFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 4/vigilanciaC.png';
+        if(isBajaNotificacionFullPin) fullPinImg = './font/iconos/Vigilancia Epidemiológica/pagina 4/bajanotificacion.png';
+      }
       if(isDengueFullPin) poi.classList.add('is-dengue-fullpin');
       if(isEtasFullPin) poi.classList.add('is-etas-fullpin');
       if(isDesnutricionFullPin) poi.classList.add('is-desnutricion-fullpin');
