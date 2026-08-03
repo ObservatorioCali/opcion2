@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>OSAC - Observatorio de Salud Santiago de Cali</title>
+<link rel="icon" type="image/png" href="/ODSC.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./font/css/all.min.css">
 <style>
@@ -1440,6 +1441,14 @@ body { margin:0; overflow-x:hidden; }
   transform: translate(-50%, -50%) scale(calc(var(--poi-scale, 1) * 1.08));
   filter: drop-shadow(0 22px 34px rgba(0,0,0,.52)) drop-shadow(0 0 22px color-mix(in srgb, var(--poi-glow, rgba(74,222,128,.8)) 74%, transparent 26%));
 }
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-disabled {
+  cursor: default;
+  opacity: .62;
+  filter: grayscale(.15) drop-shadow(0 14px 24px rgba(0,0,0,.36));
+}
+.planet-zoom-overlay.app-launcher-mode .pz-poi.is-disabled:hover {
+  transform: translate(-50%, -50%) scale(var(--poi-scale, 1));
+}
 .planet-zoom-overlay.app-launcher-mode .pz-poi::before {
   content: "";
   display: block;
@@ -2872,6 +2881,16 @@ const PLANETS = [
         label:'Tablero Temático En-torno a tu bienestar - Cáncer',
         url:'https://datastudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/p_ogjvoicp1d',
         logo:'./font/iconos/entorno a tu bienestar/entorno_bienestar_cancer.png'
+      },
+      {
+        label:'Tablero Temático En-torno a tu Bienestar - Enfermedades Huérfanas de Santiago de Cali',
+        url:'https://datastudio.google.com/embed/reporting/3674e582-918c-45fc-8b56-188cd5c0d770/page/p_ogjvoicp1d',
+        logo:'./font/iconos/entorno a tu bienestar/entorno_bienestar_huerfanas.png'
+      },
+      {
+        label:'Entorno a tu bienestar - VIH',
+        url:'https://datastudio.google.com/embed/reporting/e1ed27a8-8b6a-48a7-8659-5e8f4d732698/page/p_ogjvoicp1d',
+        logo:'./font/iconos/entorno a tu bienestar/Entorno_bienestar_vih.png'
       }
     ]
   },
@@ -4702,6 +4721,11 @@ function renderPoiBatch(planet, topics){
     poi.style.setProperty('--pointer-angle', pointerAngle.toFixed(2) + 'deg');
     poi.style.setProperty('--trail-len', trailLen.toFixed(1) + 'px');
     poi.setAttribute('aria-label', topic.label);
+    if(topic.disabled || !topic.url){
+      poi.classList.add('is-disabled');
+      poi.setAttribute('aria-disabled', 'true');
+      poi.title = 'Link pendiente';
+    }
     if(isSpecialFullPin){
       poi.classList.add('is-fullpin');
       let fullPinImg = './font/iconos/dengue.png';
@@ -4769,6 +4793,7 @@ function renderPoiBatch(planet, topics){
     poi.addEventListener('blur', hidePoiPreviewSoon);
     poi.addEventListener('click', (ev) => {
       ev.stopPropagation();
+      if(topic.disabled || !topic.url) return;
       closePlanetExperience(true);
       openDashboard(topic.url, planet);
     });
