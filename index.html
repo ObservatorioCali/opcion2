@@ -8169,7 +8169,10 @@ initSidebarNavFx();
       { submenuLabel: dengueTopic.label || 'Dengue' }
     );
 
-    /* Mantiene el iframe del agente abierto por encima del tablero. */
+    mantenerChatVisibleSobreTablero();
+  };
+
+  const mantenerChatVisibleSobreTablero = () => {
     document.body.classList.add('chat-active', 'chat-dashboard-open');
 
     if (chatFrame) {
@@ -8177,6 +8180,111 @@ initSidebarNavFx();
       chatFrame.style.visibility = 'visible';
       chatFrame.style.opacity = '1';
     }
+  };
+
+  const openPopulationDashboardFromChat = () => {
+    const demografiaPlanet = Array.isArray(PLANETS)
+      ? PLANETS.find((planet) => planet && planet.id === 'demografia')
+      : null;
+
+    const populationTopic =
+      demografiaPlanet && Array.isArray(demografiaPlanet.subs)
+        ? demografiaPlanet.subs.find((topic) => {
+            const label = String(
+              (topic && (topic.fullLabel || topic.label)) || ''
+            )
+              .trim()
+              .toLowerCase();
+
+            return label === 'población' || label === 'poblacion';
+          })
+        : null;
+
+    if (!populationTopic || !populationTopic.url) {
+      console.error('No se encontró la configuración del tablero de población.');
+      return;
+    }
+
+    openDashboard(
+      populationTopic.url,
+      demografiaPlanet,
+      populationTopic.fullLabel || populationTopic.label || 'Población',
+      { submenuLabel: populationTopic.label || 'Población' }
+    );
+
+    mantenerChatVisibleSobreTablero();
+  };
+
+  const openGenericDashboardFromChat = (data) => {
+    const url = String((data && data.url) || '').trim();
+    const titulo = String(
+      (data && data.titulo) || 'Tablero interactivo'
+    ).trim();
+
+    if (!url) {
+      console.error('No se recibió la URL del tablero.');
+      return;
+    }
+
+    try {
+      const parsedUrl = new URL(url);
+      const dominiosPermitidos = new Set([
+        'lookerstudio.google.com',
+        'datastudio.google.com'
+      ]);
+
+      if (
+        parsedUrl.protocol !== 'https:' ||
+        !dominiosPermitidos.has(parsedUrl.hostname)
+      ) {
+        console.error('Dominio de tablero no autorizado:', url);
+        return;
+      }
+    } catch (error) {
+      console.error('URL de tablero no válida:', url);
+      return;
+    }
+
+    let planetaEncontrado = null;
+    let temaEncontrado = null;
+
+    if (Array.isArray(PLANETS)) {
+      for (const planeta of PLANETS) {
+        const temas = Array.isArray(planeta && planeta.subs)
+          ? planeta.subs
+          : [];
+
+        const coincidencia = temas.find((tema) => {
+          if (!tema || !tema.url) return false;
+
+          return (
+            normalizeLookerEmbedUrl(tema.url) ===
+            normalizeLookerEmbedUrl(url)
+          );
+        });
+
+        if (coincidencia) {
+          planetaEncontrado = planeta;
+          temaEncontrado = coincidencia;
+          break;
+        }
+      }
+    }
+
+    openDashboard(
+      url,
+      planetaEncontrado,
+      (temaEncontrado &&
+        (temaEncontrado.fullLabel || temaEncontrado.label)) ||
+        titulo,
+      {
+        submenuLabel:
+          (temaEncontrado && temaEncontrado.label) ||
+          titulo
+      }
+    );
+
+    mantenerChatVisibleSobreTablero();
   };
 
   const updateMobilePrincipalChat = () => {
@@ -8224,6 +8332,14 @@ initSidebarNavFx();
 
     if (data.type === 'abrir-tablero-dengue') {
       openDengueDashboardFromChat();
+    }
+
+    if (data.type === 'abrir-tablero-poblacion') {
+      openPopulationDashboardFromChat();
+    }
+
+    if (data.type === 'abrir-tablero-generico') {
+      openGenericDashboardFromChat(data);
     }
 
     updateMobilePrincipalChat();
