@@ -103,7 +103,16 @@ body.dashboard-open.chat-dashboard-open .obser-chat-frame{
 .acc-contrast:hover{background:rgba(255,255,255,.15);}
 
 /* STAGE */
-.stage{flex:1;position:relative;overflow:hidden}
+.stage{
+  flex:1;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 34% 48%, rgba(30,64,175,.2), transparent 32%),
+    radial-gradient(circle at 80% 42%, rgba(124,58,237,.22), transparent 28%),
+    radial-gradient(circle at 16% 18%, rgba(56,189,248,.1), transparent 24%),
+    #020614;
+}
 
 /* GALAXY BG */
 .galaxy-bg{
@@ -111,19 +120,39 @@ body.dashboard-open.chat-dashboard-open .obser-chat-frame{
   inset:0;
   z-index:0;
   overflow:hidden;
+  background:
+    linear-gradient(90deg, rgba(2,6,20,.72) 0%, rgba(2,6,20,.08) 42%, rgba(2,6,20,.22) 72%, rgba(2,6,20,.58) 100%),
+    url("./fondoprincipal.png") center center / cover no-repeat,
+    #020614;
 }
 .galaxy-bg img{
   width:100%;height:100%;
   object-fit:cover;
   object-position:center center;
-  display:block;
+  display:none;
 }
-.galaxy-bg::after{content:"";position:absolute;inset:0;background:rgba(2,6,20,.08);z-index:1;pointer-events:none;}
+.galaxy-bg::before{
+  display:none;
+}
+.galaxy-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 47% 48%, rgba(59,130,246,.12), transparent 34%),
+    linear-gradient(90deg, rgba(2,6,20,.32) 0%, rgba(2,6,20,.04) 38%, rgba(2,6,20,.14) 72%, rgba(2,6,20,.38) 100%);
+  z-index:1;
+  pointer-events:none;
+}
+@keyframes homeStarsDrift{
+  from{background-position:0 0, 0 0, 0 0, 0 0}
+  to{background-position:120px 80px, -90px 130px, 80px -100px, -120px -80px}
+}
 
 /* HERO TEXT */
-.hero-txt{position:absolute;left:32px;top:50%;transform:translateY(-50%);
+.hero-txt{position:absolute;left:32px;top:43%;transform:translateY(-50%);
   z-index:15;max-width:270px;pointer-events:none;}
-.hero-txt h1{font-size:clamp(24px,2.8vw,42px);font-weight:800;line-height:1.12;letter-spacing:-.5px;
+.hero-txt h1{font-size:clamp(28px,3vw,50px);font-weight:800;line-height:1.12;letter-spacing:-.5px;
   text-shadow:0 2px 24px rgba(0,0,0,.9);}
 .hero-txt h1 .g{background:linear-gradient(90deg,#38bdf8,#c084fc);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -176,18 +205,155 @@ body.dashboard-open.chat-dashboard-open .obser-chat-frame{
   min-width:0;
 }
 .hero-entornos-btn-label--mobile{display:none}
+.hero-txt .hero-entornos-btn{display:none}
+
+.entornos-galaxy{
+  position:absolute;
+  right:0;
+  top:0;
+  width:32%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  z-index:14;
+  pointer-events:none;
+  background:none;
+  filter:none;
+}
+.entornos-galaxy::before{
+  display:none;
+}
+.entornos-galaxy::after{
+  content:"";
+  position:absolute;
+  inset:10%;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 54% 44%, rgba(255,255,255,.26) 0 1px, transparent 2px),
+    radial-gradient(circle at 28% 58%, rgba(45,212,191,.5) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 24%, rgba(168,85,247,.5) 0 2px, transparent 3px),
+    radial-gradient(circle at 78% 70%, rgba(255,255,255,.25) 0 1px, transparent 2px);
+  background-size:180px 140px, 220px 190px, 260px 210px, 200px 230px;
+  opacity:.38;
+  animation:entornosGalaxySpark 9s ease-in-out infinite alternate;
+}
+.entornos-galaxy.is-highlighted .entorno-node img{
+  animation:entornoNodePop .72s cubic-bezier(.18,1.38,.22,1) both;
+}
+.entornos-galaxy.is-highlighted::before{
+  filter:blur(1px) drop-shadow(0 0 54px rgba(124,58,237,.72));
+}
+.entornos-copy{
+  position:absolute;
+  right:20%;
+  top:34%;
+  width:220px;
+  z-index:3;
+  color:#fff;
+  text-align:left;
+  pointer-events:none;
+  text-shadow:0 4px 18px rgba(0,0,0,.72);
+}
+.entornos-copy b{
+  display:inline-flex;
+  margin-bottom:12px;
+  padding:5px 12px;
+  border-radius:999px;
+  background:linear-gradient(135deg, rgba(124,58,237,.95), rgba(59,130,246,.72));
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+}
+.entornos-copy h2{
+  font-size:clamp(25px,2vw,36px);
+  line-height:1.02;
+  margin:0 0 12px;
+}
+.entornos-copy h2 span{
+  display:block;
+  background:linear-gradient(90deg,#38bdf8,#8b5cf6);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.entornos-copy p{
+  margin:0 0 18px;
+  color:rgba(239,246,255,.88);
+  font-size:14px;
+  line-height:1.5;
+}
+.entornos-action{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:13px 20px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#7c3aed,#3b82f6);
+  color:#fff;
+  font-weight:900;
+  box-shadow:0 16px 34px rgba(124,58,237,.32), 0 0 28px rgba(59,130,246,.22);
+  pointer-events:auto;
+}
+.entorno-node{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  min-width:118px;
+  color:#fff;
+  pointer-events:auto;
+  text-align:center;
+}
+.entorno-node img{
+  width:146px;
+  height:146px;
+  object-fit:contain;
+  filter:drop-shadow(0 0 18px rgba(56,189,248,.55)) drop-shadow(0 0 32px rgba(124,58,237,.24));
+  transition:transform .24s cubic-bezier(.18,1.24,.22,1), filter .24s ease;
+}
+.entorno-node span{
+  max-width:122px;
+  font-size:12px;
+  font-weight:900;
+  line-height:1.12;
+  text-shadow:0 2px 10px rgba(0,0,0,.9), 0 0 12px rgba(124,58,237,.45);
+}
+.entorno-node:hover img,
+.entorno-node:focus-visible img{
+  transform:translateY(-6px) scale(1.12);
+  filter:drop-shadow(0 0 24px rgba(56,189,248,.78)) drop-shadow(0 0 38px rgba(124,58,237,.45)) brightness(1.1);
+}
+.entorno-node--pasos{left:26%;top:42%}
+.entorno-node--bienestar{left:18%;top:59%}
+.entorno-node--mental{left:40%;top:63%}
+
+@keyframes entornosGalaxySpin{
+  from{transform:rotate(-14deg) scaleX(1.12)}
+  to{transform:rotate(346deg) scaleX(1.12)}
+}
+@keyframes entornosGalaxySpark{
+  from{opacity:.45;transform:translate3d(-6px,-4px,0)}
+  to{opacity:.86;transform:translate3d(6px,5px,0)}
+}
+@keyframes entornoNodePop{
+  0%{transform:translateY(0) scale(1)}
+  38%{transform:translateY(-8px) scale(1.16)}
+  100%{transform:translateY(0) scale(1)}
+}
 
 .galaxy-center-link{
   position:absolute;
-  left:53%;
-  top:50%;
+  left:29.5%;
+  top:54%;
   transform:translate(-50%,-50%);
   z-index:9;
   display:flex;
   align-items:center;
   justify-content:center;
-  width:130px;
-  height:130px;
+  width:min(24vw, 340px);
+  height:min(24vw, 340px);
   border-radius:50%;
   border:1px solid transparent;
   background:transparent;
@@ -271,9 +437,28 @@ body.cinematic-leave .cinematic-transition::after{
    PLANET SYSTEM — absolute positioned on rings
    ============================================= */
 .planet-field{
-  position:absolute;inset:0;
+  position:absolute;
+  left:13%;
+  top:20%;
+  width:40%;
+  height:65%;
   z-index:10;
   pointer-events:none;
+}
+.planet-field::before{
+  content:"";
+  position:absolute;
+  inset:-6% -8%;
+  z-index:-1;
+  pointer-events:none;
+  display:none;
+}
+.planet-field.is-highlighted::before{
+  animation:osacUniversePulse 1.2s cubic-bezier(.18,1.18,.24,1);
+}
+@keyframes osacUniversePulse{
+  0%,100%{filter:drop-shadow(0 0 38px rgba(96,165,250,.28));transform:scale(1)}
+  42%{filter:drop-shadow(0 0 58px rgba(96,165,250,.5));transform:scale(1.025)}
 }
 
 /* Each planet is an absolutely-positioned anchor */
@@ -301,7 +486,7 @@ body.cinematic-leave .cinematic-transition::after{
 .planet:hover .p-sphere{
   box-shadow: var(--ps-hover) !important;
 }
-.planet:hover .p-label{opacity:1;transform:translateY(0)}
+.planet:hover .p-label{opacity:1;transform:translateY(-6px)}
 
 /* 3D sphere with rich planetary texture */
 .p-sphere{
@@ -417,13 +602,13 @@ body.cinematic-leave .cinematic-transition::after{
 
 /* Planet label */
 .p-label{
-  margin-top:8px;
-  font-size:11.5px;font-weight:900;
-  color:#fff;text-align:center;line-height:1.3;
+  margin-top:-8px;
+  font-size:11px;font-weight:900;
+  color:#fff;text-align:center;line-height:1.12;
   text-shadow:0 0 12px rgba(0,0,0,1), 0 2px 4px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,.8);
   white-space:pre-line;
   opacity:.88;
-  transform:translateY(1px);
+  transform:translateY(-6px);
   transition:opacity .25s,transform .25s;
   pointer-events:none;
   letter-spacing:.4px;
@@ -2664,13 +2849,13 @@ body { margin:0; overflow-x:hidden; }
   }
   .stage{
     width:100%;
-    min-height:calc(100svh + 650px);
-    height:calc(100svh + 650px);
-    overflow:hidden;
+    min-height:1420px;
+    height:auto;
+    overflow:visible;
     padding-bottom:40px;
     background:
-      linear-gradient(180deg, rgba(1,3,15,.18) 0%, rgba(1,3,15,.28) 100%),
-      url('./estrellas movil.png') center top / cover repeat-y,
+      radial-gradient(circle at 52% 31%, rgba(37,99,235,.18), transparent 30%),
+      radial-gradient(circle at 55% 74%, rgba(124,58,237,.18), transparent 34%),
       linear-gradient(90deg, #01030f 0%, #03061a 44%, #050724 100%);
   }
   .galaxy-bg{
@@ -2678,22 +2863,26 @@ body { margin:0; overflow-x:hidden; }
     top:0;
     left:0;
     right:0;
-    height:100svh;
-    min-height:640px;
-    inset:0 0 auto 0;
+    height:100%;
+    min-height:0;
+    inset:0;
     overflow:hidden;
-    background-image:url('./galaxia-movil.jpg');
-    background-repeat:no-repeat;
-    background-position:right 108px;
-    background-size:auto 62%;
+    background:
+      linear-gradient(90deg, rgba(2,6,20,.72) 0%, rgba(2,6,20,.08) 42%, rgba(2,6,20,.22) 72%, rgba(2,6,20,.58) 100%),
+      url("./fondoprincipal.png") center center / cover no-repeat,
+      #020614;
   }
   .galaxy-bg img{
     display:none;
   }
+  .galaxy-bg::before{
+    display:none;
+  }
   .galaxy-bg::after{
+    inset:0;
     background:
-      linear-gradient(90deg, rgba(1,3,15,.97) 0%, rgba(1,3,15,.88) 34%, rgba(1,3,15,.32) 62%, rgba(1,3,15,0) 88%),
-      linear-gradient(180deg, rgba(2,6,20,.08) 0%, rgba(2,6,20,.02) 58%, rgba(2,6,20,.86) 100%);
+      radial-gradient(circle at 52% 32%, rgba(59,130,246,.12), transparent 34%),
+      linear-gradient(180deg, rgba(2,6,20,.12) 0%, rgba(2,6,20,.04) 56%, rgba(2,6,20,.42) 100%);
   }
 
   .hdr{
@@ -2840,10 +3029,10 @@ body { margin:0; overflow-x:hidden; }
   .hero-entornos-btn i{font-size:25px}
 
   .galaxy-center-link{
-    left:68%;
-    top:420px;
-    width:min(320px, 42vw);
-    height:min(320px, 42vw);
+    left:50%;
+    top:545px;
+    width:min(300px, 44vw);
+    height:min(300px, 44vw);
     z-index:13;
     color:transparent;
     font-size:0;
@@ -2867,50 +3056,57 @@ body { margin:0; overflow-x:hidden; }
   }
 
   .planet-field{
-    top:100svh;
-    margin-top:-58px;
-    left:0;
-    right:0;
-    height:640px;
-    inset:100svh 0 auto 0;
+    top:300px;
+    left:50%;
+    right:auto;
+    width:min(720px, 94vw);
+    height:620px;
+    margin:0;
+    inset:auto;
+    transform:translateX(-50%);
     z-index:14;
     pointer-events:none;
-    overflow:hidden;
-    background:
-      radial-gradient(ellipse at 50% 43%, rgba(34,197,94,.18), transparent 19%),
-      radial-gradient(ellipse at 50% 45%, rgba(59,130,246,.14), transparent 36%),
-      radial-gradient(ellipse at 50% 45%, rgba(124,58,237,.12), transparent 56%),
-      linear-gradient(180deg, rgba(1,3,15,.82) 0%, rgba(4,6,26,.72) 18%, rgba(1,3,15,.9) 100%);
+    overflow:visible;
+    background:none;
   }
   .planet-field::before,
   .planet-field::after{
     content:"";
     position:absolute;
-    left:50%;
-    top:52%;
-    transform:translate(-50%,-50%);
-    border-radius:50%;
+    transform:none;
+    border-radius:0;
     pointer-events:none;
   }
   .planet-field::before{
-    top:42%;
-    width:92vw;
-    max-width:390px;
-    height:335px;
-    border:2px dotted rgba(124,58,237,.72);
-    box-shadow:
-      0 0 22px rgba(124,58,237,.62),
-      inset 0 0 18px rgba(37,99,235,.18);
-    opacity:.9;
+    display:none;
   }
   .planet-field::after{
-    top:42%;
-    width:78vw;
-    max-width:330px;
-    height:225px;
-    border:2px dotted rgba(96,165,250,.64);
-    box-shadow:0 0 18px rgba(59,130,246,.38);
-    opacity:.86;
+    display:none;
+  }
+  .entornos-galaxy{
+    left:50%;
+    right:auto;
+    top:910px;
+    width:min(720px, 96vw);
+    height:480px;
+    min-width:0;
+    min-height:0;
+    transform:translateX(-50%);
+  }
+  .entornos-copy{
+    right:4%;
+    top:28%;
+    width:168px;
+  }
+  .entornos-copy h2{
+    font-size:24px;
+  }
+  .entornos-copy p{
+    font-size:12px;
+  }
+  .entorno-node img{
+    width:120px;
+    height:120px;
   }
   .p-anchor{pointer-events:all}
   .p-sphere{
@@ -2930,11 +3126,12 @@ body { margin:0; overflow-x:hidden; }
     border-width:2px !important;
   }
   .p-label{
-    margin-top:8px;
+    margin-top:-6px;
     font-size:9.5px;
     line-height:1.15;
     letter-spacing:0;
     opacity:1;
+    transform:translateY(-5px);
     text-shadow:0 2px 10px rgba(0,0,0,.9),0 0 14px rgba(124,58,237,.32);
   }
   #anchor-salud{
@@ -3066,13 +3263,13 @@ body { margin:0; overflow-x:hidden; }
   .galaxy-bg{
     left:0;
     inset:0 0 auto 0;
-    background-position:right 108px;
-    background-size:auto 62%;
+    background-position:0 0, 0 0, 0 0;
+    background-size:230px 190px, 280px 220px, 260px 240px;
   }
   .galaxy-bg::after{
     background:
-      linear-gradient(90deg, rgba(1,3,15,.97) 0%, rgba(1,3,15,.82) 30%, rgba(1,3,15,.24) 60%, rgba(1,3,15,0) 86%),
-      linear-gradient(180deg, rgba(2,6,20,.08) 0%, rgba(2,6,20,.02) 58%, rgba(2,6,20,.86) 100%);
+      radial-gradient(circle at 52% 32%, rgba(59,130,246,.12), transparent 34%),
+      linear-gradient(180deg, rgba(2,6,20,.12) 0%, rgba(2,6,20,.04) 56%, rgba(2,6,20,.42) 100%);
   }
   .hero-txt{
     left:24px;
@@ -3105,10 +3302,29 @@ body { margin:0; overflow-x:hidden; }
     max-width:92px;
   }
   .galaxy-center-link{
-    left:68%;
-    top:405px;
+    left:50%;
+    top:520px;
     width:44vw;
     height:44vw;
+  }
+  .planet-field{
+    top:300px;
+    width:98vw;
+    height:590px;
+  }
+  .entornos-galaxy{
+    top:900px;
+    width:100vw;
+    height:450px;
+  }
+  .entornos-copy{
+    right:3%;
+    top:31%;
+    width:148px;
+  }
+  .entorno-node img{
+    width:106px;
+    height:106px;
   }
   .mobile-obser-card{
     top:570px;
@@ -4188,15 +4404,15 @@ body { margin:0; overflow-x:hidden; }
         <svg class="sb-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
       </summary>
       <div class="sb-submenu">
-        <a href="#" class="sb-item sb-sub-item thematic-mental" onclick="openDashboard('https://lookerstudio.google.com/embed/reporting/971daa1f-038e-4588-be09-4ddcd86ae81d/page/pogjvoicp1d', null, 'Salud Mental');return false;">
+        <a href="#" class="sb-item sb-sub-item thematic-mental" onclick="openPlanetById('saludmental', event);return false;">
           <img src="./font/iconos/HablarSana.png" alt="" class="sb-link-ic">
           <span>En-torno a tu Salud mental</span>
         </a>
-        <a href="#" class="sb-item sb-sub-item thematic-pasos" onclick="openDashboard('https://lookerstudio.google.com/embed/reporting/3aff0c16-eeef-4fc3-bd94-382b32799b60/page/pogjvoicp1d', null, 'Primeros Pasos');return false;">
+        <a href="#" class="sb-item sb-sub-item thematic-pasos" onclick="openPlanetById('primerospasos', event);return false;">
           <img src="./font/iconos/Maternidad.png" alt="" class="sb-link-ic">
           <span>En-torno a tus primeros pasos</span>
         </a>
-        <a href="#" class="sb-item sb-sub-item thematic-bienestar" onclick="openDashboard('https://lookerstudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/pogjvoicp1d', null, 'Bienestar');return false;">
+        <a href="#" class="sb-item sb-sub-item thematic-bienestar" onclick="openPlanetById('bienestar', event);return false;">
           <img src="./font/iconos/Bienestar.png" alt="" class="sb-link-ic">
           <span>En-torno a tu Bienestar</span>
         </a>
@@ -4265,11 +4481,11 @@ body { margin:0; overflow-x:hidden; }
 
 <div class="main-col">
 <main class="stage" id="stage">
-  <div class="galaxy-bg"><img src="galaxia.jpg" alt="galaxia"></div>
+  <div class="galaxy-bg"></div>
 
   <div class="hero-txt">
-    <h1>Explora el <span class="g">universo</span><br>de la salud<br>en Cali</h1>
-    <p>Conectamos datos,<br>cuidamos vidas.</p>
+    <h1>Explora el <span class="g">universo</span><br>OSAC de salud<br>en Cali.</h1>
+    <p>Conecta con los tableros del Observatorio y navega las galaxias de información en salud pública de la ciudad.</p>
     <div class="hero-stat-row">
       <div class="hs">
         <img class="hero-stat-icon" src="./font/iconos/movil/vistas.png" alt="" aria-hidden="true">
@@ -4280,8 +4496,8 @@ body { margin:0; overflow-x:hidden; }
         <div class="hero-stat-copy"><div class="v">55+</div><div class="l">Tableros activos</div></div>
       </div>
     </div>
-    <a class="hero-entornos-btn" href="./principal-entornos.html" data-cinematic-nav="entornos">
-      <span class="hero-entornos-btn-label hero-entornos-btn-label--desktop">Conoce el universo En-torno a tu Salud</span>
+    <a class="hero-entornos-btn" href="#planet-field" onclick="document.getElementById('planet-field')?.classList.add('is-highlighted');setTimeout(()=>document.getElementById('planet-field')?.classList.remove('is-highlighted'),1200);return false;">
+      <span class="hero-entornos-btn-label hero-entornos-btn-label--desktop">Conoce el universo OSAC</span>
       <span class="hero-entornos-btn-label hero-entornos-btn-label--mobile">En-torno a tu Salud</span>
       <i class="fas fa-arrow-right" aria-hidden="true"></i>
     </a>
@@ -4294,6 +4510,26 @@ body { margin:0; overflow-x:hidden; }
   <!-- Planet field: planets positioned absolutely over galaxy rings -->
   <div id="mobile-planets-anchor" class="mobile-planets-anchor" aria-hidden="true"></div>
   <div class="planet-field" id="planet-field"></div>
+
+  <section class="entornos-galaxy" id="entornos-galaxy" aria-label="Galaxia En-tornos de Salud">
+    <button type="button" class="entorno-node entorno-node--pasos" onclick="openPlanetById('primerospasos', event)">
+      <img src="./primerospasos.png" alt="">
+      <span>En-torno a tus primeros pasos</span>
+    </button>
+    <button type="button" class="entorno-node entorno-node--bienestar" onclick="openPlanetById('bienestar', event)">
+      <img src="./bienestar.png" alt="">
+      <span>En-torno a tu Bienestar</span>
+    </button>
+    <button type="button" class="entorno-node entorno-node--mental" onclick="openPlanetById('saludmental', event)">
+      <img src="./salud mental.png" alt="">
+      <span>En-torno a tu Salud Mental</span>
+    </button>
+    <div class="entornos-copy">
+      <b>Nuevo</b>
+      <h2>Galaxia En-tornos a tu Salud</h2>
+      <p>Una nueva forma de explorar tableros por experiencias de vida.</p>
+    </div>
+  </section>
 
 </main>
 
@@ -4384,13 +4620,25 @@ body { margin:0; overflow-x:hidden; }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 4 13c0-6 8-10 8-10s8 4 8 10a7 7 0 0 1-7 7Z"/><path d="M12 20v-8"/></svg>
       Ambiente y Salud
     </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="bienestar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+      En-torno Bienestar <span class="pz-launcher-new">Nuevo</span>
+    </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="primerospasos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      Primeros Pasos
+    </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="saludmental">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M8 14a6 6 0 1 1 8 0c-.8.6-1 1.4-1 2H9c0-.6-.2-1.4-1-2Z"/></svg>
+      Salud Mental
+    </button>
   </nav>
   <div class="pz-launcher-card">
     <img src="universosalud.png" alt="">
     <span class="pz-launcher-card-copy"><strong>En-torno a tu Salud</strong><span>Conoce indicadores y estadísticas clave</span></span>
-    <a class="pz-launcher-card-btn" href="./principal-entornos.html" data-cinematic-nav="entornos" aria-label="Ir al universo En-torno a tu Salud">
+    <button class="pz-launcher-card-btn" type="button" onclick="openEntornosGateway(event)" aria-label="Ir al universo En-torno a tu Salud">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-    </a>
+    </button>
   </div>
   <div class="pz-launcher-hint">
     <span class="pz-launcher-click-glyph" aria-hidden="true">☝</span> Haz clic en un icono para <b>abrir un tablero</b>
@@ -4463,13 +4711,13 @@ const PLANETS = [
   {
     id:'financiero', label:'Financiero',
     icon:'<img src="./font/iconos/planetas/financiero.png" alt="Financiero" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
-    size:132, ring:false,
+    size:140, ring:false,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.4) 0%, transparent 35%), linear-gradient(150deg, #fde68a 0%, #f59e0b 25%, #d97706 50%, #92400e 75%, #451a03 100%), radial-gradient(ellipse at 72% 76%, rgba(245,158,11,0.4) 0%, transparent 50%)',
     shadow:'0 0 22px rgba(251,191,36,.95), 0 0 44px rgba(217,119,6,.5)',
     shadowHover:'0 0 38px rgba(251,191,36,1), 0 0 75px rgba(217,119,6,.8)',
     ringColor:'rgba(253,230,138,.85)', ringGlow:'rgba(251,191,36,.6)',
     ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'-12deg',
-    cx:34, cy:74,
+    cx:46, cy:88,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:36, startAngle:175,
     url:'https://lookerstudio.google.com/embed/reporting/7da9d650-bb40-474e-b67c-8a9d3c5fb384/page/pabp0thh9sd',
@@ -4481,13 +4729,13 @@ const PLANETS = [
   {
     id:'demografia', label:'Demografía',
     icon:'<img src="./font/iconos/planetas/demografia.png" alt="Demografía" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
-    size:141, ring:false,
+    size:140, ring:false,
     grad:'radial-gradient(ellipse at 30% 24%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(155deg, #86efac 0%, #22c55e 25%, #16a34a 50%, #14532d 75%, #052e16 100%), radial-gradient(ellipse at 70% 75%, rgba(34,197,94,0.4) 0%, transparent 50%)',
     shadow:'0 0 30px rgba(74,222,128,.95), 0 0 60px rgba(22,163,74,.5)',
     shadowHover:'0 0 50px rgba(74,222,128,1), 0 0 100px rgba(22,163,74,.8)',
     ringColor:'rgba(134,239,172,.85)', ringGlow:'rgba(74,222,128,.6)',
     ringSize:'170%', ringIn:'28%', ringW:'6px', ringZ:'-20deg',
-    cx:68, cy:23,
+    cx:67, cy:20,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:44, startAngle:15,
     url:'https://lookerstudio.google.com/embed/reporting/3a4c6bdb-684d-4904-9cf4-f5fe980b6e19/page/esEzE',
@@ -4506,13 +4754,13 @@ const PLANETS = [
   {
     id:'saludpub', label:'Salud\nPública',
     icon:'<img src="./font/iconos/planetas/salud publica.png" alt="Salud Pública" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
-    size:126, ring:false,
+    size:140, ring:false,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.4) 0%, transparent 35%), linear-gradient(150deg, #67e8f9 0%, #06b6d4 25%, #0e7490 50%, #164e63 75%, #083344 100%), radial-gradient(ellipse at 70% 75%, rgba(6,182,212,0.4) 0%, transparent 50%)',
     shadow:'0 0 28px rgba(34,211,238,.95), 0 0 56px rgba(8,145,178,.5)',
     shadowHover:'0 0 46px rgba(34,211,238,1), 0 0 92px rgba(8,145,178,.8)',
     ringColor:'rgba(103,232,249,.85)', ringGlow:'rgba(34,211,238,.6)',
     ringSize:'200%', ringIn:'24%', ringW:'7px', ringZ:'18deg',
-    cx:35, cy:38,
+    cx:-2, cy:75,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:44, startAngle:210,
     url:'https://lookerstudio.google.com/embed/reporting/9a0d1e0e-5df7-4e3d-8c0b-594769581a65/page/pmhi7hn8atd',
@@ -4528,13 +4776,13 @@ const PLANETS = [
   {
     id:'vigilancia', label:'Vigilancia\nEpidemiológica',
     icon:'<img src="./font/iconos/planetas/vigilancia epidemiologica.png" alt="Vigilancia Epidemiológica" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
-    size:138, ring:false,
+    size:140, ring:false,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(150deg, #fca5a5 0%, #ef4444 25%, #b91c1c 50%, #7f1d1d 75%, #3b0a0a 100%), radial-gradient(ellipse at 70% 75%, rgba(239,68,68,0.4) 0%, transparent 50%)',
     shadow:'0 0 34px rgba(248,113,113,.95), 0 0 68px rgba(220,38,38,.5)',
     shadowHover:'0 0 55px rgba(248,113,113,1), 0 0 110px rgba(220,38,38,.8)',
     ringColor:'rgba(252,165,165,.85)', ringGlow:'rgba(248,113,113,.6)',
     ringSize:'235%', ringIn:'22%', ringW:'8px', ringZ:'-28deg',
-    cx:77, cy:43,
+    cx:87, cy:37,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:54, startAngle:345,
     url:'https://lookerstudio.google.com/embed/reporting/75d166ba-8c0c-4d8a-a6ed-d0e0f8ad14e1/page/esEzE',
@@ -4570,13 +4818,13 @@ const PLANETS = [
   {
     id:'planeacion', label:'Planeación',
     icon:'<img src="./font/iconos/planetas/planeacion.png" alt="Planeación" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
-    size:141, ring:false,
+    size:140, ring:false,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(150deg, #fdba74 0%, #f97316 25%, #c2410c 50%, #7c2d12 75%, #3c1006 100%), radial-gradient(ellipse at 70% 75%, rgba(249,115,22,0.4) 0%, transparent 50%)',
     shadow:'0 0 24px rgba(251,146,60,.95), 0 0 48px rgba(234,88,12,.5)',
     shadowHover:'0 0 40px rgba(251,146,60,1), 0 0 80px rgba(234,88,12,.8)',
     ringColor:'rgba(253,186,116,.85)', ringGlow:'rgba(251,146,60,.6)',
     ringSize:'170%', ringIn:'28%', ringW:'6px', ringZ:'-20deg',
-    cx:68, cy:60,
+    cx:86, cy:60,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:54, startAngle:105,
     url:'https://lookerstudio.google.com/embed/reporting/036d76cf-9038-4de9-b7bd-25c4a3267479/page/esEzE',
@@ -4588,13 +4836,13 @@ const PLANETS = [
   {
     id:'prestacion', label:'Prestación\nde Servicios',
     icon:'<img src="./font/iconos/planetas/prestacion de servicios.png" alt="Prestación de Servicios" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
-    size:135, ring:false,
+    size:140, ring:false,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(150deg, #fda4af 0%, #f43f5e 25%, #be123c 50%, #881337 75%, #4c0519 100%), radial-gradient(ellipse at 70% 75%, rgba(244,63,94,0.4) 0%, transparent 50%)',
     shadow:'0 0 28px rgba(244,114,182,.95), 0 0 56px rgba(190,24,93,.5)',
     shadowHover:'0 0 46px rgba(244,114,182,1), 0 0 92px rgba(190,24,93,.8)',
     ringColor:'rgba(249,168,212,.85)', ringGlow:'rgba(244,114,182,.6)',
     ringSize:'215%', ringIn:'23%', ringW:'8px', ringZ:'10deg',
-    cx:45, cy:83,
+    cx:70, cy:81,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:54, startAngle:240,
     url:'https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE',
@@ -4611,7 +4859,7 @@ const PLANETS = [
   {
     id:'polvora', label:'Vigilancia de Pólvora - temporada decembrina',
     icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="26" height="26"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
-    size:129, ring:false,
+    size:140, ring:false,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #5eead4 0%, #14b8a6 25%, #0f766e 50%, #134e4a 75%, #042f2e 100%), radial-gradient(ellipse at 70% 75%, rgba(20,184,166,0.4) 0%, transparent 50%)',
     shadow:'0 0 22px rgba(45,212,191,.95), 0 0 44px rgba(15,118,110,.5)',
     shadowHover:'0 0 38px rgba(45,212,191,1), 0 0 76px rgba(15,118,110,.8)',
@@ -4627,13 +4875,13 @@ const PLANETS = [
   {
     id:'ambiente', label:'Ambiente\ny Salud',
     icon:'<img src="./font/iconos/planetas/ambiente y salud.png" alt="Ambiente y Salud" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
-    size:123, ring:false,
+    size:140, ring:false,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(150deg, #a5b4fc 0%, #6366f1 25%, #4338ca 50%, #312e81 75%, #1e1b4b 100%), radial-gradient(ellipse at 70% 75%, rgba(99,102,241,0.4) 0%, transparent 50%)',
     shadow:'0 0 24px rgba(129,140,248,.95), 0 0 48px rgba(67,56,202,.5)',
     shadowHover:'0 0 40px rgba(129,140,248,1), 0 0 80px rgba(67,56,202,.8)',
     ringColor:'rgba(165,180,252,.85)', ringGlow:'rgba(129,140,248,.6)',
     ringSize:'170%', ringIn:'28%', ringW:'6px', ringZ:'-20deg',
-    cx:27, cy:56,
+    cx:20, cy:85,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:62, startAngle:155,
     url:'https://lookerstudio.google.com/embed/reporting/819c53da-6099-447c-a06a-009e9e2c29c2/page/plejjb0y2td',
@@ -4646,7 +4894,7 @@ const PLANETS = [
   },
 
   {
-    id:'salud',
+    id:'salud', label:'En-torno\na tu Salud', group:'entornosGateway',
     icon:'<img src="./universosalud.png" alt="Universo Salud" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
     size:156, ring:false,
     grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #c4b5fd 0%, #a78bfa 25%, #8b5cf6 50%, #7c3aed 75%, #5b21b6 100%), radial-gradient(ellipse at 72% 74%, rgba(167,139,250,0.34) 0%, transparent 50%)',
@@ -4657,7 +4905,68 @@ const PLANETS = [
     cx:83, cy:26,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:42, startAngle:70,
-    url:'./principal-entornos.html',
+    url:'#entornos-galaxy',
+    subs:null
+  },
+  {
+    id:'primerospasos', label:'En-torno a tus\nprimeros pasos', group:'entornos',
+    icon:'<img src="./primerospasos.png" alt="Primeros Pasos" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
+    size:141, ring:false,
+    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #7dd3fc 0%, #38bdf8 25%, #0ea5e9 50%, #1d4ed8 75%, #1e3a8a 100%), radial-gradient(ellipse at 72% 74%, rgba(56,189,248,0.35) 0%, transparent 50%)',
+    shadow:'0 0 28px rgba(56,189,248,.9), 0 0 58px rgba(14,165,233,.45)',
+    shadowHover:'0 0 46px rgba(56,189,248,1), 0 0 92px rgba(14,165,233,.72)',
+    ringColor:'rgba(125,211,252,.82)', ringGlow:'rgba(56,189,248,.56)',
+    ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'-16deg',
+    cx:78, cy:25,
+    orbitRx:0, orbitRy:0, orbitTilt:-18,
+    speed:42, startAngle:200,
+    url:'https://lookerstudio.google.com/embed/reporting/3aff0c16-eeef-4fc3-bd94-382b32799b60/page/pogjvoicp1d',
+    subs:null
+  },
+  {
+    id:'bienestar', label:'En-torno a tu\nBienestar', group:'entornos',
+    icon:'<img src="./bienestar.png" alt="Bienestar" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
+    size:141, ring:false,
+    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #86efac 0%, #22c55e 25%, #16a34a 50%, #15803d 75%, #14532d 100%), radial-gradient(ellipse at 72% 74%, rgba(74,222,128,0.32) 0%, transparent 50%)',
+    shadow:'0 0 28px rgba(74,222,128,.9), 0 0 58px rgba(22,163,74,.45)',
+    shadowHover:'0 0 46px rgba(74,222,128,1), 0 0 92px rgba(22,163,74,.72)',
+    ringColor:'rgba(134,239,172,.82)', ringGlow:'rgba(74,222,128,.56)',
+    ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'14deg',
+    cx:82, cy:53,
+    orbitRx:0, orbitRy:0, orbitTilt:-18,
+    speed:42, startAngle:320,
+    url:'https://datastudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/p_ogjvoicp1d',
+    subs:[
+      {
+        label:'Tablero Temático En-torno a tu bienestar - Cáncer',
+        url:'https://datastudio.google.com/embed/reporting/da3fa4e1-bfbb-4882-8e94-763ee73503ff/page/p_ogjvoicp1d',
+        logo:'./font/iconos/entorno a tu bienestar/entorno_bienestar_cancer.png'
+      },
+      {
+        label:'Tablero Temático En-torno a tu Bienestar - Enfermedades Huérfanas de Santiago de Cali',
+        url:'https://datastudio.google.com/embed/reporting/3674e582-918c-45fc-8b56-188cd5c0d770/page/p_ogjvoicp1d',
+        logo:'./font/iconos/entorno a tu bienestar/entorno_bienestar_huerfanas.png'
+      },
+      {
+        label:'Entorno a tu bienestar - VIH',
+        url:'https://datastudio.google.com/embed/reporting/e1ed27a8-8b6a-48a7-8659-5e8f4d732698/page/p_ogjvoicp1d',
+        logo:'./font/iconos/entorno a tu bienestar/Entorno_bienestar_vih.png'
+      }
+    ]
+  },
+  {
+    id:'saludmental', label:'En-torno a tu\nSalud Mental', group:'entornos',
+    icon:'<img src="./salud mental.png" alt="Salud Mental" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
+    size:141, ring:false,
+    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.38) 0%, transparent 35%), linear-gradient(150deg, #c4b5fd 0%, #a78bfa 25%, #8b5cf6 50%, #7c3aed 75%, #5b21b6 100%), radial-gradient(ellipse at 72% 74%, rgba(167,139,250,0.34) 0%, transparent 50%)',
+    shadow:'0 0 28px rgba(167,139,250,.9), 0 0 58px rgba(124,58,237,.45)',
+    shadowHover:'0 0 46px rgba(167,139,250,1), 0 0 92px rgba(124,58,237,.72)',
+    ringColor:'rgba(196,181,253,.82)', ringGlow:'rgba(167,139,250,.56)',
+    ringSize:'220%', ringIn:'24%', ringW:'8px', ringZ:'-12deg',
+    cx:91, cy:54,
+    orbitRx:0, orbitRy:0, orbitTilt:-18,
+    speed:42, startAngle:70,
+    url:'https://lookerstudio.google.com/embed/reporting/971daa1f-038e-4588-be09-4ddcd86ae81d/page/pogjvoicp1d',
     subs:null
   },
 ];
@@ -4672,11 +4981,32 @@ const entornosSidebarSummary = document.querySelector('.sb-details > summary.sb-
 
 function navigateToEntornosWithCinematicTransition(event){
   if(event) event.preventDefault();
-  if(document.body.classList.contains('cinematic-leave')) return;
-  document.body.classList.add('cinematic-leave');
-  setTimeout(() => {
-    window.location.href = './principal-entornos.html';
-  }, 900);
+  openEntornosGateway(event);
+}
+
+function openEntornosGateway(event){
+  if(event) event.preventDefault();
+  if(typeof zoomOverlay !== 'undefined' && zoomOverlay && zoomOverlay.classList.contains('open')){
+    closePlanetExperience(true);
+  }
+  const galaxy = document.getElementById('entornos-galaxy');
+  if(!galaxy) return;
+  galaxy.classList.remove('is-highlighted');
+  void galaxy.offsetWidth;
+  galaxy.classList.add('is-highlighted');
+  setTimeout(() => galaxy.classList.remove('is-highlighted'), 1400);
+}
+
+function openPlanetById(id, event){
+  if(event) event.preventDefault();
+  const planet = PLANETS.find((p) => p.id === id);
+  if(!planet) return;
+  const anchor = document.getElementById('anchor-' + id);
+  if(planet.group === 'entornos' && (!planet.subs || !planet.subs.length)){
+    openDashboard(planet.url, null, planet.label.replace('\n', ' '));
+    return;
+  }
+  openPlanetExperience(planet, anchor);
 }
 
 entornosNavLinks.forEach((link) => {
@@ -4699,7 +5029,10 @@ function planetIconSvgById(id){
     planeacion:'<img src="./font/iconos/planetas/planeacion.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">',
     prestacion:'<img src="./font/iconos/planetas/prestacion de servicios.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">',
     polvora:'<img src="./font/iconos/Polvora.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">',
-    ambiente:'<img src="./font/iconos/planetas/ambiente y salud.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">'
+    ambiente:'<img src="./font/iconos/planetas/ambiente y salud.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">',
+    primerospasos:'<img src="./primerospasos.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">',
+    bienestar:'<img src="./bienestar.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">',
+    saludmental:'<img src="./salud mental.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">'
   };
   return icons[id] || '';
 }
@@ -4785,7 +5118,7 @@ function topicIconMarkup(label){
 
 // Build each planet
 PLANETS.forEach(p => {
-  if(p.id === 'polvora') return;
+  if(p.id === 'polvora' || p.group === 'entornos' || p.group === 'entornosGateway') return;
 
   const anchor = document.createElement('div');
   anchor.className = 'p-anchor';
@@ -4831,7 +5164,7 @@ PLANETS.forEach(p => {
 
   planet.addEventListener('click', (event) => {
     if(p.id === 'salud'){
-      navigateToEntornosWithCinematicTransition(event);
+      openEntornosGateway(event);
       return;
     }
     openPlanetExperience(p, anchor);
@@ -6756,6 +7089,11 @@ function topicFullPinImageByPlanet(planetId, normLabel){
     'entornos': './font/iconos/ambiente y salud/entornos.png',
     'vacunacion antirrabica': './font/iconos/ambiente y salud/vacunacion.png'
   };
+  const bienestarIcons = {
+    'tablero tematico en-torno a tu bienestar - cancer': './font/iconos/entorno a tu bienestar/entorno_bienestar_cancer.png',
+    'tablero tematico en-torno a tu bienestar - enfermedades huerfanas de santiago de cali': './font/iconos/entorno a tu bienestar/entorno_bienestar_huerfanas.png',
+    'entorno a tu bienestar - vih': './font/iconos/entorno a tu bienestar/Entorno_bienestar_vih.png'
+  };
 
   if(planetId === 'vigilancia') return vigilanciaIcons[normLabel] || '';
   if(planetId === 'demografia') return demografiaIcons[normLabel] || '';
@@ -6764,6 +7102,7 @@ function topicFullPinImageByPlanet(planetId, normLabel){
   if(planetId === 'planeacion') return planeacionIcons[normLabel] || '';
   if(planetId === 'prestacion') return prestacionIcons[normLabel] || '';
   if(planetId === 'ambiente') return ambienteIcons[normLabel] || '';
+  if(planetId === 'bienestar') return bienestarIcons[normLabel] || '';
   return '';
 }
 
@@ -7628,6 +7967,11 @@ function switchLauncherPlanet(planetId){
   }
   const planet = PLANETS.find((p) => p.id === planetId);
   if(!planet) return;
+  if(planet.group === 'entornos' && (!planet.subs || !planet.subs.length)){
+    closePlanetExperience(true);
+    openDashboard(planet.url, null, planet.label.replace('\n', ' '));
+    return;
+  }
   document.body.classList.remove('dashboard-open');
   document.body.classList.add('planet-open');
   zoomOverlay.classList.add('app-launcher-mode', 'open', 'zoomed');
@@ -7643,7 +7987,10 @@ function switchLauncherPlanet(planetId){
       planeacion: '\uf46d',
       prestacion: '\uf0f8',
       ambiente: '\uf06c',
-      salud: '\uf21e'
+      salud: '\uf21e',
+      primerospasos: '\uf77c',
+      bienestar: '\uf004',
+      saludmental: '\uf5dc'
     };
     titleWrap.dataset.icon = titleIcons[planet.id] || '\uf111';
   }
@@ -7780,7 +8127,10 @@ function openPlanetExperience(planet, anchor){
     planeacion: '\uf46d',
     prestacion: '\uf0f8',
     ambiente: '\uf06c',
-    salud: '\uf21e'
+    salud: '\uf21e',
+    primerospasos: '\uf77c',
+    bienestar: '\uf004',
+    saludmental: '\uf5dc'
   };
   if(titleWrap) titleWrap.dataset.icon = titleIcons[planet.id] || '\uf111';
   zoomTitle.textContent = planet.label.replace('\n', ' ');
@@ -7901,6 +8251,15 @@ function buildSearchIndex(){
           url: null,
           color: p.ringColor || '#38bdf8'
         });
+      });
+    } else if(p.url && /^https?:\/\//i.test(p.url)){
+      items.push({
+        label: planetLabel,
+        category: p.group === 'entornos' ? 'En-tornos de Salud' : planetLabel,
+        planet: p,
+        sub: null,
+        url: p.url,
+        color: p.ringColor || '#38bdf8'
       });
     }
   });
