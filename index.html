@@ -151,6 +151,10 @@ body.dashboard-open.chat-dashboard-open .obser-chat-frame{
   inset:0;
   z-index:0;
   overflow:hidden;
+  transform:scale(1.045) translate3d(0,0,0);
+  transform-origin:50% 50%;
+  will-change:transform, filter;
+  animation:cosmicBackdropVoyage 36s ease-in-out infinite alternate;
   background:
     linear-gradient(90deg, rgba(2,6,20,.72) 0%, rgba(2,6,20,.08) 42%, rgba(2,6,20,.22) 72%, rgba(2,6,20,.58) 100%),
     url("./fondoprincipal.png") center center / cover no-repeat,
@@ -217,6 +221,12 @@ body.dashboard-open.chat-dashboard-open .obser-chat-frame{
 @keyframes cosmicAuroraSweep{
   from{background-position:center, center, center, -40% 50%, center}
   to{background-position:center, center, center, 140% 50%, center}
+}
+@keyframes cosmicBackdropVoyage{
+  0%{transform:scale(1.045) translate3d(-.7%, -.45%, 0);filter:saturate(1) brightness(.98)}
+  38%{transform:scale(1.058) translate3d(.55%, -.2%, 0);filter:saturate(1.08) brightness(1.03)}
+  72%{transform:scale(1.052) translate3d(.35%, .55%, 0);filter:saturate(1.04) brightness(1)}
+  100%{transform:scale(1.064) translate3d(-.5%, .35%, 0);filter:saturate(1.12) brightness(1.05)}
 }
 @keyframes cosmicTwinkleField{
   0%{opacity:.28;filter:brightness(.82);transform:translate3d(0,0,0)}
