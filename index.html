@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>OSAC - Observatorio de Salud Santiago de Cali</title>
-<link rel="icon" type="image/png" href="/ODSC.png">
+<link rel="icon" type="image/png" href="./ODSC.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./font/css/all.min.css">
 <style>
@@ -3438,7 +3438,7 @@ body { margin:0; overflow-x:hidden; }
 .planet-zoom-overlay.app-launcher-mode .pz-backdrop {
   background:
     linear-gradient(180deg, rgba(2,6,23,.14), rgba(2,6,23,.28)),
-    url("/font/webfonts/fondonebulosa.png") center center / cover no-repeat,
+    url("./font/webfonts/fondonebulosa.png") center center / cover no-repeat,
     #020617;
   backdrop-filter: none;
   animation: launcherBgPan 26s ease-in-out infinite alternate;
@@ -4670,7 +4670,7 @@ body { margin:0; overflow-x:hidden; }
   </div>
   <div class="pz-launcher-actions">
     <button class="pz-launcher-action" id="pz-launcher-info" type="button" aria-label="Mostrar información del planeta" aria-pressed="false" title="Información del planeta">
-      <img class="pz-launcher-info-icon" src="/font/iconos/icono_info.png" alt="" aria-hidden="true">
+      <img class="pz-launcher-info-icon" src="./font/iconos/icono_info.png" alt="" aria-hidden="true">
     </button>
   </div>
   <nav class="pz-launcher-sidebar" aria-label="Secciones del universo">
@@ -8525,14 +8525,13 @@ document.addEventListener('click', e=>{
 });
 
 /* VISIT COUNTER */
-fetch('https://bai-revisor-backend-1081794814967.us-central1.run.app/api/visitas',{method:'POST'})
-  .then(r=>r.json()).then(d=>{
-    const n = d.count?d.count.toLocaleString('es-CO'):'–';
-    ['vcount','sb-vcount','vfix-n'].forEach((id)=>{
-      const el = document.getElementById(id);
-      if(el) el.textContent = n;
-    });
+try{
+  fetch('https://bai-revisor-backend-1081794814967.us-central1.run.app/api/visitas',{
+    method:'POST',
+    mode:'no-cors',
+    keepalive:true
   }).catch(()=>{});
+}catch(_){}
 
 /* ACCESSIBILITY */
 function changeFontSize(d){
