@@ -113,6 +113,37 @@ body.dashboard-open.chat-dashboard-open .obser-chat-frame{
     radial-gradient(circle at 16% 18%, rgba(56,189,248,.1), transparent 24%),
     #020614;
 }
+.stage::before,
+.stage::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+}
+.stage::before{
+  opacity:.54;
+  mix-blend-mode:screen;
+  background:
+    radial-gradient(circle at 12% 26%, rgba(255,255,255,.86) 0 1px, transparent 3px),
+    radial-gradient(circle at 28% 16%, rgba(96,165,250,.78) 0 1px, transparent 3px),
+    radial-gradient(circle at 48% 22%, rgba(255,255,255,.82) 0 1px, transparent 3px),
+    radial-gradient(circle at 69% 18%, rgba(192,132,252,.78) 0 1px, transparent 3px),
+    radial-gradient(circle at 88% 30%, rgba(125,211,252,.72) 0 1px, transparent 3px),
+    radial-gradient(circle at 76% 74%, rgba(255,255,255,.64) 0 1px, transparent 3px);
+  background-size:360px 280px, 440px 320px, 520px 360px, 460px 420px, 380px 300px, 600px 460px;
+  animation:cosmicTwinkleField 8.5s ease-in-out infinite alternate;
+}
+.stage::after{
+  opacity:.32;
+  mix-blend-mode:screen;
+  background:
+    linear-gradient(105deg, transparent 0 43%, rgba(125,211,252,.0) 44%, rgba(125,211,252,.18) 48%, rgba(196,181,253,.18) 50%, transparent 54% 100%),
+    linear-gradient(108deg, transparent 0 60%, rgba(168,85,247,.0) 61%, rgba(168,85,247,.16) 64%, rgba(56,189,248,.12) 66%, transparent 70% 100%);
+  background-size:140% 100%, 180% 100%;
+  filter:blur(.2px);
+  animation:cosmicLightSweep 18s linear infinite;
+}
 
 /* GALAXY BG */
 .galaxy-bg{
@@ -132,21 +163,70 @@ body.dashboard-open.chat-dashboard-open .obser-chat-frame{
   display:none;
 }
 .galaxy-bg::before{
-  display:none;
+  content:"";
+  position:absolute;
+  inset:-8%;
+  display:block;
+  z-index:1;
+  pointer-events:none;
+  opacity:.7;
+  mix-blend-mode:screen;
+  background:
+    radial-gradient(circle at 18% 24%, rgba(255,255,255,.72) 0 1px, transparent 2px),
+    radial-gradient(circle at 42% 18%, rgba(125,211,252,.72) 0 1px, transparent 2px),
+    radial-gradient(circle at 74% 30%, rgba(196,181,253,.68) 0 1px, transparent 2px),
+    radial-gradient(circle at 84% 66%, rgba(255,255,255,.7) 0 1px, transparent 2px),
+    radial-gradient(circle at 30% 82%, rgba(34,211,238,.52) 0 1px, transparent 2px),
+    radial-gradient(circle at 56% 62%, rgba(255,255,255,.48) 0 1px, transparent 2px),
+    linear-gradient(115deg, transparent 18%, rgba(56,189,248,.09) 34%, transparent 48%, rgba(168,85,247,.08) 64%, transparent 78%);
+  background-size:210px 170px, 290px 230px, 360px 280px, 260px 310px, 420px 360px, 330px 250px, 150% 150%;
+  animation:cosmicStarDrift 42s linear infinite, cosmicStarPulse 7s ease-in-out infinite alternate;
 }
 .galaxy-bg::after{
   content:"";
   position:absolute;
-  inset:0;
+  inset:-4%;
   background:
-    radial-gradient(circle at 47% 48%, rgba(59,130,246,.12), transparent 34%),
+    radial-gradient(circle at 47% 48%, rgba(59,130,246,.16), transparent 34%),
+    radial-gradient(circle at 76% 42%, rgba(168,85,247,.14), transparent 24%),
+    radial-gradient(circle at 25% 72%, rgba(34,211,238,.12), transparent 22%),
+    linear-gradient(104deg, transparent 0%, rgba(125,211,252,.08) 18%, transparent 31%, rgba(168,85,247,.08) 47%, transparent 62%),
     linear-gradient(90deg, rgba(2,6,20,.32) 0%, rgba(2,6,20,.04) 38%, rgba(2,6,20,.14) 72%, rgba(2,6,20,.38) 100%);
+  background-size:100% 100%, 100% 100%, 100% 100%, 180% 180%, 100% 100%;
   z-index:1;
   pointer-events:none;
+  animation:cosmicNebulaBreath 13s ease-in-out infinite alternate, cosmicAuroraSweep 24s linear infinite;
 }
 @keyframes homeStarsDrift{
   from{background-position:0 0, 0 0, 0 0, 0 0}
   to{background-position:120px 80px, -90px 130px, 80px -100px, -120px -80px}
+}
+@keyframes cosmicStarDrift{
+  from{transform:translate3d(0,0,0) scale(1);background-position:0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0}
+  to{transform:translate3d(-26px,18px,0) scale(1.025);background-position:210px 170px, -290px 230px, 360px -280px, -260px -310px, 420px 360px, -330px 250px, 120% 80%}
+}
+@keyframes cosmicStarPulse{
+  0%{opacity:.48;filter:brightness(.92)}
+  45%{opacity:.74;filter:brightness(1.15)}
+  100%{opacity:.58;filter:brightness(1.02)}
+}
+@keyframes cosmicNebulaBreath{
+  0%{opacity:.72;filter:saturate(1) brightness(.96);transform:scale(1)}
+  100%{opacity:.98;filter:saturate(1.16) brightness(1.08);transform:scale(1.018)}
+}
+@keyframes cosmicAuroraSweep{
+  from{background-position:center, center, center, -40% 50%, center}
+  to{background-position:center, center, center, 140% 50%, center}
+}
+@keyframes cosmicTwinkleField{
+  0%{opacity:.28;filter:brightness(.82);transform:translate3d(0,0,0)}
+  35%{opacity:.64;filter:brightness(1.18)}
+  70%{opacity:.38;filter:brightness(.96)}
+  100%{opacity:.72;filter:brightness(1.22);transform:translate3d(-10px,6px,0)}
+}
+@keyframes cosmicLightSweep{
+  from{background-position:-90% 0, -140% 0}
+  to{background-position:180% 0, 220% 0}
 }
 
 /* HERO TEXT */
@@ -247,7 +327,7 @@ body.dashboard-open.chat-dashboard-open .obser-chat-frame{
   position:absolute;
   right:20%;
   top:34%;
-  width:220px;
+  width:280px;
   z-index:3;
   color:#fff;
   text-align:left;
@@ -271,6 +351,7 @@ body.dashboard-open.chat-dashboard-open .obser-chat-frame{
 }
 .entornos-copy h2 span{
   display:inline;
+  white-space:nowrap;
   background:linear-gradient(90deg,#38bdf8,#8b5cf6,#c084fc);
   -webkit-background-clip:text;
   background-clip:text;
@@ -2972,13 +3053,35 @@ body { margin:0; overflow-x:hidden; }
     display:none;
   }
   .galaxy-bg::before{
-    display:none;
+    content:"";
+    position:absolute;
+    inset:-8%;
+    display:block;
+    z-index:1;
+    pointer-events:none;
+    opacity:.66;
+    mix-blend-mode:screen;
+    background:
+      radial-gradient(circle at 18% 24%, rgba(255,255,255,.72) 0 1px, transparent 2px),
+      radial-gradient(circle at 42% 18%, rgba(125,211,252,.72) 0 1px, transparent 2px),
+      radial-gradient(circle at 74% 30%, rgba(196,181,253,.68) 0 1px, transparent 2px),
+      radial-gradient(circle at 84% 66%, rgba(255,255,255,.7) 0 1px, transparent 2px),
+      radial-gradient(circle at 30% 82%, rgba(34,211,238,.52) 0 1px, transparent 2px),
+      radial-gradient(circle at 56% 62%, rgba(255,255,255,.48) 0 1px, transparent 2px),
+      linear-gradient(115deg, transparent 18%, rgba(56,189,248,.09) 34%, transparent 48%, rgba(168,85,247,.08) 64%, transparent 78%);
+    background-size:210px 170px, 290px 230px, 360px 280px, 260px 310px, 420px 360px, 330px 250px, 150% 150%;
+    animation:cosmicStarDrift 42s linear infinite, cosmicStarPulse 7s ease-in-out infinite alternate;
   }
   .galaxy-bg::after{
     inset:0;
     background:
-      radial-gradient(circle at 52% 32%, rgba(59,130,246,.12), transparent 34%),
+      radial-gradient(circle at 52% 32%, rgba(59,130,246,.15), transparent 34%),
+      radial-gradient(circle at 78% 42%, rgba(168,85,247,.14), transparent 24%),
+      radial-gradient(circle at 24% 72%, rgba(34,211,238,.11), transparent 23%),
+      linear-gradient(104deg, transparent 0%, rgba(125,211,252,.08) 18%, transparent 31%, rgba(168,85,247,.08) 47%, transparent 62%),
       linear-gradient(180deg, rgba(2,6,20,.12) 0%, rgba(2,6,20,.04) 56%, rgba(2,6,20,.42) 100%);
+    background-size:100% 100%, 100% 100%, 100% 100%, 180% 180%, 100% 100%;
+    animation:cosmicNebulaBreath 13s ease-in-out infinite alternate, cosmicAuroraSweep 24s linear infinite;
   }
 
   .hdr{
@@ -3192,7 +3295,7 @@ body { margin:0; overflow-x:hidden; }
   .entornos-copy{
     right:4%;
     top:28%;
-    width:168px;
+    width:230px;
   }
   .entornos-copy h2{
     font-size:24px;
@@ -3416,7 +3519,7 @@ body { margin:0; overflow-x:hidden; }
   .entornos-copy{
     right:3%;
     top:31%;
-    width:148px;
+    width:220px;
   }
   .entorno-node img{
     width:106px;
@@ -4719,13 +4822,6 @@ body { margin:0; overflow-x:hidden; }
       Salud Mental
     </button>
   </nav>
-  <div class="pz-launcher-card">
-    <img src="universosalud.png" alt="">
-    <span class="pz-launcher-card-copy"><strong>En-torno a tu Salud</strong><span>Conoce indicadores y estadísticas clave</span></span>
-    <button class="pz-launcher-card-btn" type="button" onclick="openEntornosGateway(event)" aria-label="Ir al universo En-torno a tu Salud">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-    </button>
-  </div>
   <div class="pz-launcher-hint">
     <span class="pz-launcher-click-glyph" aria-hidden="true">☝</span> Haz clic en un icono para <b>abrir un tablero</b>
   </div>
