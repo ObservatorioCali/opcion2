@@ -457,9 +457,10 @@ body.dashboard-open.chat-dashboard-open .obser-chat-frame{
 .entorno-node--pasos::after{content:"Explorar primeros pasos \2192"}
 .entorno-node--bienestar::after{content:"Explorar Bienestar \2192"}
 .entorno-node--mental::after{content:"Explorar Salud Mental \2192"}
-.entorno-node--pasos{left:26%;top:42%}
-.entorno-node--bienestar{left:18%;top:59%}
-.entorno-node--mental{left:40%;top:63%}
+/* Formacion ordenada dentro de la galaxia: primeros pasos arriba y los dos entornos debajo. */
+.entorno-node--pasos{left:34%;top:34%}
+.entorno-node--bienestar{left:24%;top:60%}
+.entorno-node--mental{left:52%;top:60%}
 
 @keyframes entornosGalaxySpin{
   from{transform:rotate(-14deg) scaleX(1.12)}
@@ -4646,7 +4647,7 @@ body { margin:0; overflow-x:hidden; }
   #anchor-ambiente{left:24% !important;top:84% !important}
   #anchor-saludpub{left:7% !important;top:70% !important}
   #anchor-saludpub,
-  #anchor-ambiente,
+  #anchor-ambiente{translate:0 40%;}
   #anchor-financiero{translate:0 25%;}
   .planet-field .p-label{
     margin-top:-14px;
@@ -4669,9 +4670,9 @@ body { margin:0; overflow-x:hidden; }
   }
   .entorno-node{min-width:100px;gap:5px}
   .entorno-node img{width:88px;height:88px}
-  .entorno-node--pasos{left:20%;top:37%}
-  .entorno-node--bienestar{left:13%;top:56%}
-  .entorno-node--mental{left:35%;top:60%}
+  .entorno-node--pasos{left:34%;top:34%}
+  .entorno-node--bienestar{left:20%;top:60%}
+  .entorno-node--mental{left:50%;top:60%}
 }
 
 </style>
