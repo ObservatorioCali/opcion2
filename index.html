@@ -4557,6 +4557,87 @@ body { margin:0; overflow-x:hidden; }
     font-size: 12px !important;
   }
 }
+/* Compact desktop layouts: keep the wide composition readable below 1440px. */
+@media (min-width:769px) and (max-width:1440px){
+  .sidebar{
+    width:180px;
+    min-width:180px;
+  }
+  .app-layout{
+    width:calc(100vw - 196px);
+    margin-left:196px;
+  }
+  .app-layout.sb-hidden{
+    width:calc(100vw - 76px);
+    margin-left:76px;
+  }
+  .hdr{left:196px;padding-left:16px;padding-right:16px}
+
+  .hero-txt{
+    left:22px;
+    max-width:220px;
+    transform:translateY(-50%) scale(.86);
+    transform-origin:left center;
+  }
+  .planet-field{
+    left:35%;
+    top:20%;
+    width:60%;
+    height:66%;
+    transform:translateX(-50%) scale(.68);
+    transform-origin:center center;
+  }
+  .galaxy-center-link{
+    left:34%;
+    top:55%;
+    width:min(29vw,320px);
+    height:min(29vw,320px);
+  }
+  .entornos-galaxy{width:35%}
+  .entornos-copy{
+    right:2%;
+    top:31%;
+    width:190px;
+    transform:scale(.78);
+    transform-origin:right top;
+  }
+  .entorno-node img{width:108px;height:108px}
+}
+
+/* 720p and other short laptop viewports need a little more breathing room. */
+@media (min-width:769px) and (max-height:820px){
+  .hero-txt{
+    top:30%;
+    max-width:205px;
+    transform:translateY(-50%) scale(.76);
+  }
+  .planet-field{
+    left:34%;
+    top:17%;
+    width:62%;
+    height:70%;
+    transform:translateX(-50%) scale(.56);
+  }
+  .galaxy-center-link{
+    left:34%;
+    top:54%;
+    width:min(27vw,280px);
+    height:min(27vw,280px);
+  }
+  .entornos-galaxy{width:36%}
+  .entornos-copy{
+    right:2%;
+    top:28%;
+    width:175px;
+    transform:scale(.68);
+  }
+  .entorno-node{min-width:100px;gap:5px}
+  .entorno-node img{width:88px;height:88px}
+  .entorno-node--pasos{left:20%;top:37%}
+  .entorno-node--bienestar{left:13%;top:56%}
+  .entorno-node--mental{left:35%;top:60%}
+}
+
 </style>
 </head>
 <body>
