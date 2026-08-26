@@ -4629,15 +4629,26 @@ body { margin:0; overflow-x:hidden; }
   .hero-txt h1{font-size:clamp(22px,2.3vw,34px)}
   .hero-txt p{font-size:10px}
   .planet-field{
-    left:34%;
-    top:17%;
-    width:62%;
-    height:70%;
+    left:35%;
+    top:11%;
+    width:82%;
+    height:82%;
     transform:translateX(-50%) scale(.56);
   }
-  #anchor-saludpub{top:80% !important}
-  #anchor-ambiente{top:90% !important}
-  #anchor-financiero{top:93% !important}
+  /* Distribucion en arco: evita que iconos y etiquetas inferiores se crucen. */
+  #anchor-demografia{left:64% !important;top:18% !important}
+  #anchor-vigilancia{left:86% !important;top:37% !important}
+  #anchor-planeacion{left:76% !important;top:61% !important}
+  #anchor-prestacion{left:62% !important;top:82% !important}
+  #anchor-financiero{left:43% !important;top:91% !important}
+  #anchor-ambiente{left:24% !important;top:84% !important}
+  #anchor-saludpub{left:7% !important;top:70% !important}
+  .planet-field .p-label{
+    margin-top:-14px;
+    transform:translateY(-8px);
+    font-size:10px;
+    line-height:1.08;
+  }
   .galaxy-center-link{
     left:34%;
     top:54%;
