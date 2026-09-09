@@ -4505,6 +4505,7 @@ const PLANETS = [
     url:'https://lookerstudio.google.com/embed/reporting/3a4c6bdb-684d-4904-9cf4-f5fe980b6e19/page/esEzE',
     subs:[
       {label:'Población',url:'https://lookerstudio.google.com/embed/reporting/3a4c6bdb-684d-4904-9cf4-f5fe980b6e19/page/esEzE'},
+      {label:'Adulto Mayor',url:'https://datastudio.google.com/embed/reporting/f99d1ada-db4f-4f5e-bf98-6810be8b808a/page/F5HYF',logo:'./font/iconos/demografia/adultomayor.png'},
       {label:'Población con Discapacidad',url:'https://lookerstudio.google.com/embed/reporting/f12825f8-32ae-4f4d-b230-0fb8c5ee967c/page/p2u66wwr6pd'},
       {label:'Población Víctima Conflicto Armado',url:'https://lookerstudio.google.com/embed/reporting/319c01b1-f4cf-4954-b4d8-9dc218f52196/page/p15hanx0crd'},
       {label:'Población Migrante',url:'https://lookerstudio.google.com/embed/reporting/a3a38aee-3c8d-4b01-af5d-b3f33fadc972/page/p8yjo6uasrd'},
@@ -6753,6 +6754,7 @@ function topicFullPinImageByPlanet(planetId, normLabel){
   };
   const demografiaIcons = {
     'poblacion': './font/iconos/demografia/poblacion.png',
+    'adulto mayor': './font/iconos/demografia/adultomayor.png',
     'poblacion con discapacidad': './font/iconos/demografia/discapacidad.png',
     'poblacion victima conflicto armado': './font/iconos/demografia/victimas.png',
     'poblacion migrante': './font/iconos/demografia/migrantes.png',
@@ -7133,7 +7135,11 @@ function animateLauncherPress(poi, done){
 function launchPoiDashboard(topic, planet){
   closePlanetExperience(true);
   const launchConfig = getDashboardLaunchConfig(topic);
-  openDashboard(launchConfig.url, planet, topic.fullLabel || topic.label, { submenuLabel: launchConfig.submenuLabel });
+  const topicKey = normalizeText(topic && topic.label);
+  const dashboardUrl = topicKey === 'leptospirosis'
+    ? './mantenimiento-tablero.html?tablero=' + encodeURIComponent(topic.label)
+    : launchConfig.url;
+  openDashboard(dashboardUrl, planet, topic.fullLabel || topic.label, { submenuLabel: launchConfig.submenuLabel });
 }
 
 function swapLauncherLabelText(el, text, isFull){

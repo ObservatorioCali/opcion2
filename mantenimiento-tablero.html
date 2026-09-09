@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050724">
+  <title>Tablero en mantenimiento | OSAC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #e8eeff;
+      --muted: #a7b3d5;
+      --cyan: #38bdf8;
+      --violet: #a78bfa;
+      --panel: rgba(5, 10, 38, .78);
+      --line: rgba(125, 211, 252, .24);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      padding: 28px;
+      color: var(--ink);
+      font-family: Inter, system-ui, sans-serif;
+      background: #050724 url('./font/webfonts/fondonebulosa.png') center / cover fixed no-repeat;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(99, 102, 241, .18), transparent 34%),
+        linear-gradient(180deg, rgba(2, 6, 23, .22), rgba(2, 6, 23, .68));
+    }
+
+    .maintenance-page {
+      position: relative;
+      width: min(700px, 100%);
+      text-align: center;
+    }
+
+    .card {
+      position: relative;
+      isolation: isolate;
+      padding: clamp(32px, 6vw, 58px) clamp(22px, 6vw, 64px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(10, 18, 58, .88), var(--panel));
+      box-shadow: 0 24px 80px rgba(1, 4, 20, .58), 0 0 50px rgba(124, 58, 237, .16), inset 0 1px 0 rgba(255,255,255,.08);
+      backdrop-filter: blur(18px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      width: 180px;
+      height: 180px;
+      top: -70px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(56, 189, 248, .2);
+      filter: blur(45px);
+    }
+
+    .status-icon {
+      display: grid;
+      place-items: center;
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 24px;
+      border: 1px solid rgba(125, 211, 252, .46);
+      border-radius: 50%;
+      color: #dbeafe;
+      background: linear-gradient(145deg, rgba(14, 165, 233, .35), rgba(124, 58, 237, .45));
+      box-shadow: 0 0 0 8px rgba(56, 189, 248, .06), 0 0 42px rgba(56, 189, 248, .32), inset 0 1px 0 rgba(255,255,255,.26);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .status-icon svg { width: 44px; height: 44px; filter: drop-shadow(0 0 8px rgba(125, 211, 252, .55)); }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    h1 { margin: 0; font-size: clamp(28px, 5vw, 48px); line-height: 1.08; letter-spacing: -.04em; }
+    h1 span { background: linear-gradient(90deg, #67e8f9, #c4b5fd 72%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .message { max-width: 520px; margin: 20px auto 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
+
+    .board-name {
+      display: inline-flex;
+      max-width: 100%;
+      margin-top: 24px;
+      padding: 9px 16px;
+      border: 1px solid rgba(167, 139, 250, .3);
+      border-radius: 999px;
+      color: #ede9fe;
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(124, 58, 237, .16);
+    }
+
+    .footnote { margin: 24px 0 0; color: rgba(167, 179, 213, .7); font-size: 11px; }
+
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    @media (max-width: 520px) {
+      body { padding: 18px; }
+      .card { border-radius: 22px; }
+      .message { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="maintenance-page" aria-labelledby="maintenance-title">
+    <section class="card">
+      <div class="status-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 9h20M14 39h20"/>
+          <path d="M16 9c0 8 16 8 16 15s-16 7-16 15M32 9c0 8-16 8-16 15s16 7 16 15"/>
+          <path d="M20 24h8" opacity=".72"/>
+        </svg>
+      </div>
+      <p class="eyebrow">Actualización en curso</p>
+      <h1 id="maintenance-title">Tablero temporalmente<br><span>en mantenimiento</span></h1>
+      <p class="message">Estamos realizando algunos ajustes para mejorar la experiencia de consulta. El tablero estará disponible nuevamente muy pronto.</p>
+      <div class="board-name" id="board-name">Tablero consultado</div>
+      <p class="footnote">Gracias por tu comprensión.</p>
+    </section>
+  </main>
+
+  <script>
+    const boardName = document.getElementById('board-name');
+    const params = new URLSearchParams(window.location.search);
+    const requestedBoard = params.get('tablero');
+    if (requestedBoard && requestedBoard.trim()) {
+      boardName.textContent = requestedBoard.trim();
+    }
+  </script>
+</body>
+</html>
