@@ -1153,16 +1153,23 @@ body { margin:0; overflow-x:hidden; }
   inset: 0;
   z-index: 650;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transition: opacity .35s ease;
 }
 .planet-zoom-overlay.open {
   opacity: 1;
+  visibility: visible;
   pointer-events: all;
+}
+.planet-zoom-overlay[aria-hidden="true"] {
+  visibility: hidden;
+  pointer-events: none;
 }
 .pz-backdrop {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background:
     radial-gradient(circle at 50% 52%, rgba(59,130,246,0.14) 0%, rgba(3,8,30,0.78) 45%, rgba(2,6,20,0.9) 100%),
     linear-gradient(160deg, rgba(8,15,58,0.58), rgba(1,5,20,0.72));
@@ -1189,6 +1196,7 @@ body { margin:0; overflow-x:hidden; }
 .pz-mobile-toolbar{display:none}
 .pz-shell {
   position: absolute;
+  z-index: 2;
   left: var(--sx, 50%);
   top: var(--sy, 50%);
   width: var(--fs, min(62vmin, 620px));
@@ -4372,6 +4380,10 @@ body { margin:0; overflow-x:hidden; }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9h.01M9 13h.01M9 17h.01"/></svg>
       Prestación de Servicios
     </button>
+    <button type="button" class="pz-launcher-nav" data-launcher-planet="participacion_social">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15 14.5c.7-.3 1.3-.5 2-.5 2.2 0 4 1.8 4 4"/></svg>
+      Participación Social
+    </button>
     <button type="button" class="pz-launcher-nav" data-launcher-planet="planeacion">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-6"/></svg>
       Planeación y Salud
@@ -4594,7 +4606,7 @@ const PLANETS = [
     shadowHover:'0 0 46px rgba(244,114,182,1), 0 0 92px rgba(190,24,93,.8)',
     ringColor:'rgba(249,168,212,.85)', ringGlow:'rgba(244,114,182,.6)',
     ringSize:'215%', ringIn:'23%', ringW:'8px', ringZ:'10deg',
-    cx:45, cy:83,
+    cx:45, cy:73,
     orbitRx:0, orbitRy:0, orbitTilt:-18,
     speed:54, startAngle:240,
     url:'https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE',
@@ -4643,6 +4655,22 @@ const PLANETS = [
       {label:'Entornos',url:'https://lookerstudio.google.com/embed/reporting/a9e5d13d-cdbc-4a95-80ad-1b4e3a906c86/page/plejjb0y2td'},
       {label:'Vacunación Antirrábica',url:'https://lookerstudio.google.com/embed/reporting/5a3c224a-96c6-4d6f-b5eb-60be9cb2e431/page/pmhi7hn8atd'},
     ]
+  },
+  // RING 5
+  {
+    id:'participacion_social', label:'Participación\nSocial',
+    icon:'<img src="./font/iconos/planetas/participacion social.png" alt="Participación Social" class="planet-fa" style="width:100%;height:100%;object-fit:contain;">',
+    size:128, ring:false,
+    grad:'radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.35) 0%, transparent 35%), linear-gradient(150deg, #f9a8d4 0%, #ec4899 25%, #be185d 50%, #831843 75%, #500724 100%), radial-gradient(ellipse at 70% 75%, rgba(236,72,153,0.4) 0%, transparent 50%)',
+    shadow:'0 0 26px rgba(244,114,182,.95), 0 0 52px rgba(190,24,93,.5)',
+    shadowHover:'0 0 44px rgba(244,114,182,1), 0 0 88px rgba(190,24,93,.8)',
+    ringColor:'rgba(249,168,212,.85)', ringGlow:'rgba(244,114,182,.6)',
+    ringSize:'190%', ringIn:'25%', ringW:'7px', ringZ:'22deg',
+    cx:58, cy:72,
+    orbitRx:0, orbitRy:0, orbitTilt:-18,
+    speed:62, startAngle:285,
+    url:'https://datastudio.google.com/embed/reporting/6a2f0cba-f6ff-4def-9fbb-ca45ad69cd32/page/p_0c2sgul46d',
+    subs:null
   },
 
   {
@@ -4699,7 +4727,8 @@ function planetIconSvgById(id){
     planeacion:'<img src="./font/iconos/planetas/planeacion.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">',
     prestacion:'<img src="./font/iconos/planetas/prestacion de servicios.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">',
     polvora:'<img src="./font/iconos/Polvora.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">',
-    ambiente:'<img src="./font/iconos/planetas/ambiente y salud.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">'
+    ambiente:'<img src="./font/iconos/planetas/ambiente y salud.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">',
+    participacion_social:'<img src="./font/iconos/planetas/participacion social.png" alt="" class="planet-fa" style="width:30px;height:30px;object-fit:contain;">'
   };
   return icons[id] || '';
 }
@@ -4832,6 +4861,10 @@ PLANETS.forEach(p => {
   planet.addEventListener('click', (event) => {
     if(p.id === 'salud'){
       navigateToEntornosWithCinematicTransition(event);
+      return;
+    }
+    if(p.id === 'participacion_social'){
+      openDashboard(p.url, p, p.label.replace('\n', ' '));
       return;
     }
     openPlanetExperience(p, anchor);
@@ -6756,6 +6789,9 @@ function topicFullPinImageByPlanet(planetId, normLabel){
     'entornos': './font/iconos/ambiente y salud/entornos.png',
     'vacunacion antirrabica': './font/iconos/ambiente y salud/vacunacion.png'
   };
+  const participacionIcons = {
+    'participacion social': './font/iconos/participacion social/participacionsocial.png'
+  };
 
   if(planetId === 'vigilancia') return vigilanciaIcons[normLabel] || '';
   if(planetId === 'demografia') return demografiaIcons[normLabel] || '';
@@ -6764,6 +6800,7 @@ function topicFullPinImageByPlanet(planetId, normLabel){
   if(planetId === 'planeacion') return planeacionIcons[normLabel] || '';
   if(planetId === 'prestacion') return prestacionIcons[normLabel] || '';
   if(planetId === 'ambiente') return ambienteIcons[normLabel] || '';
+  if(planetId === 'participacion_social') return participacionIcons[normLabel] || '';
   return '';
 }
 
@@ -7606,7 +7643,10 @@ function showNextPoiBatchAnimated(direction){
 function buildPoiTopics(planet){
   const topics = (planet.subs && planet.subs.length)
     ? planet.subs.slice()
-    : [{ label: 'Tablero principal', url: planet.url }];
+    : [{
+        label: planet.id === 'participacion_social' ? 'Participación Social' : 'Tablero principal',
+        url: planet.url
+      }];
 
   topics.slice(0, PRELOAD_WARM_PER_PLANET).forEach((t, idx) => {
     enqueueDashboardPreload(t.url, idx === 0);
@@ -7822,6 +7862,7 @@ function closePlanetExperience(instant){
   }
   zoomOverlay.classList.remove('zoomed');
   zoomOverlay.setAttribute('aria-hidden', 'true');
+  zoomOverlay.classList.remove('with-intro', 'with-side-comet');
   document.body.classList.remove('planet-open');
   zoomPreview.classList.remove('open');
   if(zoomPreviewBody) zoomPreviewBody.innerHTML = '';
