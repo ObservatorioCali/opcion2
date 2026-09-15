@@ -7135,11 +7135,7 @@ function animateLauncherPress(poi, done){
 function launchPoiDashboard(topic, planet){
   closePlanetExperience(true);
   const launchConfig = getDashboardLaunchConfig(topic);
-  const topicKey = normalizeText(topic && topic.label);
-  const dashboardUrl = topicKey === 'leptospirosis'
-    ? './mantenimiento-tablero.html?tablero=' + encodeURIComponent(topic.label)
-    : launchConfig.url;
-  openDashboard(dashboardUrl, planet, topic.fullLabel || topic.label, { submenuLabel: launchConfig.submenuLabel });
+  openDashboard(launchConfig.url, planet, topic.fullLabel || topic.label, { submenuLabel: launchConfig.submenuLabel });
 }
 
 function swapLauncherLabelText(el, text, isFull){
