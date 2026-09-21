@@ -451,6 +451,59 @@ body.cinematic-leave .cinematic-transition::after{
 .db-overlay{position:fixed;inset:0;z-index:500;background:rgba(2,6,20,.95);backdrop-filter:blur(12px);
   display:none;flex-direction:column;animation:fadeIn .22s ease;}
 .db-overlay.open{display:flex}
+.navigation-map-modal{
+  position:fixed;
+  inset:0;
+  z-index:1200;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(2,6,23,.88);
+  backdrop-filter:blur(10px);
+}
+.navigation-map-modal.open{display:flex}
+.navigation-map-dialog{
+  position:relative;
+  width:min(1180px,96vw);
+  aspect-ratio:1536 / 1024;
+  max-height:92vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  border:1px solid rgba(125,211,252,.34);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(10,18,58,.96),rgba(5,10,38,.96));
+  box-shadow:0 24px 80px rgba(1,4,20,.7),0 0 42px rgba(124,58,237,.22);
+}
+.navigation-map-stage{position:relative;width:100%;height:100%}
+.navigation-map-stage img{display:block;width:100%;height:100%;object-fit:contain;border-radius:8px;box-shadow:0 0 28px rgba(56,189,248,.18)}
+.navigation-map-zone{
+  position:absolute;
+  z-index:1;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  cursor:pointer;
+}
+.navigation-map-zone:focus-visible{outline:none}
+.navigation-map-close{
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:1;
+  width:36px;
+  height:36px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:50%;
+  color:#fff;
+  font-size:22px;
+  line-height:1;
+  background:rgba(4,10,32,.82);
+  cursor:pointer;
+}
+.navigation-map-close:hover{background:rgba(124,58,237,.82)}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .db-modal{display:flex;flex-direction:column;flex:1;min-height:0}
 .db-overlay.open .db-modal{
@@ -4255,6 +4308,10 @@ body { margin:0; overflow-x:hidden; }
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       <span>Encuesta de Satisfacción</span>
     </a>
+    <a href="#" class="sb-item" onclick="openNavigationMap();return false;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></svg>
+      <span>Mapa de Navegación</span>
+    </a>
   </nav>
 
   <div class="sb-spacer"></div>
@@ -4342,6 +4399,67 @@ body { margin:0; overflow-x:hidden; }
   </div>
 </div>
 
+<div class="navigation-map-modal" id="navigation-map-modal" role="dialog" aria-modal="true" aria-label="Mapa de Navegación" aria-hidden="true">
+  <div class="navigation-map-dialog">
+    <button class="navigation-map-close" type="button" onclick="closeNavigationMap()" aria-label="Cerrar mapa">&times;</button>
+    <div class="navigation-map-stage">
+      <img src="./mapa de navegacion.png" alt="Mapa de Navegación">
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Población" data-map-dashboard="demografia" data-map-topic="Población" style="left:5%;top:13.5%;width:19%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Adulto Mayor" data-map-dashboard="demografia" data-map-topic="Adulto Mayor" style="left:5%;top:16.5%;width:19%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Población con Discapacidad" data-map-dashboard="demografia" data-map-topic="Población con Discapacidad" style="left:5%;top:19.5%;width:21%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Población Víctima del Conflicto Armado" data-map-dashboard="demografia" data-map-topic="Población Víctima Conflicto Armado" style="left:5%;top:22.5%;width:21%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Población Migrante" data-map-dashboard="demografia" data-map-topic="Población Migrante" style="left:5%;top:25.5%;width:19%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Población Indígena" data-map-dashboard="demografia" data-map-topic="Población Indígena" style="left:5%;top:28.5%;width:19%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Población Privada de la Libertad" data-map-dashboard="demografia" data-map-topic="Población Privada de la Libertad" style="left:5%;top:31.5%;width:22%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Aseguramiento" data-map-dashboard="demografia" data-map-topic="Aseguramiento" style="left:5%;top:34.5%;width:19%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Estadísticas Vitales" data-map-dashboard="demografia" data-map-topic="Estadísticas Vitales" style="left:5%;top:37.5%;width:19%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Ejecución Presupuestal" data-map-dashboard="financiero" data-map-topic="Ejecución Presupuestal" style="left:44.5%;top:7%;width:14%;height:4.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Línea 106" data-map-dashboard="saludpub" data-map-topic="Línea 106" style="left:79%;top:18%;width:17%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero PAI" data-map-dashboard="saludpub" data-map-topic="PAI" style="left:79%;top:21.2%;width:17%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero PIC" data-map-dashboard="saludpub" data-map-topic="PIC" style="left:79%;top:24.4%;width:17%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Estilos de Vida Saludable" data-map-dashboard="saludpub" data-map-topic="Estilos de vida saludable" style="left:79%;top:27.6%;width:17%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero SPA" data-map-dashboard="saludpub" data-map-topic="SPA" style="left:79%;top:30.8%;width:17%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero APTR" data-map-dashboard="ambiente" data-map-topic="APTR" style="left:5%;top:46%;width:13%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero IRCA" data-map-dashboard="ambiente" data-map-topic="IRCA" style="left:5%;top:49.3%;width:13%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Entornos" data-map-dashboard="ambiente" data-map-topic="Entornos" style="left:5%;top:52.6%;width:13%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Vacunación Antirrábica" data-map-dashboard="ambiente" data-map-topic="Vacunación Antirrábica" style="left:5%;top:55.9%;width:17%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Eventos Epidemiológicos" data-map-dashboard="vigilancia" data-map-topic="Eventos Epidemiológicos" style="left:75%;top:38%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Dengue" data-map-dashboard="vigilancia" data-map-topic="Dengue" style="left:75%;top:41.1%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Desnutrición" data-map-dashboard="vigilancia" data-map-topic="Desnutrición" style="left:75%;top:44.2%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero EDA" data-map-dashboard="vigilancia" data-map-topic="EDA" style="left:75%;top:47.3%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero ETAs" data-map-dashboard="vigilancia" data-map-topic="ETAs" style="left:75%;top:50.4%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Fiebre Amarilla" data-map-dashboard="vigilancia" data-map-topic="Fiebre Amarilla" style="left:75%;top:53.5%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Hepatitis A" data-map-dashboard="vigilancia" data-map-topic="Hepatitis A" style="left:75%;top:56.6%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero IRAG" data-map-dashboard="vigilancia" data-map-topic="IRAG" style="left:75%;top:59.7%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Intoxicaciones" data-map-dashboard="vigilancia" data-map-topic="Intoxicaciones" style="left:75%;top:62.8%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Intento de Suicidio" data-map-dashboard="vigilancia" data-map-topic="Intento de Suicidio" style="left:75%;top:65.9%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Participación Social" data-map-dashboard="participacion_social" style="left:5%;top:65%;width:18%;height:5.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Ejecución de Proyectos" data-map-dashboard="planeacion" data-map-topic="Ejecución Proyectos" style="left:34%;top:85.7%;width:14%;height:4.5%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Aseguramiento de prestación de servicios" data-map-dashboard="prestacion" data-map-topic="Aseguramiento" style="left:73%;top:75.2%;width:17%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero APS" data-map-dashboard="prestacion" data-map-topic="APS" style="left:73%;top:78.3%;width:17%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Bancos de Sangre" data-map-dashboard="prestacion" data-map-topic="Bancos de Sangre" style="left:73%;top:81.4%;width:17%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Urgencias" data-map-dashboard="prestacion" data-map-topic="Urgencias" style="left:73%;top:84.5%;width:17%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Registro de Prestadores" data-map-dashboard="prestacion" data-map-topic="Registro Prestadores" style="left:73%;top:87.6%;width:17%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Servicios de Cirugía Plástica y Estética" data-map-dashboard="prestacion" data-map-topic="Servicios de Cirugía Plástica y Estética" style="left:73%;top:90.7%;width:22%;height:3.4%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Leptospirosis" data-map-dashboard="vigilancia" data-map-topic="Leptospirosis" style="left:75%;top:69%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Mortalidad Materna" data-map-dashboard="vigilancia" data-map-topic="Mortalidad Materna" style="left:75%;top:72.1%;width:13%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Morbilidad Materna Extrema" data-map-dashboard="vigilancia" data-map-topic="Morbilidad Materna Extrema" style="left:87%;top:38%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Mortalidad Perinatal" data-map-dashboard="vigilancia" data-map-topic="Mortalidad Perinatal" style="left:87%;top:41.1%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Pólvora" data-map-dashboard="vigilancia" data-map-topic="Pólvora" style="left:87%;top:44.2%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Suicidio" data-map-dashboard="vigilancia" data-map-topic="Suicidio" style="left:87%;top:47.3%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero SPA de vigilancia" data-map-dashboard="vigilancia" data-map-topic="SPA" style="left:87%;top:50.4%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Cáncer de mama y cérvix" data-map-dashboard="vigilancia" data-map-topic="Cáncer de mama y cérvix" style="left:87%;top:53.5%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Tuberculosis" data-map-dashboard="vigilancia" data-map-topic="Tuberculosis" style="left:87%;top:56.6%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Violencias" data-map-dashboard="vigilancia" data-map-topic="Violencias" style="left:87%;top:59.7%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero VIH" data-map-dashboard="vigilancia" data-map-topic="VIH" style="left:87%;top:62.8%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Vigilancia Comunitaria" data-map-dashboard="vigilancia" data-map-topic="Vigilancia Comunitaria" style="left:87%;top:65.9%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Baja Notificación" data-map-dashboard="vigilancia" data-map-topic="Baja Notificación" style="left:87%;top:69%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Sistema de Alerta Temprana" data-map-dashboard="vigilancia" data-map-topic="sistema de Alerta Temprana" style="left:87%;top:72.1%;width:11%;height:3.2%"></button>
+      <button class="navigation-map-zone" type="button" aria-label="Abrir tablero Enfermedades Huérfanas" data-map-dashboard="vigilancia" data-map-topic="Enfermedades Huérfanas" style="left:87%;top:75.2%;width:11%;height:3.2%"></button>
+    </div>
+  </div>
+</div>
+
 <!-- PLANET ZOOM EXPERIENCE -->
 <div class="planet-zoom-overlay" id="planet-zoom-overlay" aria-hidden="true">
   <div class="pz-backdrop"></div>
@@ -4395,6 +4513,10 @@ body { margin:0; overflow-x:hidden; }
     <button type="button" class="pz-launcher-nav" data-launcher-planet="ambiente">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 4 13c0-6 8-10 8-10s8 4 8 10a7 7 0 0 1-7 7Z"/><path d="M12 20v-8"/></svg>
       Ambiente y Salud
+    </button>
+    <button type="button" class="pz-launcher-nav" id="pz-launcher-map-btn" aria-label="Abrir mapa de navegación">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></svg>
+      Mapa de Navegación
     </button>
   </nav>
   <div class="pz-launcher-card">
@@ -4993,6 +5115,48 @@ function getDashboardLaunchConfig(topic){
     submenuLabel: ''
   };
 }
+
+function openNavigationMap(){
+  const modal = document.getElementById('navigation-map-modal');
+  if(!modal) return;
+  const planetOverlay = document.getElementById('planet-zoom-overlay');
+  if(planetOverlay && planetOverlay.classList.contains('open')){
+    closePlanetExperience(true);
+  }
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeNavigationMap(){
+  const modal = document.getElementById('navigation-map-modal');
+  if(!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+document.getElementById('navigation-map-modal')?.addEventListener('click', (event) => {
+  if(event.target.id === 'navigation-map-modal') closeNavigationMap();
+});
+document.querySelectorAll('[data-map-dashboard]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const planet = PLANETS.find((item) => item.id === button.dataset.mapDashboard);
+    if(!planet) return;
+    const topicLabel = button.dataset.mapTopic || '';
+    const topic = Array.isArray(planet.subs)
+      ? planet.subs.find((item) => normalizeText(item.label) === normalizeText(topicLabel))
+      : null;
+    closeNavigationMap();
+    openDashboard(
+      topic ? topic.url : planet.url,
+      planet,
+      topic ? (topic.fullLabel || topic.label) : planet.label.replace('\n', ' '),
+      { submenuLabel: topic ? topic.label : '' }
+    );
+  });
+});
+document.addEventListener('keydown', (event) => {
+  if(event.key === 'Escape') closeNavigationMap();
+});
 
 function openDashboard(url, returnPlanet, dashboardTitle, options){
   const settings = options || {};
@@ -7903,6 +8067,15 @@ document.querySelectorAll('[data-launcher-planet]').forEach((btn) => {
     switchLauncherPlanet(btn.dataset.launcherPlanet);
   });
 });
+const launcherMapBtn = document.getElementById('pz-launcher-map-btn');
+if(launcherMapBtn){
+  launcherMapBtn.addEventListener('click', (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    closePlanetExperience(true);
+    openNavigationMap();
+  });
+}
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape' && zoomOverlay.classList.contains('open')) closePlanetExperience();
 });
