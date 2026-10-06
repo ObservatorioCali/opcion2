@@ -5114,9 +5114,10 @@ function renderDashboardSubmenu(planet, activeUrl, activeLabel){
 }
 
 function getDashboardLaunchConfig(topic){
+  const isLinea106 = !!topic && normalizeText(topic.label) === 'linea 106';
   return {
-    url: topic ? topic.url : '',
-    submenuLabel: ''
+    url: isLinea106 ? './mantenimiento-tablero.html' : (topic ? topic.url : ''),
+    submenuLabel: isLinea106 ? topic.label : ''
   };
 }
 
@@ -5149,12 +5150,13 @@ document.querySelectorAll('[data-map-dashboard]').forEach((button) => {
     const topic = Array.isArray(planet.subs)
       ? planet.subs.find((item) => normalizeText(item.label) === normalizeText(topicLabel))
       : null;
+    const launchConfig = getDashboardLaunchConfig(topic);
     closeNavigationMap();
     openDashboard(
-      topic ? topic.url : planet.url,
+      topic ? launchConfig.url : planet.url,
       planet,
       topic ? (topic.fullLabel || topic.label) : planet.label.replace('\n', ' '),
-      { submenuLabel: topic ? topic.label : '' }
+      { submenuLabel: topic ? (launchConfig.submenuLabel || topic.label) : '' }
     );
   });
 });
@@ -5164,7 +5166,10 @@ document.addEventListener('keydown', (event) => {
 
 function openDashboard(url, returnPlanet, dashboardTitle, options){
   const settings = options || {};
-  const dashboardUrl = normalizeLookerEmbedUrl(url);
+  const requestedUrl = normalizeLookerEmbedUrl(url);
+  const isLinea106 = normalizeText(dashboardTitle).includes('linea 106') ||
+    /9a0d1e0e-5df7-4e3d-8c0b-594769581a65/i.test(requestedUrl || '');
+  const dashboardUrl = isLinea106 ? './mantenimiento-tablero.html' : requestedUrl;
   document.body.classList.remove('planet-open');
   document.body.classList.add('dashboard-open');
   showDashboardChrome();
@@ -5203,7 +5208,9 @@ function openDB(planet){
   const hasSubmenu = renderDashboardSubmenu(planet);
 
   if(hasSubmenu){
-    document.getElementById('db-frame').src = normalizeLookerEmbedUrl(planet.subs[0].url);
+    const initialTopic = planet.subs[0];
+    const initialConfig = getDashboardLaunchConfig(initialTopic);
+    document.getElementById('db-frame').src = normalizeLookerEmbedUrl(initialConfig.url || initialTopic.url);
   } else {
     setDashboardTitle(planet.label.replace('\n',' '), planet);
     document.getElementById('db-frame').src = normalizeLookerEmbedUrl(planet.url);
