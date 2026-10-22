@@ -3662,6 +3662,53 @@ body { margin:0; overflow-x:hidden; }
   transform: none !important;
   perspective: none;
 }
+.planet-zoom-overlay.app-launcher-mode .pz-related-pair {
+  position: relative;
+  grid-column: span 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  width: 100%;
+  min-width: 0;
+  --relation-offset: 54px;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-related-pair .pz-poi {
+  flex: 0 0 auto;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-related-link {
+  position: absolute;
+  left: calc(25% + var(--relation-offset));
+  right: calc(25% + var(--relation-offset));
+  top: 63px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #38bdf8, #a855f7 55%, #f472d0);
+  box-shadow: 0 0 10px #a855f7, 0 0 18px rgba(244,114,208,.6);
+  pointer-events: none;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-related-link::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  box-shadow: 0 0 10px #38bdf8;
+}
+.planet-zoom-overlay.app-launcher-mode .pz-related-link::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #f9a8d4;
+  border-right: 2px solid #f9a8d4;
+  transform: rotate(45deg);
+  filter: drop-shadow(0 0 5px #f472d0);
+}
 .planet-zoom-overlay.app-launcher-mode .pz-poi-layer::-webkit-scrollbar {
   width: 8px;
 }
@@ -4154,6 +4201,12 @@ body { margin:0; overflow-x:hidden; }
     padding: 10px 4px 24px;
     align-content: start;
   }
+  .planet-zoom-overlay.app-launcher-mode .pz-related-pair {
+    --relation-offset: 38px;
+  }
+  .planet-zoom-overlay.app-launcher-mode .pz-related-link {
+    top: 44px;
+  }
   .planet-zoom-overlay.app-launcher-mode .pz-poi {
     width: 104px !important;
     min-height: 116px !important;
@@ -4636,6 +4689,7 @@ const PLANETS = [
       {label:'Población Privada de la Libertad',url:'https://lookerstudio.google.com/embed/reporting/4ff54dc4-188e-4f5d-b501-847ff07196e4/page/p2u66wwr6pd'},
       {label:'Aseguramiento',url:'https://lookerstudio.google.com/embed/reporting/537e0819-6e44-4ed9-8aa2-d335dd89aecc/page/esEzE'},
       {label:'Estadísticas Vitales',url:'https://lookerstudio.google.com/embed/reporting/778ce501-f478-46d8-a8a7-7de5163587db/page/piemfr1cyvd'},
+      {label:'Indicadores de Natalidad y Mortalidad',url:'https://datastudio.google.com/embed/reporting/2d5e66ce-e411-4d6e-b2c9-0d20c1d68660/page/p_wr25j7q7rd',logo:'./font/iconos/demografia/natalidadymortalidad.png'},
     ]
   },
   // RING 3
@@ -4778,7 +4832,7 @@ const PLANETS = [
     subs:[
       {label:'APTR',fullLabel:'Agresiones por Animales Potencialmente Transmisores de Rabia',url:'https://lookerstudio.google.com/embed/reporting/819c53da-6099-447c-a06a-009e9e2c29c2/page/plejjb0y2td'},
       {label:'IRCA',fullLabel:'Índice de Riesgo de la Calidad del Agua',url:'https://lookerstudio.google.com/embed/reporting/76fc1dd8-f202-4167-9c88-88e7b1650165/page/pjxxw285ord'},
-      {label:'Entornos',url:'https://lookerstudio.google.com/embed/reporting/a9e5d13d-cdbc-4a95-80ad-1b4e3a906c86/page/plejjb0y2td'},
+      {label:'Entornos',url:'https://datastudio.google.com/embed/reporting/8a94aa35-8b2a-45b1-9b82-d9299ca97408/page/p_k1ehn4w96d'},
       {label:'Vacunación Antirrábica',url:'https://lookerstudio.google.com/embed/reporting/5a3c224a-96c6-4d6f-b5eb-60be9cb2e431/page/pmhi7hn8atd'},
       {label:'Acciones para prevenir las Arvovirosis',url:'https://datastudio.google.com/embed/reporting/2a24eb25-6b03-4fd8-a8cd-934b75c5b810/page/p_bdczsfew7d',logo:'./font/iconos/ambiente y salud/acciones.png'},
     ]
@@ -4879,6 +4933,7 @@ function topicIconSvg(label){
     'poblacion privada de la libertad': 'fas fa-person-circle-exclamation',
     'aseguramiento': 'fas fa-shield-alt',
     'estadisticas vitales': 'fas fa-chart-bar',
+    'indicadores de natalidad y mortalidad': 'fas fa-baby',
     'ejecucion presupuestal': 'fas fa-dollar-sign',
     'linea 106': 'fas fa-phone-alt',
     'pai': 'fas fa-syringe',
@@ -5118,10 +5173,9 @@ function renderDashboardSubmenu(planet, activeUrl, activeLabel){
 }
 
 function getDashboardLaunchConfig(topic){
-  const isLinea106 = !!topic && normalizeText(topic.label) === 'linea 106';
   return {
-    url: isLinea106 ? './mantenimiento-tablero.html' : (topic ? topic.url : ''),
-    submenuLabel: isLinea106 ? topic.label : ''
+    url: topic ? topic.url : '',
+    submenuLabel: ''
   };
 }
 
@@ -5170,10 +5224,7 @@ document.addEventListener('keydown', (event) => {
 
 function openDashboard(url, returnPlanet, dashboardTitle, options){
   const settings = options || {};
-  const requestedUrl = normalizeLookerEmbedUrl(url);
-  const isLinea106 = normalizeText(dashboardTitle).includes('linea 106') ||
-    /9a0d1e0e-5df7-4e3d-8c0b-594769581a65/i.test(requestedUrl || '');
-  const dashboardUrl = isLinea106 ? './mantenimiento-tablero.html' : requestedUrl;
+  const dashboardUrl = normalizeLookerEmbedUrl(url);
   document.body.classList.remove('planet-open');
   document.body.classList.add('dashboard-open');
   showDashboardChrome();
@@ -5918,6 +5969,10 @@ const POI_PREVIEW_INTROS = {
     'El tablero de <strong>Estadísticas Vitales</strong> presenta el seguimiento y análisis de nacimientos, defunciones y otros indicadores de eventos vitales fundamentales para el monitoreo de la situación demográfica y de salud del Distrito.',
     'Esta información apoya el análisis de tendencias, la planificación de servicios y la identificación de cambios poblacionales relevantes.'
   ],
+  'indicadores de natalidad y mortalidad': [
+    'Explora los indicadores de natalidad y mortalidad como complemento del tablero de Estadísticas Vitales.',
+    'Abre el tablero para consultar sus datos y visualizaciones.'
+  ],
   'poblacion con discapacidad': [
     'El tablero de <strong>Población con Discapacidad</strong> presenta el análisis demográfico y territorial de esta población en Cali, identificando características poblacionales y su distribución geográfica.',
     'Incluye el análisis de eventos de interés en salud pública para fortalecer el seguimiento, la identificación de riesgos y la toma de decisiones orientadas a la inclusión y la atención integral.'
@@ -5986,12 +6041,13 @@ const PIN_GLOBAL_SCALE = 0.85;
 const DEMOGRAFIA_GENERAL_KEYS = new Set([
   'poblacion',
   'estadisticas vitales',
+  'indicadores de natalidad y mortalidad',
   'aseguramiento'
 ]);
 const DEMOGRAFIA_CATEGORY_GROUPS = [
   {
     label: 'Poblacion general',
-    topics: ['poblacion', 'estadisticas vitales', 'aseguramiento']
+    topics: ['poblacion', 'estadisticas vitales', 'indicadores de natalidad y mortalidad', 'aseguramiento']
   },
   {
     label: 'Poblacion vulnerable',
@@ -6942,7 +6998,8 @@ function topicFullPinImageByPlanet(planetId, normLabel){
     'poblacion indigena': './font/iconos/demografia/indigena.png',
     'poblacion privada de la libertad': './font/iconos/demografia/poblacionprivada.png',
     'aseguramiento': './font/iconos/demografia/poblacionasegurada.png',
-    'estadisticas vitales': './font/iconos/demografia/estadisticasvitales.png'
+    'estadisticas vitales': './font/iconos/demografia/estadisticasvitales.png',
+    'indicadores de natalidad y mortalidad': './font/iconos/demografia/natalidadymortalidad.png'
   };
   const saludPublicaIcons = {
     'linea 106': './font/iconos/salud publica/linea 106.png',
@@ -7406,6 +7463,10 @@ function renderLauncherSearchResults(query){
 function renderPoiBatch(planet, topics){
   zoomPoiLayer.innerHTML = '';
   zoomPoiLayer.classList.toggle('vigilancia-layout', planet.id === 'vigilancia' && !zoomOverlay.classList.contains('app-launcher-mode'));
+  const hasVitalPair = planet.id === 'demografia' && isLauncherMode() &&
+    topics.some((topic) => normalizeText(topic.label) === 'estadisticas vitales') &&
+    topics.some((topic) => normalizeText(topic.label) === 'indicadores de natalidad y mortalidad');
+  let vitalPair = null;
   const total = Math.max(1, topics.length);
   const minTopPct = -8;
   const isVigilanciaLayout = planet.id === 'vigilancia';
@@ -7813,7 +7874,22 @@ function renderPoiBatch(planet, topics){
       animateLauncherPress(poi, () => launchPoiDashboard(topic, planet));
     });
 
-    zoomPoiLayer.appendChild(poi);
+    if(hasVitalPair && normLabel === 'estadisticas vitales'){
+      vitalPair = document.createElement('div');
+      vitalPair.className = 'pz-related-pair';
+      vitalPair.setAttribute('role', 'group');
+      vitalPair.setAttribute('aria-label', 'Tableros relacionados: Estadísticas Vitales e Indicadores de Natalidad y Mortalidad');
+      vitalPair.appendChild(poi);
+      const relation = document.createElement('span');
+      relation.className = 'pz-related-link';
+      relation.setAttribute('aria-hidden', 'true');
+      vitalPair.appendChild(relation);
+      zoomPoiLayer.appendChild(vitalPair);
+    } else if(vitalPair && normLabel === 'indicadores de natalidad y mortalidad'){
+      vitalPair.appendChild(poi);
+    } else {
+      zoomPoiLayer.appendChild(poi);
+    }
   });
 
   if(isLauncherMode()){

@@ -170,7 +170,7 @@ Indice de Riesgo de la Calidad del Agua:
 https://lookerstudio.google.com/embed/reporting/76fc1dd8-f202-4167-9c88-88e7b1650165/page/pjxxw285ord
 
 Entornos:
-https://lookerstudio.google.com/embed/reporting/a9e5d13d-cdbc-4a95-80ad-1b4e3a906c86/page/plejjb0y2td
+https://datastudio.google.com/embed/reporting/8a94aa35-8b2a-45b1-9b82-d9299ca97408/page/p_k1ehn4w96d
 
 Vacunacion Antirrabica:
 https://lookerstudio.google.com/embed/reporting/5a3c224a-96c6-4d6f-b5eb-60be9cb2e431/page/pmhi7hn8atd
