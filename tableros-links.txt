@@ -82,6 +82,9 @@ https://lookerstudio.google.com/embed/reporting/83fbe55f-4fa8-4c4a-b382-1cf34a25
 Infeccion Respiratoria Aguda:
 https://lookerstudio.google.com/embed/reporting/9c7f244d-5fb9-4b40-a490-1386dba6545a/page/esEzE
 
+Infecciones Asociados a Dispositivos (IAD):
+https://datastudio.google.com/embed/reporting/cd47a28f-7190-4644-98c7-9256ac3a21c0/page/p_tuo2ci506d
+
 Intoxicaciones:
 https://lookerstudio.google.com/embed/reporting/2b834b80-ba04-4cc7-a4f3-f26369764b2f/page/esEzE
 
